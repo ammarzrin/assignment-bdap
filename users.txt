@@ -1,0 +1,5 @@
+username,password,type,status
+ammarzrin,amMar1234,1,1
+johnlennon,fabfour,0,1
+audreyhepburn,elegantBeauty,1,0
+kurtcobain,nirvana,0,0
