@@ -4,10 +4,11 @@
 #include <iomanip>
 #include <string>
 #include <cstdlib>
-#include "statfunctions.h"
+#include <fstream>
+#include "statfunctions.h" // Header file that contains functions for Statistical Computations (F3 Statistical Analysis)
 using namespace std;
 
-// Function prototypes go here.
+// Main Menu function prototypes. (F4 Menu System)
 void clearScreen()
 {
 	system("cls"); // Function to clear the screen.
@@ -16,20 +17,28 @@ void pauseScreen()
 {
 	system("PAUSE"); // Function to pause, and wait for any key from user to continue.
 }
-void displayMainMenu(string &, string &);
-void fileInputMenu(string &, string &, bool &);
-void fileRenameMenu(string &, string &);
-void displayStatMenu(string &, string &);
-void displayReportMenu(string &, string &, string &);
-void adminAccountSettings(string &);
-void buyerAccountSettings(string &);
-void exitProgram();
-void loadFileError();
+void programTitle() // Function to display program title at all times while performing calculations in Statistical Analysis.
+{
+	clearScreen();
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << "|               Basic Data Analysis Program                |" << endl;
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << endl;
+}
+void displayMainMenu(string &, string &);			  // The Main Menu to bbe displayed upon logging in.
+void fileInputMenu(string &, string &, bool &);		  // File Input Menu to be displayed.
+void fileRenameMenu(string &, string &);			  // File Rename Menu to be displayed.
+void displayStatMenu(string &, string &);			  // Statistical Analysis Menu to be displayed.
+void displayReportMenu(string &, string &, string &); // Report Generation Menu to be displayed.
+void adminAccountSettings(string &);				  // Account Settings for Admins.
+void buyerAccountSettings(string &);				  // Account Settings for Buyers.
+void loadFileError();								  // Error message for missing input file in program.
+void exitProgram();									  // Clears the screen and displays a goodbye message.
 
 // Main Program
 int main()
 {
-	// Constants for menu choices
+	// Constants for Main Menu choices
 	const int INPUT_FILE = 1,
 			  RENAME_FILE = 2,
 			  CALC_STATS = 3,
@@ -37,29 +46,29 @@ int main()
 			  ACC_SETTINGS = 5,
 			  EXIT_PROGRAM = 6;
 
-	string currentUser = "ammarzrin";
+	// Declaration of Variables relating to the User
+	string currentUser = "username";
 	string currentFile = "none";
 	string generatedReport = "The report lol";
 	bool userType = 1; // Admin = 1, Buyer = 0
 	bool fileLoaded = false;
 	int choice;
 
-	//declaration for statistical variables
-	TableType Table = {{5,6,3,6}, 
-					   {9,5,7,2}, 
-					   {2,8,5,9}, 
-					   {8,3,6,4}, 
-					   {8,1,7,3}};
-
-	int numCol = Col - 1 ;
-    int numRow = Row - 1 ;
-    int numChoice;
-    int numChoice2;
-    string tableChoice;
-    int *valArray = nullptr;
-    int *valArray2 = nullptr;
-    int arraySize;
-    int userChoice;
+	// Declaration for Statistical Analysis Variables
+	TableType Table = {{5, 6, 3, 6},
+					   {9, 5, 7, 2},
+					   {2, 8, 5, 9},
+					   {8, 3, 6, 4},
+					   {8, 1, 7, 3}};
+	int numCol = Col - 1;
+	int numRow = Row - 1;
+	int numChoice;
+	int numChoice2;
+	string tableChoice;
+	int *valArray = nullptr;
+	int *valArray2 = nullptr;
+	int arraySize;
+	int userChoice;
 	float minNum;
 	float maxNum;
 	float medianNum;
@@ -69,9 +78,7 @@ int main()
 	float correlationNum;
 	string corMessage;
 	int *frequency = nullptr;
-	int *distNumbers   = nullptr;
-	
-
+	int *distNumbers = nullptr;
 
 	do
 	{
@@ -105,106 +112,106 @@ int main()
 					switch (choice)
 					{
 					case 1: // Find Minimum
+						programTitle();
 						cout << "Find Minimum have been selected." << endl;
-
+						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
-
 						minNum = Min(valArray, arraySize);
-						cout << "the min value of " << tableChoice << " " << numChoice  << " is " << minNum;
-
+						cout << "The minimum value of " << tableChoice << " " << numChoice << " is " << minNum << ". " << endl;
 						delete[] valArray;
-
 						pauseScreen();
 						clearScreen();
 						break;
 					case 2: // Find Maximum
+						programTitle();
 						cout << "Find Maximum have been selected." << endl;
-
+						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
-
 						maxNum = Max(valArray, arraySize);
-						cout << "the max value of " << tableChoice << " " << numChoice  << " is " << maxNum;
+						cout << "The maximum value of " << tableChoice << " " << numChoice << " is " << maxNum << ". " << endl;
+						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 3: // Median
+						programTitle();
 						cout << "Find Median have been selected." << endl;
-						
-
+						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
-
 						medianNum = Median(valArray, arraySize);
-						cout << "the median value of " << tableChoice << " " << numChoice  << " is " << medianNum;
-
+						cout << "The median value of " << tableChoice << " " << numChoice << " is " << medianNum << ". " << endl;
+						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 4: // Mean
+						programTitle();
 						cout << "Find Mean have been selected." << endl;
-						
-
+						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
-
 						meanNum = Mean(valArray, arraySize);
-						cout << "the mean value of " << tableChoice << " " << numChoice  << " is " << meanNum;
+						cout << "The mean value of " << tableChoice << " " << numChoice << " is " << meanNum << ". " << endl;
+						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 5: // Variance
+						programTitle();
 						cout << "Find Variance have been selected." << endl;
-						
+						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
-
 						meanNum = Mean(valArray, arraySize);
 						varianceNum = Variance(valArray, arraySize, meanNum);
-						cout << "the variance value of " << tableChoice << " " << numChoice  << " is " << varianceNum;
+						cout << "The variance value of " << tableChoice << " " << numChoice << " is " << varianceNum << ". " << endl;
+						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 6: // Standard Deviation
+						programTitle();
 						cout << "Find Standard Deviation have been selected." << endl;
-
+						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
-
 						meanNum = Mean(valArray, arraySize);
 						varianceNum = Variance(valArray, arraySize, meanNum);
 						stdNum = sqrt(varianceNum);
-						cout << "the standard deviation of " << tableChoice << " " << numChoice  << " is " << stdNum;
+						cout << "The standard deviation value of " << tableChoice << " " << numChoice << " is " << stdNum << ". " << endl;
+						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 7: // Correlation Between 2 Columns
+						programTitle();
 						cout << "Find Correlation have been selected." << endl;
+						cout << endl;
 						tableChoice = "col";
-
 						NumChoice2(Table, numCol, numChoice, numChoice2);
-						MakeArray(Table, tableChoice, numChoice, numRow, numCol, valArray, arraySize);  
-						MakeArray(Table, tableChoice, numChoice2, numRow, numCol, valArray2, arraySize);  
-
+						MakeArray(Table, tableChoice, numChoice, numRow, numCol, valArray, arraySize);
+						MakeArray(Table, tableChoice, numChoice2, numRow, numCol, valArray2, arraySize);
 						Correlation(valArray, valArray2, arraySize, correlationNum, corMessage);
-						cout << "the correlation of column " << numChoice << " and " << numChoice2  << " is " << correlationNum;
+						cout << "The correlation between column " << numChoice << " and " << numChoice2 << " is " << correlationNum << ". " << endl;
+						delete[] valArray;
 						delete[] valArray2;
-
 						pauseScreen();
 						clearScreen();
 						break;
 					case 8: // Distinct Data Members
+						programTitle();
 						cout << "Find Distinct Data have been selected." << endl;
-
-						MakeAllArray(Table, valArray,  numRow, numCol, arraySize);
+						cout << endl;
+						MakeAllArray(Table, valArray, numRow, numCol, arraySize);
 						frequency = new int[arraySize];
 						distNumbers = new int[arraySize];
-
 						Distinct(valArray, frequency, distNumbers, arraySize);
-						MakeFreqTable(distNumbers,frequency,arraySize);
-
-						delete[] frequency, distNumbers;
-
+						MakeFreqTable(distNumbers, frequency, arraySize);
+						delete[] frequency, distNumbers, valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 9: // Plot a Histogram
+						programTitle();
 						cout << "Plot a Histogram is under construction...." << endl;
+						cout << endl;
 						pauseScreen();
 						clearScreen();
 						break;
