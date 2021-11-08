@@ -76,7 +76,6 @@ int main()
 			break;
 		default:
 			cout << "Invalid input, please try again.";
-			clearScreen();
 		}
 	} while (choice != EXIT_PROGRAM);
 	return 0;
