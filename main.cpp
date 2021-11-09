@@ -15,6 +15,7 @@ void clearScreen()
 }
 void pauseScreen()
 {
+	cout << endl;
 	system("PAUSE"); // Function to pause, and wait for any key from user to continue.
 }
 void programTitle() // Function to display program title at all times while performing calculations in Statistical Analysis.
@@ -22,6 +23,8 @@ void programTitle() // Function to display program title at all times while perf
 	clearScreen();
 	cout << "=----------------------------------------------------------=" << endl;
 	cout << "|               Basic Data Analysis Program                |" << endl;
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << "|                -> Statistical Analysis <-                |" << endl;
 	cout << "=----------------------------------------------------------=" << endl;
 	cout << endl;
 }
@@ -48,10 +51,10 @@ int main()
 
 	// Declaration of Variables relating to the User
 	string currentUser = "username";
-	string currentFile = "none";
+	string currentFile = "filetest.txt";
 	string generatedReport = "The report lol";
 	bool userType = 1; // Admin = 1, Buyer = 0
-	bool fileLoaded = false;
+	bool fileLoaded = true;
 	int choice;
 
 	// Declaration for Statistical Analysis Variables
@@ -105,6 +108,7 @@ int main()
 			if (fileLoaded == false)
 				loadFileError();
 			else
+
 				do
 				{
 					displayStatMenu(currentUser, currentFile);
@@ -182,16 +186,17 @@ int main()
 						break;
 					case 7: // Correlation Between 2 Columns
 						programTitle();
-						cout << "Find Correlation have been selected." << endl;
+						cout << "Find Correlation Between 2 Columns have been selected." << endl;
 						cout << endl;
-						tableChoice = "col";
-						NumChoice2(Table, numCol, numChoice, numChoice2);
+						tableChoice = "column";
+						choose2Columns(Table, numCol, numChoice, numChoice2);
 						MakeArray(Table, tableChoice, numChoice, numRow, numCol, valArray, arraySize);
 						MakeArray(Table, tableChoice, numChoice2, numRow, numCol, valArray2, arraySize);
 						Correlation(valArray, valArray2, arraySize, correlationNum, corMessage);
-						cout << "The correlation between column " << numChoice << " and " << numChoice2 << " is " << correlationNum << ". " << endl;
-						delete[] valArray;
-						delete[] valArray2;
+						cout << endl
+							 << "Correlation between column " << numChoice << " and " << numChoice2 << " is " << endl
+							 << correlationNum << endl;
+						delete[] valArray, valArray2;
 						pauseScreen();
 						clearScreen();
 						break;

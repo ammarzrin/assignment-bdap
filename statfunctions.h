@@ -11,12 +11,13 @@ const int Col = 4;
 typedef float TableType[Row][Col];
 void TableChoice(TableType, string &);
 void MakeNumChoice(TableType, string, int, int, int &);
-void NumChoice(TableType, int, int &);
+void NumChoice(TableType, string, int, int &);
 void MakeArray(TableType, string, int, int, int, int *&, int &);
 void MakeColArray(TableType, int, int, int *&);
 void MakeRowArray(TableType, int, int, int *&);
 void MakeAllArray(TableType, int *&, int, int, int &);
-void NumChoice2(TableType, int, int &, int &);
+void choose2Columns(TableType, int, int &, int &);
+void inputRangeValidation(int, bool, int, int);
 void PreCalculation(TableType, string &, int, int, int &, int *&, int &);
 
 float Min(int *, int);
@@ -182,89 +183,113 @@ int main()
 void PreCalculation(TableType Table, string &tableChoice, int numRow, int numCol, int &numChoice, int *&valArray, int &arraySize)
 {
     TableChoice(Table, tableChoice);
-    cout << "which " << tableChoice << " do you want?" << endl;
+    cout << "Select a " << tableChoice << " to compute ---> ";
     MakeNumChoice(Table, tableChoice, numRow, numCol, numChoice);
     MakeArray(Table, tableChoice, numChoice, numRow, numCol, valArray, arraySize);
 }
 
 void TableChoice(TableType Table, string &Choice) //remember to change the heading after this
 {
-    cout << "Do you want to compute col or row?" << endl;
+    cout << "Do you want to compute a column or a row? (col/row)" << endl;
+    cout << "---> ";
     cin >> Choice;
+    cout << endl;
 
-    while (Choice != "row" && Choice != "col")
+    while (Choice != "col" && Choice != "row")
     {
-        cout << "Invalid input, please input only row or col" << endl;
+        cout << "Invalid input, please enter either col or row." << endl;
+        cout << "---> ";
         cin >> Choice;
+        cout << endl;
     }
 
-    cout << "you have selected : " << Choice << endl;
+    if (Choice == "col")
+        Choice = "column";
 }
 
 void MakeNumChoice(TableType Table, string Choice, int Row, int Col, int &numChoice)
 {
-    cout << Choice << endl;
-
     if (Choice == "row")
     {
-        NumChoice(Table, Row, numChoice);
+        NumChoice(Table, Choice, Row, numChoice);
     }
-    else if (Choice == "col")
+    else if (Choice == "column")
     {
-        NumChoice(Table, Col, numChoice);
+        NumChoice(Table, Choice, Col, numChoice);
     }
 }
 
-void NumChoice(TableType Table, int size, int &Choice)
+void NumChoice(TableType Table, string tableChoice, int size, int &Choice)
 {
     int input;
     cin >> input;
+    cout << endl;
 
     while (input < 1 || input > size)
     {
-        cout << "Invalid input, please input within a range of " << 1 << " and " << size << endl;
+        cout << "Invalid input, please enter an integer within a range of 1 and " << size << "." << endl;
+        cout << "---> ";
         cin >> input;
     }
 
-    cout << "you have selected : " << input << endl;
     Choice = input;
+    cout << "You have selected " << tableChoice << " " << input << "." << endl
+         << endl;
 }
 
-void NumChoice2(TableType Table, int size, int &Choice1, int &Choice2)
+void choose2Columns(TableType Table, int size, int &firstChoice, int &secondChoice)
 {
     int input;
-    cout << "Please input the first column you want" << endl;
+    bool choice1 = false;
+
+    cout << "Please choose the first column for comparison ---> ";
     cin >> input;
+    inputRangeValidation(input, choice1, size, firstChoice);
+    firstChoice = input;
+    cout << endl
+         << "You have selected column " << input << " as the first column." << endl
+         << endl;
+    choice1 = true;
 
-    while (input < 1 || input > size)
-    {
-        cout << "Invalid input, please input within a range of " << 1 << " and " << size << endl;
-        cin >> input;
-    }
-    cout << "you have selected : " << input << endl;
-    Choice1 = input;
-
-    cout << "Please input the second column you want" << endl;
+    cout << "Please choose the second column for comparison ---> ";
     cin >> input;
+    inputRangeValidation(input, choice1, size, firstChoice);
+    secondChoice = input;
+    cout << endl
+         << "You have selected column " << input << " as the second column." << endl
+         << endl;
+}
 
-    while (input < 1 || input > size || input == Choice1)
+void inputRangeValidation(int input, bool choice1, int size, int first)
+{
+    if (choice1 = true) // This means first column for comparison has been chosen.
     {
-        cout << "Invalid input, please input within a range of " << 1 << " and " << size << " and not equal to first column" << endl;
-        cin >> input;
+        while (input < 1 || input > size || input == first)
+        {
+            cout << "Invalid input, please enter an integer within a range of 1 and " << size << " and is not equal to the first choice of column." << endl;
+            cout << "---> ";
+            cin >> input;
+        }
     }
-    cout << "you have selected : " << input << endl;
-    Choice2 = input;
+    else // First column has not been chosen yet.
+    {
+        while (input < 1 || input > size)
+        {
+            cout << "Invalid input, please enter an integer within a range of 1 and " << size << "." << endl;
+            cout << "---> ";
+            cin >> input;
+        }
+    }
 }
 
 void MakeArray(TableType Table, string Choice, int numChoice, int Row, int Col, int *&valArray, int &arraySize)
 {
-    if (Choice == "col")
+    if (Choice == "column")
     {
         arraySize = Row;
         valArray = new int[arraySize];
         MakeColArray(Table, numChoice, arraySize, valArray);
     }
-
     else if (Choice == "row")
     {
         arraySize = Col;
@@ -344,13 +369,18 @@ float Median(int *valArray, int size)
     if (size % 2 == 0)
     {
         mid = round(total / 2);
-        cout << mid << endl;
-        cout << valArray[mid] << " " << valArray[mid - 1] << endl;
+        // cout << "Number of Values = " << total << endl
+        //      << "Position of Middle Values = " << mid << " and " << (mid + 1) << endl
+        //      << "Mid Value #1 = " << valArray[mid - 1] << endl
+        //      << "Mid Value #2 = " << valArray[mid] << endl;
         median = (valArray[mid] + valArray[mid - 1]) / 2.00;
     }
     else
     {
         mid = size / 2;
+        // cout << "Number of Values = " << total << endl
+        //      << "Position of Middle Value = " << mid << endl
+        //      << endl;
         median = valArray[mid];
     }
     return median;
@@ -387,7 +417,11 @@ void Correlation(int *x, int *y, int size, float &correlation, string &message)
         sumYsquared += pow(y[i], 2);
     }
 
-    cout << "Sum X = " << sumX << " Sum Y = " << sumY << " SumXY = " << sumXY << " SumX squared = " << sumXsquared << " SumY squared = " << sumYsquared << endl;
+    cout << "Sum X = " << sumX << endl
+         << "Sum Y = " << sumY << endl
+         << "Sum XY = " << sumXY << endl
+         << "Sum X^2 = " << sumXsquared << endl
+         << "Sum Y^2 = " << sumYsquared << endl;
 
     correlation = ((size * sumXY) - (sumX * sumY)) / sqrt(((size * sumXsquared) - (pow(sumX, 2))) * ((size * sumYsquared) - (pow(sumY, 2))));
 }
