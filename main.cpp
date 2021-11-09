@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "statfunctions.h" // Header file that contains functions for Statistical Computations (F3 Statistical Analysis)
+#include "userauth.h"	   // Header file containing functions related to User database (F1 User Authentication)
 using namespace std;
 
 // Main Menu function prototypes. (F4 Menu System)
