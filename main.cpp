@@ -109,7 +109,6 @@ int main()
 			if (fileLoaded == false)
 				loadFileError();
 			else
-
 				do
 				{
 					displayStatMenu(currentUser, currentFile);
