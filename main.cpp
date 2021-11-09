@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
+#include <vector>
 #include "statfunctions.h" // Header file that contains functions for Statistical Computations (F3 Statistical Analysis)
 #include "userauth.h"	   // Header file containing functions related to User database (F1 User Authentication)
 using namespace std;
@@ -19,25 +20,19 @@ void pauseScreen()
 	cout << endl;
 	system("PAUSE"); // Function to pause, and wait for any key from user to continue.
 }
-void programTitle() // Function to display program title at all times while performing calculations in Statistical Analysis.
-{
-	clearScreen();
-	cout << "=----------------------------------------------------------=" << endl;
-	cout << "|               Basic Data Analysis Program                |" << endl;
-	cout << "=----------------------------------------------------------=" << endl;
-	cout << "|                -> Statistical Analysis <-                |" << endl;
-	cout << "=----------------------------------------------------------=" << endl;
-	cout << endl;
-}
-void displayMainMenu(string &, string &);			  // The Main Menu to bbe displayed upon logging in.
-void fileInputMenu(string &, string &, bool &);		  // File Input Menu to be displayed.
-void fileRenameMenu(string &, string &);			  // File Rename Menu to be displayed.
-void displayStatMenu(string &, string &);			  // Statistical Analysis Menu to be displayed.
-void displayReportMenu(string &, string &, string &); // Report Generation Menu to be displayed.
-void adminAccountSettings(string &);				  // Account Settings for Admins.
-void buyerAccountSettings(string &);				  // Account Settings for Buyers.
-void loadFileError();								  // Error message for missing input file in program.
-void exitProgram();									  // Clears the screen and displays a goodbye message.
+void displayMainMenu(string &, string &);		// The Main Menu to bbe displayed upon logging in.
+void fileInputMenu(string &, string &, bool &); // File Input Menu to be displayed.
+void fileRenameMenu(string &, string &);		// File Rename Menu to be displayed.
+void titleStatMenu();							// Displays title at all times while performing calculations in Statistical Analysis.
+void displayStatMenu(string &, string &);		// Statistical Analysis Menu to be displayed.
+void titleReportMenu(string &, string &);		// Displays title above generated report in Report Generator.
+void displayReportMenu();						// Menu to be displayed after Report Generation.
+void adminAccountSettings(string &);			// Account Settings for Admins.
+void buyerAccountSettings(string &);			// Account Settings for Buyers.
+void loadFileError();							// Error message for missing input file in program.
+void exitProgram();								// Clears the screen and displays a goodbye message.
+void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float);
+void generateReport(vector<string> &, vector<string> &, vector<float> &);
 
 // Main Program
 int main()
@@ -53,13 +48,17 @@ int main()
 	// Declaration of Variables relating to the User
 	string currentUser = "username";
 	string currentFile = "filetest.txt";
-	string generatedReport = "The report lol";
 	bool userType = 1; // Admin = 1, Buyer = 0
 	bool fileLoaded = true;
 	int choice;
 
+	// Report Generation
+	vector<string> calcType;
+	vector<string> selection;
+	vector<float> value;
+
 	// Declaration for Statistical Analysis Variables
-	TableType Table = {{5, 6, 3, 6},
+	TableType Table = {{5, 6, 3, 6}, // Mock table to test calculations.
 					   {9, 5, 7, 2},
 					   {2, 8, 5, 9},
 					   {8, 3, 6, 4},
@@ -99,14 +98,14 @@ int main()
 			break;
 		case RENAME_FILE:
 			clearScreen();
-			if (fileLoaded == false)
+			if (!fileLoaded)
 				loadFileError();
 			else
 				fileRenameMenu(currentUser, currentFile);
 			break;
 		case CALC_STATS:
 			clearScreen();
-			if (fileLoaded == false)
+			if (!fileLoaded)
 				loadFileError();
 			else
 				do
@@ -116,63 +115,68 @@ int main()
 					switch (choice)
 					{
 					case 1: // Find Minimum
-						programTitle();
+						titleStatMenu();
 						cout << "Find Minimum have been selected." << endl;
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						minNum = Min(valArray, arraySize);
 						cout << "The minimum value of " << tableChoice << " " << numChoice << " is " << minNum << ". " << endl;
+						addToReport(calcType, selection, value, "Min Val", "selected rowcol", minNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 2: // Find Maximum
-						programTitle();
+						titleStatMenu();
 						cout << "Find Maximum have been selected." << endl;
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						maxNum = Max(valArray, arraySize);
 						cout << "The maximum value of " << tableChoice << " " << numChoice << " is " << maxNum << ". " << endl;
+						addToReport(calcType, selection, value, "Max Val", "selected rowcol", maxNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 3: // Median
-						programTitle();
+						titleStatMenu();
 						cout << "Find Median have been selected." << endl;
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						medianNum = Median(valArray, arraySize);
 						cout << "The median value of " << tableChoice << " " << numChoice << " is " << medianNum << ". " << endl;
+						addToReport(calcType, selection, value, "Median", "selected rowcol", medianNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 4: // Mean
-						programTitle();
+						titleStatMenu();
 						cout << "Find Mean have been selected." << endl;
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						meanNum = Mean(valArray, arraySize);
 						cout << "The mean value of " << tableChoice << " " << numChoice << " is " << meanNum << ". " << endl;
+						addToReport(calcType, selection, value, "Mean/Average", "selected rowcol", meanNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 5: // Variance
-						programTitle();
+						titleStatMenu();
 						cout << "Find Variance have been selected." << endl;
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						meanNum = Mean(valArray, arraySize);
 						varianceNum = Variance(valArray, arraySize, meanNum);
 						cout << "The variance value of " << tableChoice << " " << numChoice << " is " << varianceNum << ". " << endl;
+						addToReport(calcType, selection, value, "Variance", "selected rowcol", varianceNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 6: // Standard Deviation
-						programTitle();
+						titleStatMenu();
 						cout << "Find Standard Deviation have been selected." << endl;
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -180,12 +184,13 @@ int main()
 						varianceNum = Variance(valArray, arraySize, meanNum);
 						stdNum = sqrt(varianceNum);
 						cout << "The standard deviation value of " << tableChoice << " " << numChoice << " is " << stdNum << ". " << endl;
+						addToReport(calcType, selection, value, "Std Dev", "selected rowcol", stdNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 7: // Correlation Between 2 Columns
-						programTitle();
+						titleStatMenu();
 						cout << "Find Correlation Between 2 Columns have been selected." << endl;
 						cout << endl;
 						tableChoice = "column";
@@ -196,12 +201,13 @@ int main()
 						cout << endl
 							 << "Correlation between column " << numChoice << " and " << numChoice2 << " is " << endl
 							 << correlationNum << endl;
+						addToReport(calcType, selection, value, "Correlation", "2 columns selected", correlationNum);
 						delete[] valArray, valArray2;
 						pauseScreen();
 						clearScreen();
 						break;
 					case 8: // Distinct Data Members
-						programTitle();
+						titleStatMenu();
 						cout << "Find Distinct Data have been selected." << endl;
 						cout << endl;
 						MakeAllArray(Table, valArray, numRow, numCol, arraySize);
@@ -214,7 +220,7 @@ int main()
 						clearScreen();
 						break;
 					case 9: // Plot a Histogram
-						programTitle();
+						titleStatMenu();
 						cout << "Plot a Histogram is under construction...." << endl;
 						cout << endl;
 						pauseScreen();
@@ -231,10 +237,42 @@ int main()
 			break;
 		case GEN_REPORT:
 			clearScreen();
-			if (fileLoaded == false) // need to add OR report cart still empty
+			if (!fileLoaded) // need to add OR report cart still empty
 				loadFileError();
 			else
-				displayReportMenu(currentUser, currentFile, generatedReport);
+			{
+				do
+				{
+					titleReportMenu(currentUser, currentFile);
+					generateReport(calcType, selection, value);
+					displayReportMenu();
+					cin >> choice;
+					switch (choice)
+					{
+					case 1:
+						cout << "Save Report as (.txt) file has been selected." << endl;
+						pauseScreen();
+						break;
+					case 2:
+						cout << "Save Report as (.html) file has been selected." << endl;
+						pauseScreen();
+						break;
+					case 3:
+						cout << "Going back to the main menu..." << endl;
+						pauseScreen();
+						break;
+					case 4:
+						cout << "Exiting the program..." << endl;
+						pauseScreen();
+						continue;
+						exitProgram();
+						break;
+					default:
+						clearScreen();
+						cout << "Invalid input, please try again." << endl;
+					}
+				} while (choice != 3);
+			}
 			break;
 		case ACC_SETTINGS:
 			clearScreen();
@@ -431,19 +469,9 @@ void displayStatMenu(string &user, string &file)
 	cout << "---> ";
 }
 
-void displayReportMenu(string &user, string &file, string &report)
+void displayReportMenu()
 {
-	cout << "=----------------------------------------------------------=" << endl;
-	cout << "|               Basic Data Analysis Program                |" << endl;
-	cout << "=----------------------------------------------------------=" << endl;
-	cout << "|                  -> Report Generator <-                  |" << endl;
-	cout << "=----------------------------------------------------------=" << endl;
-	cout << endl;
-	cout << "Logged in as " << user << "." << endl;
-	cout << "Report for " << file << " is generated below:" << endl;
-	cout << endl;
-	cout << report;
-	cout << endl;
+	pauseScreen();
 	cout << "=----------------------------------------------------------=" << endl;
 	cout << "|  What would you like to do now?                          |" << endl;
 	cout << "|      1. Save Report as text file (.txt)                  |" << endl;
@@ -510,4 +538,44 @@ void loadFileError()
 {
 	cout << "There is currently no file loaded." << endl;
 	pauseScreen();
+}
+
+void addToReport(vector<string> &calcType, vector<string> &rowcolSelection, vector<float> &calcValue, string type, string rowcol, float value)
+{
+	calcType.push_back(type);
+	rowcolSelection.push_back(rowcol);
+	calcValue.push_back(value);
+}
+
+void generateReport(vector<string> &calcType, vector<string> &rowcolSelection, vector<float> &calcValue)
+{
+	cout << calcType[0] << endl;
+	cout << rowcolSelection[0] << endl;
+	cout << calcValue[0] << endl;
+	cout << endl;
+}
+
+void titleStatMenu()
+{
+	clearScreen();
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << "|               Basic Data Analysis Program                |" << endl;
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << "|                -> Statistical Analysis <-                |" << endl;
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << endl;
+}
+
+void titleReportMenu(string &user, string &file)
+{
+	clearScreen();
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << "|               Basic Data Analysis Program                |" << endl;
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << "|                  -> Report Generator <-                  |" << endl;
+	cout << "=----------------------------------------------------------=" << endl;
+	cout << endl;
+	cout << "Logged in as " << user << "." << endl;
+	cout << "Report for " << file << " is generated below:" << endl;
+	cout << endl;
 }

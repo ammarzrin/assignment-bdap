@@ -31,85 +31,85 @@ int check_username(string, User[]);
 
 void login_page(string username, string password);
 
-int main()
-{
-    //defining variables
+// int main()
+// {
+//     //defining variables
 
-    fstream username_file, pass_file;
+//     fstream username_file, pass_file;
 
-    User usernames[100]; /*CHANGE HERE*/
-    string passwords[100];
+//     User usernames[100]; /*CHANGE HERE*/
+//     string passwords[100];
 
-    //reading usernames from a file
+//     //reading usernames from a file
 
-    read_username(usernames, username_file);
+//     read_username(usernames, username_file);
 
-    //reading passwords from a file
+//     //reading passwords from a file
 
-    read_pass(passwords, pass_file);
+//     read_pass(passwords, pass_file);
 
-    string username, password;
+//     string username, password;
 
-    int index;
+//     int index;
 
-    //prompt to enter username
+//     //prompt to enter username
 
-    cout << "\nEnter username: ";
-    cin >> username;
+//     cout << "\nEnter username: ";
+//     cin >> username;
 
-    //check if username exists, if it exists store the index number
+//     //check if username exists, if it exists store the index number
 
-    //of username in a variable
+//     //of username in a variable
 
-    index = check_username(username, usernames);
+//     index = check_username(username, usernames);
 
-    //if username exists, ask for password
+//     //if username exists, ask for password
 
-    if (index != -1)
-    {
+//     if (index != -1)
+//     {
 
-        cout << "Enter password: ";
-        cin >> password;
+//         cout << "Enter password: ";
+//         cin >> password;
 
-        //chek password
+//         //chek password
 
-        if (check_pass(password, passwords, index))
-        {
+//         if (check_pass(password, passwords, index))
+//         {
 
-            cout << "Verified. Username and password match";
+//             cout << "Verified. Username and password match";
 
-            int sec = 3;
+//             int sec = 3;
 
-            while (sec >= 0)
-            {
+//             while (sec >= 0)
+//             {
 
-                system("cls");
+//                 system("cls");
 
-                cout << "You will be redirected to another page in " << sec << " seconds ...";
+//                 cout << "You will be redirected to another page in " << sec << " seconds ...";
 
-                sleep(1);
+//                 sleep(1);
 
-                sec--;
-            }
+//                 sec--;
+//             }
 
-            system("cls");
+//             system("cls");
 
-            // redirecting to following page
+//             // redirecting to following page
 
-            login_page(username, password);
-        }
-        else
+//             login_page(username, password);
+//         }
+//         else
 
-            cout << "Invalid password";
-    }
+//             cout << "Invalid password";
+//     }
 
-    //if username does not exixt
-    else
+//     //if username does not exixt
+//     else
 
-        cout << "Invalid username...\nExiting...";
+//         cout << "Invalid username...\nExiting...";
 
-    return 0;
-}
+//     return 0;
+// }
 
 //this function reads all usernames from a file and stores it in an array of strings
 

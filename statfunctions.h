@@ -417,11 +417,11 @@ void Correlation(int *x, int *y, int size, float &correlation, string &message)
         sumYsquared += pow(y[i], 2);
     }
 
-    cout << "Sum X = " << sumX << endl
-         << "Sum Y = " << sumY << endl
-         << "Sum XY = " << sumXY << endl
-         << "Sum X^2 = " << sumXsquared << endl
-         << "Sum Y^2 = " << sumYsquared << endl;
+    cout << "Sum X     = " << sumX << endl
+         << "Sum Y     = " << sumY << endl
+         << "Sum (X*Y) = " << sumXY << endl
+         << "Sum (X^2) = " << sumXsquared << endl
+         << "Sum (Y^2) = " << sumYsquared << endl;
 
     correlation = ((size * sumXY) - (sumX * sumY)) / sqrt(((size * sumXsquared) - (pow(sumX, 2))) * ((size * sumYsquared) - (pow(sumY, 2))));
 }
