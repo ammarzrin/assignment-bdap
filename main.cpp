@@ -20,23 +20,31 @@ void pauseScreen()
 	cout << endl;
 	system("PAUSE"); // Function to pause, and wait for any key from user to continue.
 }
-void displayMainMenu(string &, string &);		// The Main Menu to bbe displayed upon logging in.
-void fileInputMenu(string &, string &, bool &); // File Input Menu to be displayed.
-void fileRenameMenu(string &, string &);		// File Rename Menu to be displayed.
-void titleStatMenu();							// Displays title at all times while performing calculations in Statistical Analysis.
-void displayStatMenu(string &, string &);		// Statistical Analysis Menu to be displayed.
-void titleReportMenu(string &, string &);		// Displays title above generated report in Report Generator.
-void displayReportMenu();						// Menu to be displayed after Report Generation.
-void adminAccountSettings(string &);			// Account Settings for Admins.
-void buyerAccountSettings(string &);			// Account Settings for Buyers.
-void loadFileError();							// Error message for missing input file in program.
-void exitProgram();								// Clears the screen and displays a goodbye message.
-void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float);
-void generateReport(vector<string> &, vector<string> &, vector<float> &);
+void displayMainMenu(string &, string &);													  // The Main Menu to bbe displayed upon logging in.
+void fileInputMenu(string &, string &, bool &);												  // File Input Menu to be displayed.
+void fileRenameMenu(string &, string &);													  // File Rename Menu to be displayed.
+void adminAccountSettings(string &);														  // Account Settings for Admins.
+void buyerAccountSettings(string &);														  // Account Settings for Buyers.
+void titleStatMenu();																		  // Displays title at all times while performing calculations in Statistical Analysis.
+void displayStatMenu(string &, string &);													  // Statistical Analysis Menu to be displayed.
+void titleReportMenu(string &, string &);													  // Displays title above generated report in Report Generator.
+void displayReportMenu();																	  // Menu to be displayed after Report Generation.
+void loadFileError();																		  // Error message for missing input file in program.
+void emptyReportError();																	  // Error message for not doing any calculations yet but trying to generate a report.
+void exitProgram();																			  // Clears the screen and displays a goodbye message.
+void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float); // Adds every calculation done into 3 parallel vector arrays that will be used when generating the report.
+void addDistinctTableToReport();															  // Adds the generated Distinct Data values to the report for table generation.
+void addHistogramToReport();																  // Adds the generated Histogram values into an array for graph generation in the generated report?
+void removeFromReport(vector<string> &, vector<string> &, vector<float> &);					  // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
+void generateReport(vector<string> &, vector<string> &, vector<float> &);					  // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
+void logTransaction(ofstream &, string &, string);
 
-// Main Program
 int main()
 {
+	// Logging every user transaction from the moment user logged in to logging out/exiting the program.
+	ifstream infile;
+	ofstream outfile;
+
 	// Constants for Main Menu choices
 	const int INPUT_FILE = 1,
 			  RENAME_FILE = 2,
@@ -50,11 +58,12 @@ int main()
 	string currentFile = "filetest.txt";
 	bool userType = 1; // Admin = 1, Buyer = 0
 	bool fileLoaded = true;
+	bool loggedIn = true;
 	int choice;
 
 	// Report Generation
 	vector<string> calcType;
-	vector<string> selection;
+	vector<string> rowColSelection;
 	vector<float> value;
 
 	// Declaration for Statistical Analysis Variables
@@ -86,6 +95,7 @@ int main()
 	do
 	{
 		// The main menu is displayed to the user.
+		logTransaction(outfile, currentUser, " proceeded to the Main menu.");
 		displayMainMenu(currentUser, currentFile);
 		// User inputs choice.
 		cin >> choice;
@@ -94,14 +104,20 @@ int main()
 		{
 		case INPUT_FILE:
 			clearScreen();
+			logTransaction(outfile, currentUser, " proceeded to File Input menu.");
 			fileInputMenu(currentUser, currentFile, fileLoaded);
+			logTransaction(outfile, currentUser, " successfully loaded a file.");
 			break;
 		case RENAME_FILE:
 			clearScreen();
 			if (!fileLoaded)
 				loadFileError();
 			else
+			{
+				logTransaction(outfile, currentUser, " proceeded to the File Rename menu.");
 				fileRenameMenu(currentUser, currentFile);
+				logTransaction(outfile, currentUser, " successfully renamed the file.");
+			}
 			break;
 		case CALC_STATS:
 			clearScreen();
@@ -121,7 +137,7 @@ int main()
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						minNum = Min(valArray, arraySize);
 						cout << "The minimum value of " << tableChoice << " " << numChoice << " is " << minNum << ". " << endl;
-						addToReport(calcType, selection, value, "Min Val", "selected rowcol", minNum);
+						addToReport(calcType, rowColSelection, value, "Min Val", "selected rowcol", minNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
@@ -133,7 +149,7 @@ int main()
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						maxNum = Max(valArray, arraySize);
 						cout << "The maximum value of " << tableChoice << " " << numChoice << " is " << maxNum << ". " << endl;
-						addToReport(calcType, selection, value, "Max Val", "selected rowcol", maxNum);
+						addToReport(calcType, rowColSelection, value, "Max Val", "selected rowcol", maxNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
@@ -145,7 +161,7 @@ int main()
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						medianNum = Median(valArray, arraySize);
 						cout << "The median value of " << tableChoice << " " << numChoice << " is " << medianNum << ". " << endl;
-						addToReport(calcType, selection, value, "Median", "selected rowcol", medianNum);
+						addToReport(calcType, rowColSelection, value, "Median", "selected rowcol", medianNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
@@ -157,7 +173,7 @@ int main()
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						meanNum = Mean(valArray, arraySize);
 						cout << "The mean value of " << tableChoice << " " << numChoice << " is " << meanNum << ". " << endl;
-						addToReport(calcType, selection, value, "Mean/Average", "selected rowcol", meanNum);
+						addToReport(calcType, rowColSelection, value, "Mean/Average", "selected rowcol", meanNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
@@ -170,7 +186,7 @@ int main()
 						meanNum = Mean(valArray, arraySize);
 						varianceNum = Variance(valArray, arraySize, meanNum);
 						cout << "The variance value of " << tableChoice << " " << numChoice << " is " << varianceNum << ". " << endl;
-						addToReport(calcType, selection, value, "Variance", "selected rowcol", varianceNum);
+						addToReport(calcType, rowColSelection, value, "Variance", "selected rowcol", varianceNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
@@ -184,7 +200,7 @@ int main()
 						varianceNum = Variance(valArray, arraySize, meanNum);
 						stdNum = sqrt(varianceNum);
 						cout << "The standard deviation value of " << tableChoice << " " << numChoice << " is " << stdNum << ". " << endl;
-						addToReport(calcType, selection, value, "Std Dev", "selected rowcol", stdNum);
+						addToReport(calcType, rowColSelection, value, "Std Dev", "selected rowcol", stdNum);
 						delete[] valArray;
 						pauseScreen();
 						clearScreen();
@@ -201,7 +217,7 @@ int main()
 						cout << endl
 							 << "Correlation between column " << numChoice << " and " << numChoice2 << " is " << endl
 							 << correlationNum << endl;
-						addToReport(calcType, selection, value, "Correlation", "2 columns selected", correlationNum);
+						addToReport(calcType, rowColSelection, value, "Correlation", "2 columns selected", correlationNum);
 						delete[] valArray, valArray2;
 						pauseScreen();
 						clearScreen();
@@ -239,12 +255,16 @@ int main()
 			clearScreen();
 			if (!fileLoaded) // need to add OR report cart still empty
 				loadFileError();
+			else if (calcType.empty())
+			{
+				emptyReportError();
+			}
 			else
 			{
 				do
 				{
 					titleReportMenu(currentUser, currentFile);
-					generateReport(calcType, selection, value);
+					generateReport(calcType, rowColSelection, value);
 					displayReportMenu();
 					cin >> choice;
 					switch (choice)
@@ -264,8 +284,8 @@ int main()
 					case 4:
 						cout << "Exiting the program..." << endl;
 						pauseScreen();
-						continue;
 						exitProgram();
+						continue;
 						break;
 					default:
 						clearScreen();
@@ -534,23 +554,44 @@ void exitProgram()
 	cout << "Goodbye!";
 }
 
-void loadFileError()
+void emptyReportError()
 {
-	cout << "There is currently no file loaded." << endl;
+	cout << "Report has no data to generate. Please do calculations in the Statistical Analysis menu before proceeding wth report generation." << endl;
 	pauseScreen();
 }
 
-void addToReport(vector<string> &calcType, vector<string> &rowcolSelection, vector<float> &calcValue, string type, string rowcol, float value)
+void loadFileError()
+{
+	cout << "There is currently no file loaded in the program. Please input file at the File Input menu before proceeding." << endl;
+	pauseScreen();
+}
+
+void addToReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue, string type, string rowcol, float value)
 {
 	calcType.push_back(type);
-	rowcolSelection.push_back(rowcol);
+	selection.push_back(rowcol);
 	calcValue.push_back(value);
 }
 
-void generateReport(vector<string> &calcType, vector<string> &rowcolSelection, vector<float> &calcValue)
+void addDistinctTableToReport()
+{
+}
+
+void addHistogramToReport()
+{
+}
+
+void removeFromReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
+{
+	calcType.clear();
+	selection.clear();
+	calcValue.clear();
+}
+
+void generateReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
 	cout << calcType[0] << endl;
-	cout << rowcolSelection[0] << endl;
+	cout << selection[0] << endl;
 	cout << calcValue[0] << endl;
 	cout << endl;
 }
@@ -578,4 +619,11 @@ void titleReportMenu(string &user, string &file)
 	cout << "Logged in as " << user << "." << endl;
 	cout << "Report for " << file << " is generated below:" << endl;
 	cout << endl;
+}
+
+void logTransaction(ofstream &outputFile, string &user, string description)
+{
+	outputFile.open("userlog.txt", ios_base::app);
+	outputFile << user << description << endl;
+	outputFile.close();
 }
