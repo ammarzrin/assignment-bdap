@@ -140,7 +140,7 @@ void displayStatMenu(string &user, string &file)
     cout << "|      7. Correlation Between 2 Columns                    |" << endl;
     cout << "|      8. Distinct Data Members                            |" << endl;
     cout << "|      9. Plot a Histogram                                 |" << endl;
-    cout << "|     10. Return to Main Menu                             |" << endl;
+    cout << "|     10. Return to Main Menu                              |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 10" << endl;
@@ -150,14 +150,15 @@ void displayStatMenu(string &user, string &file)
 void displayReportMenu()
 {
     pauseScreen();
+    cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to do now?                          |" << endl;
     cout << "|      1. Save Report as text file (.txt)                  |" << endl;
     cout << "|      2. Save Report as HTML file (.html)                 |" << endl;
-    cout << "|      3. Return to Main Menu                             |" << endl;
+    cout << "|      3. Return to Main Menu                              |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
-    cout << "Select an integer from 1 to 4" << endl;
+    cout << "Select an integer from 1 to 3" << endl;
     cout << "---> ";
 }
 
@@ -177,7 +178,7 @@ void adminAccountSettings(string &user)
     cout << "|      2. Log Out                                          |" << endl;
     cout << "|      3. Create a New User                                |" << endl;
     cout << "|      4. Delete an Existing User                          |" << endl;
-    cout << "|      5. Return to Main Menu                             |" << endl;
+    cout << "|      5. Return to Main Menu                              |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 5" << endl;
@@ -198,7 +199,7 @@ void buyerAccountSettings(string &user)
     cout << "|  What would you like to do?                              |" << endl;
     cout << "|      1. Change Password                                  |" << endl;
     cout << "|      2. Log Out                                          |" << endl;
-    cout << "|      3. Return to Main Menu                             |" << endl;
+    cout << "|      3. Return to Main Menu                              |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 3" << endl;
@@ -213,14 +214,22 @@ void exitProgram()
 
 void emptyReportError()
 {
-    cout << "Report has no data to generate. Please do calculations in the Statistical Analysis menu before proceeding with report generation." << endl;
+    cout << endl
+         << "Report currently has no data to generate." << endl
+         << "Please do calculations in the Statistical Analysis menu"
+         << " before generating a report." << endl;
     pauseScreen();
+    clearScreen();
 }
 
 void loadFileError()
 {
-    cout << "There is currently no file loaded in the program. Please input file at the File Input menu before proceeding." << endl;
+    cout << endl
+         << "There is currently no file loaded in the program." << endl
+         << "Please load the data file at the File Input menu"
+         << " before proceeding." << endl;
     pauseScreen();
+    clearScreen();
 }
 
 void addToReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue, string type, string rowcol, float value)
@@ -283,4 +292,13 @@ void logTransaction(ofstream &outputFile, string &user, string description)
     outputFile.open("userlog.txt", ios_base::app);
     outputFile << user << description << endl;
     outputFile.close();
+}
+
+void inputValidation()
+{
+    while (!cin)
+    {
+        cin.clear();
+        cin.ignore(10, '\n');
+    }
 }

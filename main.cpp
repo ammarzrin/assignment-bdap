@@ -10,7 +10,7 @@
 #include "menusystem.h"	   // Header file containing functions related to the Menu System (F4 Menu System) - Ammar Azrin
 using namespace std;
 
-// Main Menu function prototypes. (F4 Menu System)
+// Functions to clear and pause the screen. Must be checked for OS compatibility.
 void clearScreen()
 {
 	system("cls"); // Function to clear the screen.
@@ -39,9 +39,8 @@ int main()
 	string currentUser = "username";
 	string currentFile = "filetest.txt";
 	bool userType = 1; // Admin = 1, Buyer = 0
-	bool fileLoaded = true;
+	bool fileLoaded = false;
 	bool loggedIn = true;
-	int choice;
 
 	// Report Generation
 	vector<string> calcType;
@@ -74,6 +73,8 @@ int main()
 	int *frequency = nullptr;
 	int *distNumbers = nullptr;
 
+	int choice; // For accepting user input for navigation throughout the program.
+
 	do
 	{
 		// The main menu is displayed to the user.
@@ -81,6 +82,7 @@ int main()
 		displayMainMenu(currentUser, currentFile);
 		// User inputs choice.
 		cin >> choice;
+		inputValidation();
 		// Evaluation of user choice to proceed with program functionalities.
 		switch (choice)
 		{
@@ -91,25 +93,27 @@ int main()
 			logTransaction(outfile, currentUser, " successfully loaded a file.");
 			break;
 		case RENAME_FILE:
-			clearScreen();
 			if (!fileLoaded)
 				loadFileError();
 			else
 			{
+				clearScreen();
 				logTransaction(outfile, currentUser, " proceeded to the File Rename menu.");
 				fileRenameMenu(currentUser, currentFile);
 				logTransaction(outfile, currentUser, " successfully renamed the file.");
 			}
 			break;
 		case CALC_STATS:
-			clearScreen();
 			if (!fileLoaded)
 				loadFileError();
 			else
+			{
+				clearScreen();
 				do
 				{
 					displayStatMenu(currentUser, currentFile);
 					cin >> choice;
+					inputValidation();
 					switch (choice)
 					{
 					case 1: // Find Minimum
@@ -224,66 +228,64 @@ int main()
 						pauseScreen();
 						clearScreen();
 						break;
-					case 10: // Go Back to Main Menu
+					case 10: // Return to Main Menu
 						clearScreen();
 						break;
 					default:
+						cout << endl
+							 << "Invalid input, please try again by selecting an integer from 1 to 10." << endl;
+						pauseScreen();
 						clearScreen();
-						cout << "Invalid input, please try again." << endl;
 					}
 				} while (choice != 10);
+			}
 			break;
 		case GEN_REPORT:
-			clearScreen();
-			if (!fileLoaded) // need to add OR report cart still empty
+			if (!fileLoaded)
 				loadFileError();
 			else if (calcType.empty())
-			{
 				emptyReportError();
-			}
 			else
 			{
+				clearScreen();
 				do
 				{
 					titleReportMenu(currentUser, currentFile);
 					generateReport(calcType, rowColSelection, value);
 					displayReportMenu();
 					cin >> choice;
+					inputValidation();
 					switch (choice)
 					{
-					case 1:
+					case 1: // Create report.txt
 						cout << "Save Report as (.txt) file has been selected." << endl;
 						pauseScreen();
 						break;
-					case 2:
+					case 2: // Create report.html
 						cout << "Save Report as (.html) file has been selected." << endl;
 						pauseScreen();
 						break;
-					case 3:
-						cout << "Going back to the main menu..." << endl;
-						pauseScreen();
-						break;
-					case 4:
-						cout << "Exiting the program..." << endl;
-						pauseScreen();
-						exitProgram();
-						continue;
+					case 3: // Return to Main Menu
+						clearScreen();
 						break;
 					default:
+						cout << endl
+							 << "Invalid input, please try again by selecting an integer from 1 to 3." << endl;
+						pauseScreen();
 						clearScreen();
-						cout << "Invalid input, please try again." << endl;
 					}
 				} while (choice != 3);
 			}
 			break;
 		case ACC_SETTINGS:
 			clearScreen();
-			if (userType == 0)
+			if (userType == 0) // Buyer account settings
 			{
 				do
 				{
 					buyerAccountSettings(currentUser);
 					cin >> choice;
+					inputValidation();
 					switch (choice)
 					{
 					case 1: // Change Password
@@ -296,21 +298,24 @@ int main()
 						pauseScreen();
 						clearScreen();
 						break;
-					case 3: // Go Back to Main Menu
+					case 3: // Return to Main Menu
 						clearScreen();
 						break;
 					default:
+						cout << endl
+							 << "Invalid input, please try again by selecting an integer from 1 to 3." << endl;
+						pauseScreen();
 						clearScreen();
-						cout << "Invalid input, please try again." << endl;
 					}
 				} while (choice != 3);
 			}
-			else
+			else // Admin account settings (+ create/delete user)
 			{
 				do
 				{
 					adminAccountSettings(currentUser);
 					cin >> choice;
+					inputValidation();
 					switch (choice)
 					{
 					case 1: // Change Password
@@ -333,12 +338,14 @@ int main()
 						pauseScreen();
 						clearScreen();
 						break;
-					case 5: // Go Back to Main Menu
+					case 5: // Return to Main Menu
 						clearScreen();
 						break;
 					default:
+						cout << endl
+							 << "Invalid input, please try again by selecting an integer from 1 to 5." << endl;
+						pauseScreen();
 						clearScreen();
-						cout << "Invalid input, please try again." << endl;
 					}
 				} while (choice != 5);
 			}
@@ -347,8 +354,10 @@ int main()
 			exitProgram();
 			break;
 		default:
+			cout << endl
+				 << "Invalid input, please try again by selecting an integer from 1 to 6." << endl;
+			pauseScreen();
 			clearScreen();
-			cout << "Invalid input, please try again." << endl;
 		}
 	} while (choice != EXIT_PROGRAM);
 	return 0;
