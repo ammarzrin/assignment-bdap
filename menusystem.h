@@ -8,26 +8,29 @@ using namespace std;
 
 void clearScreen();
 void pauseScreen();
-// void displayMainMenu(string &, string &);                                                     // The Main Menu to bbe displayed upon logging in.
-// void fileInputMenu(string &, string &, bool &);                                               // File Input Menu to be displayed.
-// void fileRenameMenu(string &, string &);                                                      // File Rename Menu to be displayed.
-// void adminAccountSettings(string &);                                                          // Account Settings for Admins.
-// void buyerAccountSettings(string &);                                                          // Account Settings for Buyers.
-// void titleStatMenu();                                                                         // Displays title at all times while performing calculations in Statistical Analysis.
-// void displayStatMenu(string &, string &);                                                     // Statistical Analysis Menu to be displayed.
-// void titleReportMenu(string &, string &);                                                     // Displays title above generated report in Report Generator.
-// void displayReportMenu();                                                                     // Menu to be displayed after Report Generation.
-// void loadFileError();                                                                         // Error message for missing input file in program.
-// void emptyReportError();                                                                      // Error message for not doing any calculations yet but trying to generate a report.
-// void exitProgram();                                                                           // Clears the screen and displays a goodbye message.
-// void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float); // Adds every calculation done into 3 parallel vector arrays that will be used when generating the report.
-// void addDistinctTableToReport();                                                              // Adds the generated Distinct Data values to the report for table generation.
-// void addHistogramToReport();                                                                  // Adds the generated Histogram values into an array for graph generation in the generated report?
-// void removeFromReport(vector<string> &, vector<string> &, vector<float> &);                   // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
-// void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
-// void logTransaction(ofstream &, string &, string);
 
-// Functions are defined below this comment.
+// Function Prototypes a.k.a. List of functions made for this module.
+
+void displayMainMenu(string &, string &);                                                     // The Main Menu to bbe displayed upon logging in.
+void fileInputMenu(string &, string &, bool &);                                               // File Input Menu to be displayed.
+void fileRenameMenu(string &, string &);                                                      // File Rename Menu to be displayed.
+void adminAccountSettings(string &);                                                          // Account Settings for Admins.
+void buyerAccountSettings(string &);                                                          // Account Settings for Buyers.
+void titleStatMenu();                                                                         // Displays title at all times while performing calculations in Statistical Analysis.
+void displayStatMenu(string &, string &);                                                     // Statistical Analysis Menu to be displayed.
+void titleReportMenu(string &, string &);                                                     // Displays title above generated report in Report Generator.
+void displayReportMenu();                                                                     // Menu to be displayed after Report Generation.
+void loadFileError();                                                                         // Error message for missing input file in program.
+void emptyReportError();                                                                      // Error message for not doing any calculations yet but trying to generate a report.
+void exitProgram();                                                                           // Clears the screen and displays a goodbye message.
+void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float); // Adds every calculation done into 3 parallel vector arrays that will be used when generating the report.
+void addDistinctTableToReport();                                                              // Adds the generated Distinct Data values to the report for table generation.
+void addHistogramToReport();                                                                  // Adds the generated Histogram values into an array for graph generation in the generated report?
+void removeFromReport(vector<string> &, vector<string> &, vector<float> &);                   // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
+void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
+void logTransaction(ofstream &, string &, string);
+
+// Function Definitions
 
 void displayMainMenu(string &user, string &file)
 {
@@ -137,7 +140,7 @@ void displayStatMenu(string &user, string &file)
     cout << "|      7. Correlation Between 2 Columns                    |" << endl;
     cout << "|      8. Distinct Data Members                            |" << endl;
     cout << "|      9. Plot a Histogram                                 |" << endl;
-    cout << "|     10. Go Back to Main Menu                             |" << endl;
+    cout << "|     10. Return to Main Menu                             |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 10" << endl;
@@ -151,8 +154,7 @@ void displayReportMenu()
     cout << "|  What would you like to do now?                          |" << endl;
     cout << "|      1. Save Report as text file (.txt)                  |" << endl;
     cout << "|      2. Save Report as HTML file (.html)                 |" << endl;
-    cout << "|      3. Go Back to Main Menu                             |" << endl;
-    cout << "|      4. Exit Program                                     |" << endl;
+    cout << "|      3. Return to Main Menu                             |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 4" << endl;
@@ -175,7 +177,7 @@ void adminAccountSettings(string &user)
     cout << "|      2. Log Out                                          |" << endl;
     cout << "|      3. Create a New User                                |" << endl;
     cout << "|      4. Delete an Existing User                          |" << endl;
-    cout << "|      5. Go Back to Main Menu                             |" << endl;
+    cout << "|      5. Return to Main Menu                             |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 5" << endl;
@@ -196,7 +198,7 @@ void buyerAccountSettings(string &user)
     cout << "|  What would you like to do?                              |" << endl;
     cout << "|      1. Change Password                                  |" << endl;
     cout << "|      2. Log Out                                          |" << endl;
-    cout << "|      3. Go Back to Main Menu                             |" << endl;
+    cout << "|      3. Return to Main Menu                             |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Select an integer from 1 to 3" << endl;
@@ -211,7 +213,7 @@ void exitProgram()
 
 void emptyReportError()
 {
-    cout << "Report has no data to generate. Please do calculations in the Statistical Analysis menu before proceeding wth report generation." << endl;
+    cout << "Report has no data to generate. Please do calculations in the Statistical Analysis menu before proceeding with report generation." << endl;
     pauseScreen();
 }
 
