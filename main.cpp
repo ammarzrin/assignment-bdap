@@ -158,7 +158,7 @@ int main()
 						cout << endl;
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						meanNum = Mean(valArray, arraySize);
-						cout << "The mean value of " << tableChoice << " " << numChoice << " is " << meanNum << ". " << endl;
+						cout << "The mean value of " << tableChoice << " " << numChoice << " is " << setprecision(4) << meanNum << ". " << endl;
 						addToReport(calcType, rowColSelection, value, "Mean/Average", "selected rowcol", meanNum);
 						delete[] valArray;
 						pauseScreen();
@@ -171,7 +171,7 @@ int main()
 						PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 						meanNum = Mean(valArray, arraySize);
 						varianceNum = Variance(valArray, arraySize, meanNum);
-						cout << "The variance value of " << tableChoice << " " << numChoice << " is " << varianceNum << ". " << endl;
+						cout << "The variance value of " << tableChoice << " " << numChoice << " is " << setprecision(4) << varianceNum << ". " << endl;
 						addToReport(calcType, rowColSelection, value, "Variance", "selected rowcol", varianceNum);
 						delete[] valArray;
 						pauseScreen();
@@ -185,7 +185,7 @@ int main()
 						meanNum = Mean(valArray, arraySize);
 						varianceNum = Variance(valArray, arraySize, meanNum);
 						stdNum = sqrt(varianceNum);
-						cout << "The standard deviation value of " << tableChoice << " " << numChoice << " is " << stdNum << ". " << endl;
+						cout << "The standard deviation value of " << tableChoice << " " << numChoice << " is " << setprecision(4) << stdNum << ". " << endl;
 						addToReport(calcType, rowColSelection, value, "Std Dev", "selected rowcol", stdNum);
 						delete[] valArray;
 						pauseScreen();
@@ -202,7 +202,7 @@ int main()
 						Correlation(valArray, valArray2, arraySize, correlationNum, corMessage);
 						cout << endl
 							 << "Correlation between column " << numChoice << " and " << numChoice2 << " is " << endl
-							 << correlationNum << endl;
+							 << setprecision(4) << correlationNum << endl;
 						addToReport(calcType, rowColSelection, value, "Correlation", "2 columns selected", correlationNum);
 						delete[] valArray, valArray2;
 						pauseScreen();

@@ -256,10 +256,16 @@ void removeFromReport(vector<string> &calcType, vector<string> &selection, vecto
 
 void generateReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
-    cout << calcType[0] << endl;
-    cout << selection[0] << endl;
-    cout << calcValue[0] << endl;
-    cout << endl;
+    cout << "=-------------------=------------------=-------------------=" << endl;
+    cout << "|    Calculation    |     Selection    |       Value       |" << endl;
+    cout << "=-------------------=------------------=-------------------=" << endl;
+    for (int i = 0; i < calcType.size(); i++)
+    {
+        cout << "|                   |                  |                   |" << endl;
+        cout << "| " << setw(18) << left << calcType[i] << "|" << setw(18) << left << selection[i] << "|" << setw(18) << right << calcValue[i] << " |" << endl;
+        cout << "|                   |                  |                   |" << endl;
+        cout << "=-------------------=------------------=-------------------=" << endl;
+    }
 }
 
 void titleStatMenu()
