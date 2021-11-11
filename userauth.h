@@ -1,8 +1,17 @@
+//***************************************************************
+// This header file contans all the functions created by:      //
+//                                                             //
+// Name          : Sukanya A/P Thinakaran                      //
+// Student ID    : 1201101315                                  //
+// Phone Number  : +60 19-276-5030                             //
+// Main Module   : F1 User Registration & Authentication       //
+//                                                             //
+//***************************************************************
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <string>
-#include <sstream>  
+#include <sstream>
 #include <cstdlib>
 //macro defining the number of usernames to be handled by program
 
@@ -21,12 +30,12 @@ struct currentUser
 
 void clearScreen()
 {
-	system("cls"); // Function to clear the screen.
+    system("cls"); // Function to clear the screen.
 }
 void pauseScreen()
 {
-	cout << endl;
-	system("PAUSE"); // Function to pause, and wait for any key from user to continue.
+    cout << endl;
+    system("PAUSE"); // Function to pause, and wait for any key from user to continue.
 }
 
 //function prototypes
@@ -148,7 +157,7 @@ void readusername(currentUser usernames[], fstream &file)
 
     while (file >> temp)
     {
-        
+
         usernames[j].username = temp;
         file >> temp;
         usernames[j].password = temp;
@@ -156,13 +165,12 @@ void readusername(currentUser usernames[], fstream &file)
         istringstream(temp) >> usernames[j].userType;
         file >> temp;
         usernames[j].status = stoi(temp); //Convert string to int
-        
+
         cout << usernames[j].username;
         cout << usernames[j].password;
         cout << usernames[j].userType;
         cout << usernames[j].status;
 
-        
         j++;
         i++;
     }

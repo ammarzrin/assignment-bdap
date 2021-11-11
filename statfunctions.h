@@ -1,3 +1,12 @@
+//***************************************************************
+// This header file contans all the functions created by:      //
+//                                                             //
+// Name          : Muhammad Lutfi bin Mohd Izzat               //
+// Student ID    : 1201100521                                  //
+// Phone Number  : +60 17-260-9255                             //
+// Main Module   : F3 Statistical Analysis                     //
+//                                                             //
+//***************************************************************
 #include <iostream>
 #include <iomanip>
 #include <string>

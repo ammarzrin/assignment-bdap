@@ -4,7 +4,7 @@
 // Name          : Muhammad Ammar bin Muhamad Azrin            //
 // Student ID    : 1191102915                                  //
 // Phone Number  : +60 19-892 7574                             //
-// Main Module   : F4 Menu System
+// Main Module   : F4 Menu System                              //
 //                                                             //
 //***************************************************************
 #include <iostream>
