@@ -4,14 +4,17 @@
 #include <string>
 #include <sstream>  
 #include <cstdlib>
+#include <vector>
 //macro defining the number of usernames to be handled by program
 
 #define USERCOUNT 100
 
 using namespace std;
 
+
+
 // Username structure
-struct currentUser
+struct User
 {
     string username;
     string password;
@@ -30,27 +33,30 @@ void pauseScreen()
 }
 
 //function prototypes
+void readusername(vector<User>&, fstream&);
 
-void readusername(currentUser[], fstream &);
+void readpass(vector<User>&, fstream &);
 
-void readpass(string[], fstream &);
+bool checkpass(string, vector<User>&, int);
 
-bool checkpass(string, string *, int);
+int checkusername(string, vector<User>&);
 
-int checkusername(string, currentUser[]);
+void changepassword(fstream&, ofstream&, int);
 
 // added-function
 
-void loginpage(string username, string password);
+void loginpage(User&);
 
 int main()
 {
-    //defining variables
+    fstream usernamefile;
+    ofstream newFile;
+    int bruh = 0;
 
-    fstream usernamefile, passfile;
+    changepassword(usernamefile, newFile, bruh);
 
-    currentUser usernames[100]; /*CHANGE HERE*/
-    string passwords[100];
+    vector<User> usernames;
+    //bool logIn = false;
 
     //reading usernames from a file
 
@@ -60,8 +66,9 @@ int main()
 
     //readpass(passwords, passfile);
 
-    string username, password; // pointer variables
+    string username, password; //variables for user to key in input
 
+  
     int index;
 
     //prompt to enter username
@@ -85,33 +92,41 @@ int main()
 
         //chek password
 
-        if (checkpass(password, passwords, index))
+        if (checkpass(password, usernames, index))
         {
 
             cout << "Verified. Username and password match";
+
+            User currentUser;
+            currentUser.username = username;
+            currentUser.password = password;
+            currentUser.userType = usernames[index].userType;
+            currentUser.status = usernames[index].status;
 
             pauseScreen();
 
             // redirecting to following page
 
-            loginpage(username, password); // pointer variables
+            loginpage(currentUser); // pointer variables
         }
         else
-
+        {
             cout << "Invalid password";
-    }
-
+            cout << "Please try again";
+        }
+    }    
     //if username does not exixt
     else
-
+    {
         cout << "Invalid username...\nExiting...";
-
+    }
     return 0;
+
 }
 
 //this function reads all usernames from a file and stores it in an array of strings
 
-void readusername(currentUser usernames[], fstream &file)
+void readusername(vector<User>& usernames, fstream &file)
 {
 
     //opening the file
@@ -126,31 +141,34 @@ void readusername(currentUser usernames[], fstream &file)
         return;
     }
 
-    int i = 0;
     int j = 0; // Here j is used for usernames index number
 
     string temp;
     //read the file contents one by one and store in array
-
-    while (file >> temp)
+    getline(file, temp, ',');
+    
+    while (file)
     {
-        
+        usernames.push_back(User());
+
+        cout << temp << endl;
         usernames[j].username = temp;
-        file >> temp;
+
+        getline(file, temp, ',');
+        cout << temp << endl;
         usernames[j].password = temp;
-        file >> temp;
+
+        getline(file, temp, ',');
+        cout << temp << endl;
         istringstream(temp) >> usernames[j].userType;
-        file >> temp;
-        usernames[j].status = stoi(temp); //Convert string to int
-        
-        cout << usernames[j].username;
-        cout << usernames[j].password;
-        cout << usernames[j].userType;
-        cout << usernames[j].status;
+
+        getline(file, temp, '\n');
+        cout << temp << endl;
+        istringstream(temp) >> usernames[j].status;
 
         
+        getline(file,temp, ',');
         j++;
-        i++;
     }
 
     //close the file
@@ -158,50 +176,50 @@ void readusername(currentUser usernames[], fstream &file)
     file.close();
 }
 
-//this function reads all passwords from a file and stores it in an array of strings
-
-void readpass(string passwords[], fstream &file)
+void changepassword(fstream& oldFile, ofstream& newFile, int bruh)
 {
+    oldFile.open("users.txt", ios::in);
 
-    //opening the file
-
-    file.open("password.txt", ios::in);
-
-    //check if file was opened successfully
-
-    if (!file)
-    {
-
-        cout << "\nError opening file...";
-
-        return;
-    }
+    newFile.open("newFile.txt", ios::out);
 
     int i = 0;
-
     string temp;
+    string newpassword;
 
-    //read the file contents one by one and store in array
+    // if (!oldFile)
+    // {
+    //     cout << "\nError opening file...";
+    //     return;
+    // }
 
-    while (file >> temp)
+    getline(oldFile, temp, ',');
+
+    while(oldFile)
     {
+        newFile << temp << ',';
 
-        passwords[i] = temp;
+        getline(oldFile, temp, ',');
+        newFile << temp << ',';
+        
+        getline(oldFile, temp, ',');
+        newFile << temp << ',';
+
+        getline(oldFile, temp, '\n');
+        newFile << temp << '\n';
+
+        getline(oldFile, temp, ',');
 
         i++;
     }
 
-    //close the file
-
-    file.close();
 }
 
 //this function checks the existence of username and returns the index of its position in array
 
-int checkusername(string username, currentUser usernames[])
+int checkusername(string username, vector<User>& usernames)
 {
 
-    for (int i = 0; i < USERCOUNT; i++)
+    for (int i = 0; i < USERCOUNT; i++) // have to change this afterwards
         if (usernames[i].username == username)
         {
             if (usernames[i].status == 0)
@@ -220,14 +238,14 @@ int checkusername(string username, currentUser usernames[])
 
 //this function matches a username against its password
 
-bool checkpass(string password, string passwords[], int index)
+bool checkpass(string password, vector<User>& usernames, int index)
 {
 
-    return passwords[index] == password;
+    return usernames[index].password == password;
 }
 
 // function that formats the resulting output
-void loginpage(string username, string password) // not important
+void loginpage(User& currentUser) // not important
 {
 
     // 'credentialwidth' is the max text length of the two (username or password)
@@ -237,10 +255,10 @@ void loginpage(string username, string password) // not important
 
     int tablewidth = 15;
     credentialwidth =
-        (username.length() >
-         password.length())
-            ? username.length()
-            : password.length();
+        (currentUser.username.length() >
+         currentUser.password.length())
+            ? currentUser.username.length()
+            : currentUser.password.length();
     credentialwidth =
         (credentialwidth & 1) ? credentialwidth + 1 : credentialwidth;
     tablewidth += credentialwidth;
@@ -283,9 +301,9 @@ void loginpage(string username, string password) // not important
 
                                                         */
 
-    cout << left << "| username : " << setfill(' ') << setw(credentialwidth) << username << " |" << endl;
+    cout << left << "| username : " << setfill(' ') << setw(credentialwidth) << currentUser.username << " |" << endl;
 
-    cout << left << "| password : " << setfill(' ') << setw(credentialwidth) << password << " |" << endl;
+    cout << left << "| password : " << setfill(' ') << setw(credentialwidth) << currentUser.password << " |" << endl;
 
     /*+-------------------+*/
 
