@@ -1,3 +1,12 @@
+//***************************************************************
+// This header file contans all the functions created by:      //
+//                                                             //
+// Name          : Muhammad Ammar bin Muhamad Azrin            //
+// Student ID    : 1191102915                                  //
+// Phone Number  : +60 19-892 7574                             //
+// Main Module   : F4 Menu System
+//                                                             //
+//***************************************************************
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -295,7 +304,7 @@ void titleReportMenu(string &user, string &file)
 
 void logTransaction(ofstream &outputFile, string &user, string description)
 {
-    outputFile.open("userlog.txt", ios_base::app);
+    outputFile.open("userlog.txt", ios::app);
     outputFile << user << description << endl;
     outputFile.close();
 }

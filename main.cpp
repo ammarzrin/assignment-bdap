@@ -1,4 +1,20 @@
-/* Program Information */
+/* 
+Program Title: Basic Data Analysis Program
+Subject: TCP1101 Programming Fundamentals
+Trimester 1, 2021/2022
+Group 2, TT1V
+=-------------------------------=----------------------------------------------=
+| No |          Module          |                     Name                     |
+=-------------------------------=----------------------------------------------=
+| F1 | User Authentication      | Sukanya A/P Thinakaran                       |
+=-------------------------------=----------------------------------------------=
+| F2 | Data File Reader         | Kheryl Amalia Dania binti Khairul Affendie   |
+=-------------------------------=----------------------------------------------=
+| F3 | Statistical Analysis     | Muhammad Lutfi bin Mohd Izzat                |
+=-------------------------------=----------------------------------------------=
+| F4 | Menu System              | Muhammad Ammar bin Muhamad Azrin             |
+=-------------------------------=----------------------------------------------=
+*/
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -6,6 +22,7 @@
 #include <fstream>
 #include <vector>
 #include "userauth.h"	   // Header file containing functions related to User database (F1 User Registration & Authentication) - Sukanya
+#include "filereader.h"	   // Header file containing functions relating data files and the program (F2 File Reader) - Kheryl Amalia
 #include "statfunctions.h" // Header file containing functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
 #include "menusystem.h"	   // Header file containing functions related to the Menu System (F4 Menu System) - Ammar Azrin
 using namespace std;
