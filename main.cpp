@@ -54,7 +54,7 @@ int main()
 
 	// Declaration of Variables relating to the User
 	string currentUser = "username";
-	string currentFile = "filetest.txt";
+	string currentFile = "none";
 	bool userType = 1; // Admin = 1, Buyer = 0
 	bool fileLoaded = false;
 	bool loggedIn = true;

@@ -39,8 +39,17 @@ void removeFromReport(vector<string> &, vector<string> &, vector<float> &);     
 void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
 void logTransaction(ofstream &, string &, string);
 
-// Function Definitions
-
+//****************************************************************//
+// displayMainMenu                                                //
+//                                                                //
+// Task         : Displays the main menu options available        //
+//                for the user.                                   //
+//                                                                //
+// Data in      : username of currentUser, name of file           //
+//                loaded ("none" if no file loaded)               //
+// Data returned: none - displays main menu on screen.            //
+//                                                                //
+//****************************************************************//
 void displayMainMenu(string &user, string &file)
 {
     cout << "=----------------------------------------------------------=" << endl;
@@ -66,6 +75,15 @@ void displayMainMenu(string &user, string &file)
     cout << "---> ";
 }
 
+//****************************************************************//
+// fileInputMenu                                                  //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void fileInputMenu(string &user, string &file, bool &loaded)
 {
     string input;
@@ -98,6 +116,15 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     clearScreen();
 }
 
+//****************************************************************//
+// fileRenameMenu                                                 //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void fileRenameMenu(string &user, string &file)
 {
     string input;
@@ -127,6 +154,15 @@ void fileRenameMenu(string &user, string &file)
     clearScreen();
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void displayStatMenu(string &user, string &file)
 {
     cout << "=----------------------------------------------------------=" << endl;
@@ -156,6 +192,15 @@ void displayStatMenu(string &user, string &file)
     cout << "---> ";
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void displayReportMenu()
 {
     pauseScreen();
@@ -171,6 +216,15 @@ void displayReportMenu()
     cout << "---> ";
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void adminAccountSettings(string &user)
 {
     cout << "=----------------------------------------------------------=" << endl;
@@ -194,6 +248,15 @@ void adminAccountSettings(string &user)
     cout << "---> ";
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void buyerAccountSettings(string &user)
 {
     cout << "=----------------------------------------------------------=" << endl;
@@ -215,12 +278,30 @@ void buyerAccountSettings(string &user)
     cout << "---> ";
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void exitProgram()
 {
     clearScreen();
     cout << "Goodbye!";
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void emptyReportError()
 {
     cout << endl
@@ -231,6 +312,15 @@ void emptyReportError()
     clearScreen();
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void loadFileError()
 {
     cout << endl
@@ -241,6 +331,15 @@ void loadFileError()
     clearScreen();
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void addToReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue, string type, string rowcol, float value)
 {
     calcType.push_back(type);
@@ -248,14 +347,41 @@ void addToReport(vector<string> &calcType, vector<string> &selection, vector<flo
     calcValue.push_back(value);
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void addDistinctTableToReport()
 {
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void addHistogramToReport()
 {
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void removeFromReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
     calcType.clear();
@@ -263,6 +389,15 @@ void removeFromReport(vector<string> &calcType, vector<string> &selection, vecto
     calcValue.clear();
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void generateReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
     cout << "=-------------------=------------------=-------------------=" << endl;
@@ -277,6 +412,15 @@ void generateReport(vector<string> &calcType, vector<string> &selection, vector<
     }
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void titleStatMenu()
 {
     clearScreen();
@@ -288,6 +432,15 @@ void titleStatMenu()
     cout << endl;
 }
 
+//****************************************************************//
+// functionName                                                   //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void titleReportMenu(string &user, string &file)
 {
     clearScreen();
@@ -302,6 +455,15 @@ void titleReportMenu(string &user, string &file)
     cout << endl;
 }
 
+//****************************************************************//
+// logTransaction                                                 //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void logTransaction(ofstream &outputFile, string &user, string description)
 {
     outputFile.open("userlog.txt", ios::app);
@@ -309,6 +471,15 @@ void logTransaction(ofstream &outputFile, string &user, string description)
     outputFile.close();
 }
 
+//****************************************************************//
+// inputValidation                                                //
+//                                                                //
+// Task         : Description of function, what does it do.       //
+//                                                                //
+// Data in      : arguments to be inserted to parameters          //
+// Data returned: if there is (use none if its a void function)   //
+//                                                                //
+//****************************************************************//
 void inputValidation()
 {
     while (!cin)
