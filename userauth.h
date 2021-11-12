@@ -28,15 +28,8 @@ struct currentUser
     bool status;
 };
 
-void clearScreen()
-{
-    system("cls"); // Function to clear the screen.
-}
-void pauseScreen()
-{
-    cout << endl;
-    system("PAUSE"); // Function to pause, and wait for any key from user to continue.
-}
+void clearScreen();
+void pauseScreen();
 
 //function prototypes
 
@@ -51,86 +44,6 @@ int checkusername(string, currentUser[]);
 // added-function
 
 void loginpage(string username, string password);
-
-// int main()
-// {
-//     //defining variables
-
-//     fstream username_file, pass_file;
-
-//     User usernames[100]; /*CHANGE HERE*/
-//     string passwords[100];
-
-//     //reading usernames from a file
-
-//     read_username(usernames, username_file);
-
-//     //reading passwords from a file
-
-//     read_pass(passwords, pass_file);
-
-//     string username, password;
-
-//     int index;
-
-//     //prompt to enter username
-
-//     cout << "\nEnter username: ";
-//     cin >> username;
-
-//     //check if username exists, if it exists store the index number
-
-//     //of username in a variable
-
-//     index = check_username(username, usernames);
-
-//     //if username exists, ask for password
-
-//     if (index != -1)
-//     {
-
-//         cout << "Enter password: ";
-//         cin >> password;
-
-//         //chek password
-
-//         if (check_pass(password, passwords, index))
-//         {
-
-//             cout << "Verified. Username and password match";
-
-//             int sec = 3;
-
-//             while (sec >= 0)
-//             {
-
-//                 system("cls");
-
-//                 cout << "You will be redirected to another page in " << sec << " seconds ...";
-
-//                 sleep(1);
-
-//                 sec--;
-//             }
-
-//             system("cls");
-
-//             // redirecting to following page
-
-//             login_page(username, password);
-//         }
-//         else
-
-//             cout << "Invalid password";
-//     }
-
-//     //if username does not exixt
-//     else
-
-//         cout << "Invalid username...\nExiting...";
-
-//     return 0;
-// }
 
 //this function reads all usernames from a file and stores it in an array of strings
 

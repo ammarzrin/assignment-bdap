@@ -126,6 +126,7 @@ int main()
 			else
 			{
 				clearScreen();
+				logTransaction(outfile, currentUser, " proceeded to the Statistical Analysis menu.");
 				do
 				{
 					displayStatMenu(currentUser, currentFile);
@@ -134,6 +135,7 @@ int main()
 					switch (choice)
 					{
 					case 1: // Find Minimum
+						logTransaction(outfile, currentUser, " has selected to Find Minimum Value.");
 						titleStatMenu();
 						cout << "Find Minimum have been selected." << endl;
 						cout << endl;
@@ -146,6 +148,7 @@ int main()
 						clearScreen();
 						break;
 					case 2: // Find Maximum
+						logTransaction(outfile, currentUser, " has selected to Find Maximum Value.");
 						titleStatMenu();
 						cout << "Find Maximum have been selected." << endl;
 						cout << endl;
@@ -158,6 +161,7 @@ int main()
 						clearScreen();
 						break;
 					case 3: // Median
+						logTransaction(outfile, currentUser, " has selected to Find Median Value.");
 						titleStatMenu();
 						cout << "Find Median have been selected." << endl;
 						cout << endl;
@@ -170,6 +174,7 @@ int main()
 						clearScreen();
 						break;
 					case 4: // Mean
+						logTransaction(outfile, currentUser, " has selected to Find Mean Value.");
 						titleStatMenu();
 						cout << "Find Mean have been selected." << endl;
 						cout << endl;
@@ -182,6 +187,7 @@ int main()
 						clearScreen();
 						break;
 					case 5: // Variance
+						logTransaction(outfile, currentUser, " has selected to Find Variance Value.");
 						titleStatMenu();
 						cout << "Find Variance have been selected." << endl;
 						cout << endl;
@@ -195,6 +201,7 @@ int main()
 						clearScreen();
 						break;
 					case 6: // Standard Deviation
+						logTransaction(outfile, currentUser, " has selected to Find the Standard Deviation Value.");
 						titleStatMenu();
 						cout << "Find Standard Deviation have been selected." << endl;
 						cout << endl;
@@ -209,6 +216,7 @@ int main()
 						clearScreen();
 						break;
 					case 7: // Correlation Between 2 Columns
+						logTransaction(outfile, currentUser, " has selected to Find Correlation Between 2 Columns.");
 						titleStatMenu();
 						cout << "Find Correlation Between 2 Columns have been selected." << endl;
 						cout << endl;
@@ -226,6 +234,7 @@ int main()
 						clearScreen();
 						break;
 					case 8: // Distinct Data Members
+						logTransaction(outfile, currentUser, " has selected to Find Distinct Data Members.");
 						titleStatMenu();
 						cout << "Find Distinct Data have been selected." << endl;
 						cout << endl;
@@ -239,6 +248,7 @@ int main()
 						clearScreen();
 						break;
 					case 9: // Plot a Histogram
+						logTransaction(outfile, currentUser, " has selected to Create a Histogram chart.");
 						titleStatMenu();
 						cout << "Plot a Histogram is under construction...." << endl;
 						cout << endl;
@@ -265,6 +275,7 @@ int main()
 			else
 			{
 				clearScreen();
+				logTransaction(outfile, currentUser, " has selected to Generate the Report.");
 				do
 				{
 					titleReportMenu(currentUser, currentFile);
@@ -275,10 +286,12 @@ int main()
 					switch (choice)
 					{
 					case 1: // Create report.txt
+						logTransaction(outfile, currentUser, " has saved the report as a text file.");
 						cout << "Save Report as (.txt) file has been selected." << endl;
 						pauseScreen();
 						break;
 					case 2: // Create report.html
+						logTransaction(outfile, currentUser, " has saved the report as a HTML file.");
 						cout << "Save Report as (.html) file has been selected." << endl;
 						pauseScreen();
 						break;
@@ -296,6 +309,7 @@ int main()
 			break;
 		case ACC_SETTINGS:
 			clearScreen();
+			logTransaction(outfile, currentUser, " proceeded to their Account Settings.");
 			if (userType == 0) // Buyer account settings
 			{
 				do
@@ -309,11 +323,13 @@ int main()
 						cout << "Function to change password has been called" << endl;
 						pauseScreen();
 						clearScreen();
+						logTransaction(outfile, currentUser, " successfully changed their password.");
 						break;
 					case 2: // Log Out
 						cout << "Function to log the user out has been called" << endl;
 						pauseScreen();
 						clearScreen();
+						logTransaction(outfile, currentUser, " has logged out from the session.");
 						break;
 					case 3: // Return to Main Menu
 						clearScreen();
@@ -339,21 +355,25 @@ int main()
 						cout << "Function to change password has been called" << endl;
 						pauseScreen();
 						clearScreen();
+						logTransaction(outfile, currentUser, " successfully changed their password.");
 						break;
 					case 2: // Log Out
 						cout << "Function to log the user out has been called" << endl;
 						pauseScreen();
 						clearScreen();
+						logTransaction(outfile, currentUser, " has logged out from the session.");
 						break;
 					case 3: // Create New User
 						cout << "Function to create a new user has been called" << endl;
 						pauseScreen();
 						clearScreen();
+						logTransaction(outfile, currentUser, " has created a new user.");
 						break;
 					case 4: // Delete Existing User (aka Change userStatus to Inactive)
 						cout << "Function to delete an existing user has been called" << endl;
 						pauseScreen();
 						clearScreen();
+						logTransaction(outfile, currentUser, " has deleted an existing user.");
 						break;
 					case 5: // Return to Main Menu
 						clearScreen();
@@ -368,6 +388,7 @@ int main()
 			}
 			break;
 		case EXIT_PROGRAM:
+			logTransaction(outfile, currentUser, " exited the program.");
 			exitProgram();
 			break;
 		default:
