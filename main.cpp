@@ -25,6 +25,7 @@ Group 2, TT1V
 #include "filereader.h"	   // Header file containing functions relating data files and the program (F2 File Reader) - Kheryl Amalia
 #include "statfunctions.h" // Header file containing functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
 #include "menusystem.h"	   // Header file containing functions related to the Menu System (F4 Menu System) - Ammar Azrin
+#include "validation.h"    // Header file containing functions related specifically for loading the data file into the program. :)
 using namespace std;
 
 // Functions to clear and pause the screen. Must be checked for OS compatibility.
