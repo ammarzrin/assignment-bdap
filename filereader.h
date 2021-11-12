@@ -38,10 +38,13 @@ void saveReportHTML(ofstream &outputFile, string user, string file, vector<strin
 
     outputFile << "<!DOCTYPE html>" << endl
                << "<head>" << endl
+               << "<style>" << endl
+               << "table, th, td { border: 1px solid black; border-collapse: collapse; text-align: center; column-width: 150px; }"
+               << "</style>" << endl
                << "<title> Report for " << file << "</title>" << endl
                << "</head>" << endl
                << "<body>" << endl
-               << "<h3>Report generated for " << file << " made by " << user << ".</h3>"
+               << "<h3>Report generated for " << file << ".txt made by " << user << ".</h3>"
                << "<table>" << endl
                << "<tr>" << endl
                << "<th> Calculation </th>" << endl

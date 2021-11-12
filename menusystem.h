@@ -58,7 +58,7 @@ void displayMainMenu(string &user, string &file)
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Welcome, " << user << "." << endl;
-    cout << "Current file: " << file << endl;
+    cout << "Current file: " << file << ".txt" << endl;
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to do?                              |" << endl;
@@ -100,8 +100,9 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     cout << "|  >  Load a data file for the program to analyze.         |" << endl;
     cout << "|  >  File must be in the same directory as the program.   |" << endl;
     cout << "|  >  Program reads data files in (.txt) format.           |" << endl;
-    cout << "|  >  Input example: file name.txt                         |" << endl;
     cout << "|  >  Input a dash (-) to cancel operation.                |" << endl;
+    cout << "|  >  Input example: file name                             |" << endl;
+    cout << "|  >  Input name without the file extension (.txt)         |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Enter file name ---> ";
@@ -136,14 +137,15 @@ void fileRenameMenu(string &user, string &file)
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Logged in as " << user << "." << endl;
-    cout << "Current file: " << file << endl;
+    cout << "Current file: " << file << ".txt" << endl;
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "| Guidelines:                                              |" << endl;
     cout << "|  >  Replace current file name with a new name.           |" << endl;
     cout << "|  >  File name cannot be the same as an existing file.    |" << endl;
-    cout << "|  >  Input example: file name.txt                         |" << endl;
     cout << "|  >  Input a dash (-) to cancel operation.                |" << endl;
+    cout << "|  >  Input example: file name                             |" << endl;
+    cout << "|  >  Input name without the file extension (.txt)         |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Enter a new name for current file ---> ";
@@ -173,7 +175,7 @@ void displayStatMenu(string &user, string &file)
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Logged in as " << user << "." << endl;
-    cout << "Current file: " << file << endl;
+    cout << "Current file: " << file << ".txt" << endl;
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to calculate from your file?        |" << endl;
@@ -209,10 +211,11 @@ void displayReportMenu()
     cout << "|  What would you like to do now?                          |" << endl;
     cout << "|      1. Save Report as text file (.txt)                  |" << endl;
     cout << "|      2. Save Report as HTML file (.html)                 |" << endl;
-    cout << "|      3. Return to Main Menu                              |" << endl;
+    cout << "|      3. Clear All Calculations (Empty the Report)        |" << endl;
+    cout << "|      4. Return to Main Menu                              |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
-    cout << "Select an integer from 1 to 3" << endl;
+    cout << "Select an integer from 1 to 4" << endl;
     cout << "---> ";
 }
 
