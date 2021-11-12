@@ -111,7 +111,6 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     // To proceed with operation if (-) is not the input.
     if (input != "-")
     {
-        file = input + ".txt";
         loaded = true;
         // logTransaction(outfile, file, " successfully loaded a file.");
     }
@@ -456,22 +455,6 @@ void titleReportMenu(string &user, string &file)
     cout << "Logged in as " << user << "." << endl;
     cout << "Report for " << file << " is generated below:" << endl;
     cout << endl;
-}
-
-//****************************************************************
-// logTransaction
-//
-// Task         : Logs every move user makes into userlog.txt
-//
-// Data in      : currentUser, description of move
-// Data returned: output onto new line in userlog.txt
-//
-//****************************************************************
-void logTransaction(ofstream &outputFile, string &user, string description)
-{
-    outputFile.open("userlog.txt", ios::app);
-    outputFile << user << description << endl;
-    outputFile.close();
 }
 
 //****************************************************************************

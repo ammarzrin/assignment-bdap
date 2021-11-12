@@ -15,6 +15,53 @@
 #include <cstdio>
 using namespace std;
 
+//****************************************************************
+// renameFile
+//
+// Task         :
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
+void renameFile(string &file)
+{
+    // Converting string currentFile into char array oldname
+    string filename = file;
+    int length = file.length();
+    char oldname[length + 1];
+    strcpy(oldname, file.c_str());
+
+    // Getting new name input from the user
+    char newname[100];
+    cin.getline(newname, 100);
+    char txt[5] = ".txt";
+    strcat(newname, txt);
+
+    // Validation procedure
+    if (rename(oldname, newname) != 0)
+    {
+        cout << endl
+             << "Error! Failure in renaming file. File name already exists." << endl;
+        pauseScreen();
+    }
+    else
+    {
+        cout << "File renamed successfully.";
+        pauseScreen();
+        file = newname;
+    }
+}
+
+//****************************************************************
+// saveReportTxt
+//
+// Task         :
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
 void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
     outputFile.open("report-" + file + ".txt", ios::app);
@@ -33,6 +80,15 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
     outputFile.close();
 }
 
+//****************************************************************
+// saveReportHTML
+//
+// Task         :
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
 void saveReportHTML(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
     outputFile.open(("report-" + file + ".html"), ios::app);
@@ -66,31 +122,18 @@ void saveReportHTML(ofstream &outputFile, string user, string file, vector<strin
     outputFile.close();
 }
 
-void renameFile(string &file)
+//****************************************************************
+// logTransaction
+//
+// Task         : Logs every move user makes into userlog.txt
+//
+// Data in      : currentUser, description of move
+// Data returned: output onto new line in userlog.txt
+//
+//****************************************************************
+void logTransaction(ofstream &outputFile, string &user, string description)
 {
-    // Converting string currentFile into char array oldname
-    string filename = file;
-    int length = file.length();
-    char oldname[length + 1];
-    strcpy(oldname, file.c_str());
-
-    // Getting new name input from the user
-    char newname[100];
-    cin.getline(newname, 100);
-    char txt[5] = ".txt";
-    strcat(newname, txt);
-
-    // Validation procedure
-    if (rename(oldname, newname) != 0)
-    {
-        cout << endl
-             << "Error! Failure in renaming file. File name already exists." << endl;
-        pauseScreen();
-    }
-    else
-    {
-        cout << "File renamed successfully.";
-        pauseScreen();
-        file = newname;
-    }
+    outputFile.open("userlog.txt", ios::app);
+    outputFile << user << description << endl;
+    outputFile.close();
 }
