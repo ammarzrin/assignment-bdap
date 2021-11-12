@@ -57,7 +57,6 @@ int main()
 	// bool userType = 1; // Admin = 1, Buyer = 0
 	string currentFile = "none";
 	bool fileLoaded = false;
-	bool loggedIn = true;
 	string username;
 	string password;
 	bool userExist;
@@ -107,7 +106,7 @@ int main()
 
 	int choice; // For accepting user input for navigation throughout the program.
 
-	while (isLoggedIn == false)
+	while (!isLoggedIn)
 	{
 		cout << "enter username" << endl;
 		cin >> username;
@@ -152,7 +151,7 @@ int main()
 		do
 		{
 			// The main menu is displayed to the user.
-			logTransaction(outfile, currentUser.username, " proceeded to the Main menu.");
+			logTransaction(outfile, currentUser.username, " proceeded to the Main Menu.");
 			displayMainMenu(currentUser.username, currentFile);
 			// User inputs choice.
 			cin >> choice;

@@ -10,8 +10,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <conio.h>
-#include <stdio.h>
+#include <cstdio>
 using namespace std;
 
 void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
@@ -65,18 +66,31 @@ void saveReportHTML(ofstream &outputFile, string user, string file, vector<strin
     outputFile.close();
 }
 
-void renameFile()
+void renameFile(string &file)
 {
-    char oldname[100];
-    char newname[100];
+    // Converting string currentFile into char array oldname
+    string filename = file;
+    int length = file.length();
+    char oldname[length + 1];
+    strcpy(oldname, file.c_str());
 
-    cout << "Enter file name: ";
-    cin >> oldname;
-    cout << endl;
-    cout << "Enter new file name: ";
-    cin >> newname;
+    // Getting new name input from the user
+    char newname[100];
+    cin.getline(newname, 100);
+    char txt[5] = ".txt";
+    strcat(newname, txt);
+
+    // Validation procedure
     if (rename(oldname, newname) != 0)
-        cout << "Error renaming file, returning to main menu ..." << endl;
+    {
+        cout << endl
+             << "Error! Failure in renaming file. File name already exists." << endl;
+        pauseScreen();
+    }
     else
+    {
         cout << "File renamed successfully.";
+        pauseScreen();
+        file = newname;
+    }
 }

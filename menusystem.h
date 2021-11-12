@@ -15,8 +15,8 @@
 #include <vector>
 using namespace std;
 
-void clearScreen();
-void pauseScreen();
+// void clearScreen();
+// void pauseScreen();
 
 // Function Prototypes a.k.a. List of functions made for this module.
 
@@ -58,7 +58,7 @@ void displayMainMenu(string &user, string &file)
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Welcome, " << user << "." << endl;
-    cout << "Current file: " << file << ".txt" << endl;
+    cout << "Current file: " << file << endl;
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to do?                              |" << endl;
@@ -111,7 +111,7 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     // To proceed with operation if (-) is not the input.
     if (input != "-")
     {
-        file = input;
+        file = input + ".txt";
         loaded = true;
         // logTransaction(outfile, file, " successfully loaded a file.");
     }
@@ -137,23 +137,19 @@ void fileRenameMenu(string &user, string &file)
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Logged in as " << user << "." << endl;
-    cout << "Current file: " << file << ".txt" << endl;
+    cout << "Current file: " << file << endl;
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "| Guidelines:                                              |" << endl;
     cout << "|  >  Replace current file name with a new name.           |" << endl;
     cout << "|  >  File name cannot be the same as an existing file.    |" << endl;
-    cout << "|  >  Input a dash (-) to cancel operation.                |" << endl;
     cout << "|  >  Input example: file name                             |" << endl;
     cout << "|  >  Input name without the file extension (.txt)         |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Enter a new name for current file ---> ";
     cin.ignore();
-    getline(cin, input);
-    // To proceed with operation if (-) is not the input.
-    if (input != "-")
-        file = input;
+    renameFile(file);
     clearScreen();
 }
 
@@ -175,7 +171,7 @@ void displayStatMenu(string &user, string &file)
     cout << "=----------------------------------------------------------=" << endl;
     cout << endl;
     cout << "Logged in as " << user << "." << endl;
-    cout << "Current file: " << file << ".txt" << endl;
+    cout << "Current file: " << file << endl;
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to calculate from your file?        |" << endl;
@@ -379,10 +375,11 @@ void addHistogramToReport()
 //****************************************************************
 // removeFromReport
 //
-// Task         :
+// Task         : Clears all the vector arrays related to report generation.
 //
-// Data in      :
-// Data returned:
+// Data in      : 3 Vector Arrays of calculation details (type of calculation,
+//                column/row selection, the value)
+// Data returned: none
 //
 //****************************************************************
 void removeFromReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
@@ -395,10 +392,11 @@ void removeFromReport(vector<string> &calcType, vector<string> &selection, vecto
 //****************************************************************
 // generateReport
 //
-// Task         :
+// Task         : Creates the report table to display for the user
 //
-// Data in      :
-// Data returned:
+// Data in      : 3 Vector Arrays of calculation details (type of calculation,
+//                column/row selection, the value)
+// Data returned: A report table generated within the program.
 //
 //****************************************************************
 void generateReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
@@ -439,10 +437,11 @@ void titleStatMenu()
 //****************************************************************
 // titleReportMenu
 //
-// Task         :
+// Task         : Displays the program title along with header for
+//                report generator. +username and filename
 //
-// Data in      :
-// Data returned:
+// Data in      : currentUser, currentFile
+// Data returned: ta-daaa
 //
 //****************************************************************
 void titleReportMenu(string &user, string &file)
@@ -462,10 +461,10 @@ void titleReportMenu(string &user, string &file)
 //****************************************************************
 // logTransaction
 //
-// Task         :
+// Task         : Logs every move user makes into userlog.txt
 //
-// Data in      :
-// Data returned:
+// Data in      : currentUser, description of move
+// Data returned: output onto new line in userlog.txt
 //
 //****************************************************************
 void logTransaction(ofstream &outputFile, string &user, string description)
@@ -475,15 +474,16 @@ void logTransaction(ofstream &outputFile, string &user, string description)
     outputFile.close();
 }
 
-//****************************************************************
+//****************************************************************************
 // inputValidation
 //
-// Task         :
+// Task         : Validates the input from user to make sure it is an integer
+//                during most cases of inputting choice in menu navigation.
 //
-// Data in      :
-// Data returned:
+// Data in      : boolean value of int choice when cin >> choice
+// Data returned: clears the latest input and ignores until an endline
 //
-//****************************************************************
+//****************************************************************************
 void inputValidation()
 {
     while (!cin)
