@@ -53,8 +53,6 @@ int main()
 			  EXIT_PROGRAM = 6;
 
 	// Declaration of Variables relating to the User
-	// string currentUser = "username";
-	// bool userType = 1; // Admin = 1, Buyer = 0
 	string currentFile = "none";
 	bool fileLoaded = false;
 	string username;
