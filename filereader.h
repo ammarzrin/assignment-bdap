@@ -14,34 +14,52 @@
 #include <stdio.h>
 using namespace std;
 
-void saveReportTxt()
+void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
-    ifstream infile("report.txt");
-    ofstream outfile("txtFile.txt");
-    string temp;
-
-    if (infile.good() && outfile.good())
+    outputFile.open("report-" + file + ".txt", ios::app);
+    outputFile << endl
+               << "Report generated for " << file << " made by " << user << "." << endl;
+    outputFile << "=-------------------=------------------=-------------------=" << endl;
+    outputFile << "|    Calculation    |     Selection    |       Value       |" << endl;
+    outputFile << "=-------------------=------------------=-------------------=" << endl;
+    for (int i = 0; i < calcType.size(); i++)
     {
-        cout << "Now saving report as txt file ..." << endl;
-        getline(infile, temp);
-        outfile << temp;
-        cout << "Your file has been saved successfully." << endl;
+        outputFile << "|                   |                  |                   |" << endl;
+        outputFile << "| " << setw(18) << left << calcType[i] << "|" << setw(18) << left << selection[i] << "|" << setw(18) << right << calcValue[i] << " |" << endl;
+        outputFile << "|                   |                  |                   |" << endl;
+        outputFile << "=-------------------=------------------=-------------------=" << endl;
     }
+    outputFile.close();
 }
 
-void saveReportHTML()
+void saveReportHTML(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
-    ifstream infile("report.txt");
-    ofstream outfile("report.html");
-    string temp;
+    outputFile.open(("report-" + file + ".html"), ios::app);
 
-    if (infile.good() && outfile.good())
+    outputFile << "<!DOCTYPE html>" << endl
+               << "<head>" << endl
+               << "<title> Report for " << file << "</title>" << endl
+               << "</head>" << endl
+               << "<body>" << endl
+               << "<h3>Report generated for " << file << " made by " << user << ".</h3>"
+               << "<table>" << endl
+               << "<tr>" << endl
+               << "<th> Calculation </th>" << endl
+               << "<th> Selection </th>" << endl
+               << "<th> Value </th>" << endl
+               << "</tr>" << endl;
+    for (int i = 0; i < calcType.size(); i++)
     {
-        cout << "Now saving report as HTML file ..." << endl;
-        getline(infile, temp);
-        outfile << temp;
-        cout << "Your file has been saved successfully." << endl;
+        outputFile << "<tr>" << endl
+                   << "<td>" << calcType[i] << "</td>" << endl
+                   << "<td>" << selection[i] << "</td>" << endl
+                   << "<td>" << calcValue[i] << "</td>"
+                   << "</tr>" << endl;
     }
+    outputFile << "</table>" << endl
+               << "</body>" << endl
+               << "</html>" << endl;
+    outputFile.close();
 }
 
 void renameFile()

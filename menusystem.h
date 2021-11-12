@@ -112,6 +112,7 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     {
         file = input;
         loaded = true;
+        // logTransaction(outfile, file, " successfully loaded a file.");
     }
     clearScreen();
 }
@@ -203,7 +204,6 @@ void displayStatMenu(string &user, string &file)
 //****************************************************************
 void displayReportMenu()
 {
-    pauseScreen();
     cout << endl;
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to do now?                          |" << endl;

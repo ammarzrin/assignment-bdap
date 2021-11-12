@@ -107,7 +107,6 @@ int main()
 			clearScreen();
 			logTransaction(outfile, currentUser, " proceeded to File Input menu.");
 			fileInputMenu(currentUser, currentFile, fileLoaded);
-			logTransaction(outfile, currentUser, " successfully loaded a file.");
 			break;
 		case RENAME_FILE:
 			if (!fileLoaded)
@@ -288,11 +287,13 @@ int main()
 					case 1: // Create report.txt
 						logTransaction(outfile, currentUser, " has saved the report as a text file.");
 						cout << "Save Report as (.txt) file has been selected." << endl;
+						saveReportTxt(outfile, currentUser, currentFile, calcType, rowColSelection, value);
 						pauseScreen();
 						break;
 					case 2: // Create report.html
 						logTransaction(outfile, currentUser, " has saved the report as a HTML file.");
 						cout << "Save Report as (.html) file has been selected." << endl;
+						saveReportHTML(outfile, currentUser, currentFile, calcType, rowColSelection, value);
 						pauseScreen();
 						break;
 					case 3: // Return to Main Menu
