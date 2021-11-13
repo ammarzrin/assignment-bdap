@@ -20,6 +20,7 @@ using namespace std;
 
 // Function Prototypes a.k.a. List of functions made for this module.
 
+void displayLoginPage(string &, string &);
 void displayMainMenu(string &, string &);                                                     // The Main Menu to bbe displayed upon logging in.
 void fileInputMenu(string &, string &, bool &);                                               // File Input Menu to be displayed.
 void fileRenameMenu(string &, string &);                                                      // File Rename Menu to be displayed.
@@ -38,6 +39,34 @@ void addHistogramToReport();                                                    
 void removeFromReport(vector<string> &, vector<string> &, vector<float> &);                   // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
 void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
 void logTransaction(ofstream &, string &, string);
+
+//****************************************************************
+// displayLoginPage
+//
+// Task         : Displays the main menu options available
+//                for the user.
+//
+// Data in      : currentUser, currentFile ("none" if no file loaded).
+// Data returned: none - displays Main Menu.
+//
+//****************************************************************
+void displayLoginPage(string &username, string &password)
+{
+    cout << "=----------------------------------------------------------=" << endl;
+    cout << "|               Basic Data Analysis Program                |" << endl;
+    cout << "=----------------------------------------------------------=" << endl;
+    cout << "|                    -> Login Page <-                      |" << endl;
+    cout << "=----------------------------------------------------------=" << endl;
+    cout << endl
+         << "                         Welcome.                           " << endl
+         << endl
+         << endl;
+    cout << "    Enter Username ---> ";
+    cin >> username;
+    cout << endl
+         << "    Enter Password ---> ";
+    cin >> password;
+}
 
 //****************************************************************
 // displayMainMenu
@@ -83,7 +112,7 @@ void displayMainMenu(string &user, string &file)
 // Data in      : currentUser
 // Data returned: none - displays File Input menu.
 //
-//****************************************************************
+//*********************************************************
 void fileInputMenu(string &user, string &file, bool &loaded)
 {
     string input;
@@ -111,8 +140,8 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     // To proceed with operation if (-) is not the input.
     if (input != "-")
     {
+        file = input + ".txt";
         loaded = true;
-        // logTransaction(outfile, file, " successfully loaded a file.");
     }
     clearScreen();
 }
