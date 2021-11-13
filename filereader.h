@@ -68,7 +68,7 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
     file.erase(file.length() - 4); // erases last 4 characters (i.e. .txt) from currentfilename
     outputFile.open("report-" + file + ".txt", ios::app);
     outputFile << endl
-               << "Report generated for " << file << " made by " << user << "." << endl;
+               << "Report generated for " << file << ".txt made by " << user << "." << endl;
     outputFile << "=-------------------=------------------=-------------------=" << endl;
     outputFile << "|    Calculation    |     Selection    |       Value       |" << endl;
     outputFile << "=-------------------=------------------=-------------------=" << endl;
