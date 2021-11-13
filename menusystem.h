@@ -26,8 +26,9 @@ void fileInputMenu(string &, string &, bool &);                                 
 void fileRenameMenu(string &, string &);                                                      // File Rename Menu to be displayed.
 void adminAccountSettings(string &);                                                          // Account Settings for Admins.
 void buyerAccountSettings(string &);                                                          // Account Settings for Buyers.
-void titleStatMenu();                                                                         // Displays title at all times while performing calculations in Statistical Analysis.
-void displayStatMenu(string &, string &);                                                     // Statistical Analysis Menu to be displayed.
+void titleStatMenu(string &, string &);                                                       // Displays title at all times while performing calculations in Statistical Analysis.
+void generateDataTable();                                                                     // Generates data table for user's view at Stat Analysis Menu.
+void displayStatMenu();                                                                       // Statistical Analysis Menu to be displayed.
 void titleReportMenu(string &, string &);                                                     // Displays title above generated report in Report Generator.
 void displayReportMenu();                                                                     // Menu to be displayed after Report Generation.
 void loadFileError();                                                                         // Error message for missing input file in program.
@@ -61,10 +62,10 @@ void displayLoginPage(string &username, string &password)
          << "                         Welcome.                           " << endl
          << endl
          << endl;
-    cout << "    Enter Username ---> ";
+    cout << "Enter Username ---> ";
     cin >> username;
     cout << endl
-         << "    Enter Password ---> ";
+         << "Enter Password ---> ";
     cin >> password;
 }
 
@@ -182,16 +183,18 @@ void fileRenameMenu(string &user, string &file)
 }
 
 //****************************************************************
-// displayStatMenu
+// titleStatMenu
 //
-// Task         :
+// Task         : Displays the program title on top at all times during
+//                calculations in the Statistical Analysis menu.
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
-void displayStatMenu(string &user, string &file)
+void titleStatMenu(string &user, string &file)
 {
+    clearScreen();
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|               Basic Data Analysis Program                |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
@@ -201,6 +204,20 @@ void displayStatMenu(string &user, string &file)
     cout << "Logged in as " << user << "." << endl;
     cout << "Current file: " << file << endl;
     cout << endl;
+}
+
+//****************************************************************
+// displayStatMenu
+//
+// Task         : Displays the available options for Statistical
+//                analysis.
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
+void displayStatMenu()
+{
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to calculate from your file?        |" << endl;
     cout << "|      1. Find Minimum                                     |" << endl;
@@ -217,6 +234,42 @@ void displayStatMenu(string &user, string &file)
     cout << endl;
     cout << "Select an integer from 1 to 10" << endl;
     cout << "---> ";
+}
+
+//****************************************************************
+// generateDataTable
+//
+// Task         : Displays the data file on screen to ease user's choice in calculation.
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
+void generateDataTable(vector<vector<int>> table, vector<bool> computable, vector<string> columnTitles)
+{
+    int columns = columnTitles.size();
+    int rows = table.size();
+    cout << setw(5) << right << "No";
+    for (int i = 0; i < columns; i++)
+    {
+        cout << setw(12) << right << i + 1;
+    }
+    cout << endl;
+    cout << setw(5) << right << "";
+    for (int i = 0; i < columns; i++)
+    {
+        cout << setw(12) << right << columnTitles[i];
+    }
+    cout << endl;
+    for (int row = 0; row < rows; row++)
+    {
+        cout << setw(5) << right << row + 1;
+        for (int col = 0; col < columns; col++)
+        {
+            cout << setw(12) << right << table[row][col];
+        }
+        cout << endl;
+    }
 }
 
 //****************************************************************
@@ -439,27 +492,6 @@ void generateReport(vector<string> &calcType, vector<string> &selection, vector<
         cout << "|                   |                  |                   |" << endl;
         cout << "=-------------------=------------------=-------------------=" << endl;
     }
-}
-
-//****************************************************************
-// titleStatMenu
-//
-// Task         : Displays the program title on top at all times during
-//                calculations in the Statistical Analysis menu.
-//
-// Data in      : none
-// Data returned: none
-//
-//****************************************************************
-void titleStatMenu()
-{
-    clearScreen();
-    cout << "=----------------------------------------------------------=" << endl;
-    cout << "|               Basic Data Analysis Program                |" << endl;
-    cout << "=----------------------------------------------------------=" << endl;
-    cout << "|                -> Statistical Analysis <-                |" << endl;
-    cout << "=----------------------------------------------------------=" << endl;
-    cout << endl;
 }
 
 //****************************************************************

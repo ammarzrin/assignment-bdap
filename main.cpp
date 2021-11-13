@@ -114,7 +114,8 @@ int main()
 		if (currentUserIndex == -1)
 		{
 			cout << endl
-				 << "Username does not exist, please try again." << endl;
+				 << "    Username does not exist, please try again." << endl
+				 << endl;
 			pauseScreen();
 			clearScreen();
 			isLoggedIn = false;
@@ -122,7 +123,9 @@ int main()
 		else if (currentUserIndex == -2)
 		{
 			cout << endl
-				 << "User is deleted and inactive, please contact your administrator if you think this is a mistake." << endl;
+				 << "    User is deleted and inactive, please contact your" << endl
+				 << "    administrator if you think this is a mistake." << endl
+				 << endl;
 			pauseScreen();
 			clearScreen();
 			isLoggedIn = false;
@@ -132,7 +135,8 @@ int main()
 			if (checkPass(password, usernames, currentUserIndex) == true)
 			{
 				cout << endl
-					 << "Login is successful! Directing you to the main menu..." << endl;
+					 << "    Login is successful! Directing you to the main menu..." << endl
+					 << endl;
 				pauseScreen();
 				clearScreen();
 				currentUser.username = username;
@@ -145,7 +149,9 @@ int main()
 			else
 			{
 				cout << endl
-					 << "Incorrect password! Please enter your username and password again." << endl;
+					 << "    Incorrect password!" << endl
+					 << "    Please enter your username and password again." << endl
+					 << endl;
 				pauseScreen();
 				clearScreen();
 				isLoggedIn = false;
@@ -201,14 +207,16 @@ int main()
 					logTransaction(outfile, currentUser.username, " proceeded to the Statistical Analysis menu.");
 					do
 					{
-						displayStatMenu(currentUser.username, currentFile);
+						titleStatMenu(currentUser.username, currentFile);
+						generateDataTable(Table, canCompute, columnTitles);
+						displayStatMenu();
 						cin >> choice;
 						inputValidation();
 						switch (choice)
 						{
 						case 1: // Find Minimum
 							logTransaction(outfile, currentUser.username, " has selected to Find Minimum Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Minimum have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -221,7 +229,7 @@ int main()
 							break;
 						case 2: // Find Maximum
 							logTransaction(outfile, currentUser.username, " has selected to Find Maximum Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Maximum have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -234,7 +242,7 @@ int main()
 							break;
 						case 3: // Median
 							logTransaction(outfile, currentUser.username, " has selected to Find Median Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Median have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -247,7 +255,7 @@ int main()
 							break;
 						case 4: // Mean
 							logTransaction(outfile, currentUser.username, " has selected to" + currentFile + "Find Mean Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Mean have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -260,7 +268,7 @@ int main()
 							break;
 						case 5: // Variance
 							logTransaction(outfile, currentUser.username, " has selected to Find Variance Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Variance have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -274,7 +282,7 @@ int main()
 							break;
 						case 6: // Standard Deviation
 							logTransaction(outfile, currentUser.username, " has selected to Find the Standard Deviation Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Standard Deviation have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -289,7 +297,7 @@ int main()
 							break;
 						case 7: // Correlation Between 2 Columns
 							logTransaction(outfile, currentUser.username, " has selected to Find Correlation Between 2 Columns.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Correlation Between 2 Columns have been selected." << endl;
 							cout << endl;
 							tableChoice = "column";
@@ -307,7 +315,7 @@ int main()
 							break;
 						case 8: // Distinct Data Members
 							logTransaction(outfile, currentUser.username, " has selected to Find Distinct Data Members.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Distinct Data have been selected." << endl;
 							cout << endl;
 							MakeAllArray(Table, valArray, numRow, numCol, arraySize);
@@ -321,7 +329,7 @@ int main()
 							break;
 						case 9: // Plot a Histogram
 							logTransaction(outfile, currentUser.username, " has selected to Create a Histogram chart.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Plot a Histogram is under construction...." << endl;
 							cout << endl;
 							pauseScreen();
