@@ -179,6 +179,9 @@ int main()
 					fileLoaded = true;
 					numRow = Row;
 					numCol = Col - 1;
+
+					cout<<numRow<<endl;
+					cout<<numCol<<endl;
 				}
 				break;
 			case RENAME_FILE:

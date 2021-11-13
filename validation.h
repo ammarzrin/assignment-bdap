@@ -63,11 +63,14 @@ void LoadDataFile(string file, vector<vector<int>> &Table, int &Row, int &Col, v
                                 if (dataError == true) // last if statement to show that data is valid
                                 {
                                     cout << "table successfully loaded with no errors" << endl;
+                                    Row = stoi(row);
+                                    Col = stoi(column);
                                 }
                             }
                             else
                             {
                                 dataError = false;
+                                cout << "table rows are not the same as the row value given"<<endl;
                             }
                         }
                     }
