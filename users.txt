@@ -1,5 +1,6 @@
 username,password,1,1
-admin,Admin1234,1,1
+admin,Admin123,1,1
+buyer,Buyer1234,0,1
 ammarzrin,pAssw0rd,1,1
 johnlennon,fabfour,0,1
 audreyhepburn,cAntik2,1,1

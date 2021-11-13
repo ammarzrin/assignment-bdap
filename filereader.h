@@ -18,10 +18,10 @@ using namespace std;
 //****************************************************************
 // renameFile
 //
-// Task         :
+// Task         : Allow user to rename files that they have inputted.
 //
-// Data in      :
-// Data returned:
+// Data in      : old filename and new file name
+// Data returned: renamed file
 //
 //****************************************************************
 void renameFile(string &file)
@@ -47,7 +47,8 @@ void renameFile(string &file)
     }
     else
     {
-        cout << "File renamed successfully.";
+        cout << endl
+             << "File renamed successfully." << endl;
         pauseScreen();
         file = newname;
     }
@@ -56,17 +57,18 @@ void renameFile(string &file)
 //****************************************************************
 // saveReportTxt
 //
-// Task         :
+// Task         : Save log transaction reports as txt file
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: report generated is saved as txt file
 //
 //****************************************************************
 void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
+    file.erase(file.length() - 4); // erases last 4 characters (i.e. .txt) from currentfilename
     outputFile.open("report-" + file + ".txt", ios::app);
     outputFile << endl
-               << "Report generated for " << file << " made by " << user << "." << endl;
+               << "Report generated for " << file << ".txt made by " << user << "." << endl;
     outputFile << "=-------------------=------------------=-------------------=" << endl;
     outputFile << "|    Calculation    |     Selection    |       Value       |" << endl;
     outputFile << "=-------------------=------------------=-------------------=" << endl;
@@ -83,16 +85,16 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
 //****************************************************************
 // saveReportHTML
 //
-// Task         :
+// Task         : Save log transaction reports as HTML file
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: report generated is saved as HTML file
 //
 //****************************************************************
 void saveReportHTML(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
+    file.erase(file.length() - 4); // erases last 4 characters (i.e. .txt) from currentfilename
     outputFile.open(("report-" + file + ".html"), ios::app);
-
     outputFile << "<!DOCTYPE html>" << endl
                << "<head>" << endl
                << "<style>" << endl

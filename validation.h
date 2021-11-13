@@ -14,9 +14,9 @@ void GetCanCompute(fstream &, bool &, vector<bool> &);
 void GetColumnTitles(fstream &, bool &, vector<string> &);
 void GetRowSize(fstream &, bool &, string &);
 void GetTable(fstream &, bool &, vector<vector<int>> &);
-void LoadDataFile(string, vector<vector<int>> &, int &, int &, vector<string> &, bool &, vector<bool> &);
+void LoadDataFile(string &, vector<vector<int>> &, int &, int &, vector<string> &, bool &, vector<bool> &);
 
-void LoadDataFile(string file, vector<vector<int>> &Table, int &Row, int &Col, vector<string> &columnTitles, bool &dataError, vector<bool> &canCompute)
+void LoadDataFile(string &file, vector<vector<int>> &Table, int &Row, int &Col, vector<string> &columnTitles, bool &dataError, vector<bool> &canCompute)
 {
     fstream DataFile;
     dataError = true;
@@ -24,6 +24,14 @@ void LoadDataFile(string file, vector<vector<int>> &Table, int &Row, int &Col, v
     string row;
 
     DataFile.open(file, ios::in);
+
+    if (!DataFile)
+    {
+        cout << endl
+             << "Incorrect filename! File does not exist!" << endl
+             << endl;
+        dataError = false;
+    }
 
     CheckColumnSize(DataFile, dataError, column);
 
@@ -62,7 +70,8 @@ void LoadDataFile(string file, vector<vector<int>> &Table, int &Row, int &Col, v
 
                                 if (dataError == true) // last if statement to show that data is valid
                                 {
-                                    cout << "table successfully loaded with no errors" << endl;
+                                    cout << endl
+                                         << "Table successfully loaded with no errors." << endl;
                                     Row = stoi(row);
                                     Col = stoi(column);
                                 }
@@ -70,7 +79,7 @@ void LoadDataFile(string file, vector<vector<int>> &Table, int &Row, int &Col, v
                             else
                             {
                                 dataError = false;
-                                cout << "table rows are not the same as the row value given"<<endl;
+                                cout << "Table rows are not the same as the row value given." << endl;
                             }
                         }
                     }
@@ -101,7 +110,8 @@ void LoadDataFile(string file, vector<vector<int>> &Table, int &Row, int &Col, v
 
     if (dataError == false) // removes any arrays if dataerror is false
     {
-        cout << "Invalid input, please try again" << endl;
+        cout << "Invalid data file input, please try again." << endl;
+        file = "none";
         Table.clear();
         columnTitles.clear();
         canCompute.clear();
@@ -116,9 +126,7 @@ void CheckColumnSize(fstream &file, bool &dataError, string &col)
     {
         if (isdigit(col[i]) == false)
         {
-            cout << "the column has a non-digit value" << endl;
-            cout << "Invalid datafile, please try again " << endl;
-
+            cout << "The column has a non-digit value." << endl;
             dataError = false;
             break;
         }
