@@ -87,7 +87,7 @@ void NumChoice(vector<vector<int>> Table, string tableChoice, int size, int &Cho
         cin >> input;
     }
 
-    Choice = input-1;
+    Choice = input - 1;
     cout << "You have selected " << tableChoice << " " << input << "." << endl
          << endl;
 }
@@ -101,10 +101,10 @@ void choose2Columns(vector<vector<int>> Table, int size, int &firstChoice, int &
     cin >> input;
     inputRangeValidation(input, choice1, size, firstChoice);
     firstChoice = input;
+    choice1 = true;
     cout << endl
          << "You have selected column " << input << " as the first column." << endl
          << endl;
-    choice1 = true;
 
     cout << "Please choose the second column for comparison ---> ";
     cin >> input;
@@ -148,7 +148,7 @@ void MakeArray(vector<vector<int>> Table, string Choice, int numChoice, int Row,
     else if (Choice == "row")
     {
         arraySize = Col;
-        cout<<arraySize<<endl;
+        cout << arraySize << endl;
         valArray = new int[arraySize];
         MakeRowArray(Table, numChoice, arraySize, valArray);
     }
@@ -167,7 +167,7 @@ void MakeRowArray(vector<vector<int>> Table, int numChoice, int size, int *&RowA
     for (int i = 0; i < size; i++)
     {
         *(RowArray + i) = Table[numChoice][i + 1];
-        cout << *(RowArray + i) <<endl;
+        cout << *(RowArray + i) << endl;
     }
 }
 

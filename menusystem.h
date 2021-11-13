@@ -245,31 +245,30 @@ void displayStatMenu()
 // Data returned:
 //
 //****************************************************************
-void generateDataTable(vector<vector<int>> table, vector<bool> computable, vector<string> columnTitles)
+void generateDataTable(vector<vector<int>> table, vector<string> columnTitles)
 {
-    int columns = columnTitles.size();
-    int rows = table.size();
+    int columns = columnTitles.size(); // Number of columns
+    int rows = table.size();           // Number of rows
+
     cout << setw(5) << right << "No";
     for (int i = 0; i < columns; i++)
     {
-        cout << setw(12) << right << i + 1;
+        cout << setw(12) << right << columnTitles[i]; // Shows column titles
     }
-    cout << endl;
-    cout << setw(5) << right << "";
-    for (int i = 0; i < columns; i++)
-    {
-        cout << setw(12) << right << columnTitles[i];
-    }
+
+    // cout << endl;
     cout << endl;
     for (int row = 0; row < rows; row++)
     {
-        cout << setw(5) << right << row + 1;
+        cout << setw(5) << right << row + 1; // Shows row number
         for (int col = 0; col < columns; col++)
         {
             cout << setw(12) << right << table[row][col];
         }
         cout << endl;
     }
+    cout << endl
+         << endl;
 }
 
 //****************************************************************

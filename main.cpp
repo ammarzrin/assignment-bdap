@@ -186,8 +186,8 @@ int main()
 					numRow = Row;
 					numCol = Col - 1;
 
-					cout<<numRow<<endl;
-					cout<<numCol<<endl;
+					cout << numRow << endl;
+					cout << numCol << endl;
 				}
 				break;
 			case RENAME_FILE:
@@ -211,7 +211,7 @@ int main()
 					do
 					{
 						titleStatMenu(currentUser.username, currentFile);
-						generateDataTable(Table, canCompute, columnTitles);
+						generateDataTable(Table, columnTitles);
 						displayStatMenu();
 						cin >> choice;
 						inputValidation();
@@ -220,6 +220,7 @@ int main()
 						case 1: // Find Minimum
 							logTransaction(outfile, currentUser.username, " has selected to Find Minimum Value.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Minimum have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -233,6 +234,7 @@ int main()
 						case 2: // Find Maximum
 							logTransaction(outfile, currentUser.username, " has selected to Find Maximum Value.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Maximum have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -246,6 +248,7 @@ int main()
 						case 3: // Median
 							logTransaction(outfile, currentUser.username, " has selected to Find Median Value.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Median have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -259,6 +262,7 @@ int main()
 						case 4: // Mean
 							logTransaction(outfile, currentUser.username, " has selected to" + currentFile + "Find Mean Value.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Mean have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -272,6 +276,7 @@ int main()
 						case 5: // Variance
 							logTransaction(outfile, currentUser.username, " has selected to Find Variance Value.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Variance have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -286,6 +291,7 @@ int main()
 						case 6: // Standard Deviation
 							logTransaction(outfile, currentUser.username, " has selected to Find the Standard Deviation Value.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Standard Deviation have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -301,6 +307,7 @@ int main()
 						case 7: // Correlation Between 2 Columns
 							logTransaction(outfile, currentUser.username, " has selected to Find Correlation Between 2 Columns.");
 							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Correlation Between 2 Columns have been selected." << endl;
 							cout << endl;
 							tableChoice = "column";
