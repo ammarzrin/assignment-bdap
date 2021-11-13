@@ -49,8 +49,8 @@ void renameFile(string &file)
     {
         cout << endl
              << "File renamed successfully." << endl;
-        pauseScreen();
         file = newname;
+        pauseScreen();
     }
 }
 

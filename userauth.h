@@ -73,7 +73,8 @@ void deleteAccount(vector<User> &usernames, ofstream &file, int index, int &size
 {
     string choice;
     bool accExist = false;
-    cout << "who do you want to delete?" << endl;
+    cout << endl
+         << "Enter the username of user to be deleted ---> ";
     cin >> choice;
     for (int i = 0; i < size; i++)
     {
@@ -89,7 +90,9 @@ void deleteAccount(vector<User> &usernames, ofstream &file, int index, int &size
                 if (i == j)
                 {
                     file << 0 << '\n';
-                    cout << usernames[j].username << " has been deleted." << endl;
+                    cout << endl
+                         << "User (" << usernames[j].username << ") has been deleted" << endl
+                         << "and status is set to inactive." << endl;
                 }
                 else
                 {
@@ -101,7 +104,7 @@ void deleteAccount(vector<User> &usernames, ofstream &file, int index, int &size
     }
     if (accExist == false)
     {
-        cout << "there is no name similar with " << choice << ", please try again" << endl;
+        cout << "User " << choice << " is not found in user database. Please try again." << endl;
     }
     file.close();
 }
@@ -111,7 +114,8 @@ void readUsername(vector<User> &usernames, fstream &file, int &size)
     file.open("users.txt", ios::in);
     if (!file)
     {
-        cout << "\nError opening file...";
+        cout << endl
+             << "Error opening file..." << endl;
     }
     int j = 0; // Here j is used for usernames index number
     string temp;
@@ -142,7 +146,9 @@ void changePassword(vector<User> &usernames, ofstream &newFile, int index, int &
         if (i == index)
         {
             newFile << newpassword << ',';
-            cout << usernames[i].username << " changed password. please key in your new password when you want to log in again" << endl;
+            cout << endl
+                 << usernames[i].username << "'s password has changed successfully." << endl
+                 << "Please use your new password upon logging in again." << endl;
         }
         else
         {
@@ -160,7 +166,13 @@ void checkPassword(vector<User> &usernames, ofstream &newFile, int index, int &s
     bool firstletter = false;
     bool digit = false;
     bool capital = false;
-    cout << "enter your new password (must start with letter, must contain a digit and a capital letter)" << endl;
+    cout << endl
+         << "Password guidelines:" << endl
+         << "  > Must start with a letter." << endl
+         << "  > Must contain at least (1) digit" << endl
+         << "  > Must contain at least (1) UPPERCASE letter." << endl
+         << endl
+         << "Enter your new password ---> ";
     cin >> newpassword;
     if (isalpha(newpassword[0]))
     {
@@ -179,23 +191,30 @@ void checkPassword(vector<User> &usernames, ofstream &newFile, int index, int &s
     }
     if (firstletter == true && digit == true && capital == true)
     {
-        cout << "password accepted" << endl;
+        cout << endl
+             << "Password is accepted. Changing password now..." << endl;
+        pauseScreen();
         changePassword(usernames, newFile, index, size, newpassword);
     }
     else
     {
-        cout << "password invalid, must start with letter, must contain a digit and a capital letter " << endl;
+        cout << endl
+             << "Password is invalid. Password must start with" << endl
+             << "letter, contain a digit and an UPPERCASE letter." << endl;
     }
 }
 
 void checkUser(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
     bool passwordcheck;
-    cout << "please insert a username for the user" << endl;
+    cout << endl
+         << "Insert a new username ---> ";
     cin >> newusername;
-    cout << "please insert a password for the user" << endl;
+    cout << endl
+         << "Insert a new password ---> ";
     cin >> newpassword;
-    cout << "is the user admin or user? (type 'admin' or 'user')" << endl;
+    cout << endl
+         << "Insert user type (admin/buyer) ---> ";
     cin >> newusertype;
     bool sameUserIndex = checkUserSame(newusername, usernames, size);
     if (sameUserIndex == true)
@@ -204,8 +223,9 @@ void checkUser(vector<User> &usernames, ofstream &newFile, int &size, string &ne
     }
     else
     {
-        cout << "there is already a user named : " << newusername << endl;
-        cout << "please try again" << endl;
+        cout << endl
+             << "Error! Username (" << newusername << ") has been taken." << endl
+             << "Please try again." << endl;
     }
 }
 
@@ -235,19 +255,24 @@ void checkPass(vector<User> &usernames, ofstream &newFile, int &size, string &ne
     }
     else
     {
-        cout << "password invalid, must start with letter, must contain a digit and a capital letter " << endl;
+        cout << endl
+             << "Password is invalid. Password must start with" << endl
+             << "letter, contain a digit and an UPPERCASE letter." << endl;
     }
 }
 
 void checkUserType(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
-    if (newusertype == "admin" || newusertype == "user")
+    if (newusertype == "admin" || newusertype == "buyer")
     {
         makeUser(usernames, newFile, size, newpassword, newusername, newusertype);
+        cout << "New user has successfully been created." << endl;
     }
     else
     {
-        cout << "wrong input of usertype, please put in only 'admin' or 'user'" << endl;
+        cout << endl
+             << "Error! Invalid input of user type." << endl
+             << "Please input either (admin) or (buyer)." << endl;
     }
 }
 

@@ -15,9 +15,6 @@
 #include <vector>
 using namespace std;
 
-// void clearScreen();
-// void pauseScreen();
-
 // Function Prototypes a.k.a. List of functions made for this module.
 
 void displayLoginPage(string &, string &);
@@ -485,7 +482,7 @@ void generateReport(vector<string> &calcType, vector<string> &selection, vector<
     for (int i = 0; i < calcType.size(); i++)
     {
         cout << "|                   |                  |                   |" << endl;
-        cout << "| " << setw(18) << left << calcType[i] << "|" << setw(18) << left << selection[i] << "|" << setw(18) << right << calcValue[i] << " |" << endl;
+        cout << "| " << setw(18) << left << calcType[i] << "|" << setw(18) << right << selection[i] << "|" << setw(18) << right << calcValue[i] << " |" << endl;
         cout << "|                   |                  |                   |" << endl;
         cout << "=-------------------=------------------=-------------------=" << endl;
     }

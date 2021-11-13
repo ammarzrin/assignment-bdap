@@ -66,36 +66,143 @@ admin proceeded to File Input menu.
 admin proceeded to the Main Menu.
 admin proceeded to the Statistical Analysis menu.
 admin has selected to Find Correlation Between 2 Columns.
+admin proceeded to their Account Settings.
+admin successfully changed their password.
+admin has created a new user.
+admin has created a new user.
+admin has created a new user.
+admin has deleted an existing user.
+admin has logged out from the session.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to their Account Settings.
+admin has logged out from the session.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to their Account Settings.
+admin successfully changed their password.
+admin has created a new user.
+admin has created a new user.
+admin proceeded to the Main Menu.
+admin exited the program.
+sha.nyy has successfully logged in.
+sha.nyy proceeded to the Main Menu.
+sha.nyy proceeded to their Account Settings.
+sha.nyy has deleted an existing user.
+sha.nyy proceeded to the Main Menu.
+sha.nyy exited the program.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to their Account Settings.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Minimum Value.
+admin has selected to Find Maximum Value.
+admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin exited the program.
 admin has successfully logged in.
 admin proceeded to the Main Menu.
 admin proceeded to File Input menu.
 admin proceeded to the Main Menu.
 admin proceeded to the Statistical Analysis menu.
+<<<<<<< HEAD
 admin has selected to Find Correlation Between 2 Columns.
+=======
+admin has selected to Find Minimum Value.
+admin has selected to Find the Standard Deviation Value.
+admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Minimum Value.
+admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
+admin has saved the report as a HTML file.
+admin proceeded to the Main Menu.
+admin exited the program.
+>>>>>>> 2aff4cd8032dbbcb8b70291ff0addcc7b996801f
 admin has successfully logged in.
 admin proceeded to the Main Menu.
 admin proceeded to File Input menu.
 admin proceeded to the Main Menu.
 admin proceeded to the Statistical Analysis menu.
+<<<<<<< HEAD
 admin has selected to Find Correlation Between 2 Columns.
 admin has selected to Find Correlation Between 2 Columns.
 admin has selected to Find Correlation Between 2 Columns.
+=======
+admin has selected to Find Minimum Value.
+admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
+admin proceeded to the Main Menu.
+admin exited the program.
+>>>>>>> 2aff4cd8032dbbcb8b70291ff0addcc7b996801f
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+<<<<<<< HEAD
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Correlation Between 2 Columns.
+=======
+admin proceeded to the File Rename menu.
+admin successfully renamed the file.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Minimum Value.
+admin has selected to Find Maximum Value.
+admin has selected totestdata.txtFind Mean Value.
+>>>>>>> 2aff4cd8032dbbcb8b70291ff0addcc7b996801f
 admin has successfully logged in.
 admin proceeded to the Main Menu.
 admin proceeded to File Input menu.
 admin proceeded to the Main Menu.
 admin proceeded to the Statistical Analysis menu.
+<<<<<<< HEAD
 admin has selected to Find Correlation Between 2 Columns.
+admin has selected to Find Correlation Between 2 Columns.
+admin has selected to Find Correlation Between 2 Columns.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+=======
+admin has selected to Find Minimum Value.
+admin has selected to Find Variance Value.
+admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
 admin has successfully logged in.
 admin proceeded to the Main Menu.
 admin proceeded to File Input menu.
 admin proceeded to the Main Menu.
 admin proceeded to the Statistical Analysis menu.
-admin has selected to Find Correlation Between 2 Columns.
-admin has selected to Find Correlation Between 2 Columns.
-admin has selected to Find Correlation Between 2 Columns.
-admin has successfully logged in.
+admin has selected to Find Minimum Value.
+admin has selected to Find Median Value.
+admin has selected totestdata.txtFind Mean Value.
 admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
+admin cleared all calculations and empty the report.
 admin proceeded to the Main Menu.
-admin proceeded to File Input menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Minimum Value.
+admin has selected to Find Maximum Value.
+admin has selected to Find Median Value.
+admin has selected totestdata.txtFind Mean Value.
+admin has selected to Find Variance Value.
+admin has selected to Find the Standard Deviation Value.
+admin has selected to Find Correlation Between 2 Columns.
 admin proceeded to the Main Menu.
+admin has selected to Generate the Report.
+admin has saved the report as a HTML file.
+admin proceeded to the Main Menu.
+admin exited the program.
+>>>>>>> 2aff4cd8032dbbcb8b70291ff0addcc7b996801f
