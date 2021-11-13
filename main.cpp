@@ -114,7 +114,7 @@ int main()
 		if (currentUserIndex == -1)
 		{
 			cout << endl
-				 << "    Username does not exist, please try again." << endl
+				 << "Username does not exist, please try again." << endl
 				 << endl;
 			pauseScreen();
 			clearScreen();
@@ -123,8 +123,8 @@ int main()
 		else if (currentUserIndex == -2)
 		{
 			cout << endl
-				 << "    User is deleted and inactive, please contact your" << endl
-				 << "    administrator if you think this is a mistake." << endl
+				 << "User is deleted and inactive, please contact your" << endl
+				 << "administrator if you think this is a mistake." << endl
 				 << endl;
 			pauseScreen();
 			clearScreen();
@@ -135,8 +135,7 @@ int main()
 			if (checkPass(password, usernames, currentUserIndex) == true)
 			{
 				cout << endl
-					 << "    Login is successful! Directing you to the main menu..." << endl
-					 << endl;
+					 << "Login is successful! Directing you to the main menu..." << endl;
 				pauseScreen();
 				clearScreen();
 				currentUser.username = username;
@@ -149,8 +148,8 @@ int main()
 			else
 			{
 				cout << endl
-					 << "    Incorrect password!" << endl
-					 << "    Please enter your username and password again." << endl
+					 << "Incorrect password!" << endl
+					 << "Please enter your username and password again." << endl
 					 << endl;
 				pauseScreen();
 				clearScreen();
@@ -177,7 +176,6 @@ int main()
 				logTransaction(outfile, currentUser.username, " proceeded to File Input menu.");
 				fileInputMenu(currentUser.username, currentFile, fileLoaded);
 				LoadDataFile(currentFile, Table, Row, Col, columnTitles, dataError, canCompute);
-
 				if (dataError == false)
 					fileLoaded = false;
 				else
@@ -185,10 +183,9 @@ int main()
 					fileLoaded = true;
 					numRow = Row;
 					numCol = Col - 1;
-
-					cout << numRow << endl;
-					cout << numCol << endl;
 				}
+				pauseScreen();
+				clearScreen();
 				break;
 			case RENAME_FILE:
 				if (!fileLoaded)

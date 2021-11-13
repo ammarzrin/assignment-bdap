@@ -142,9 +142,7 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     if (input != "-")
     {
         file = input + ".txt";
-        loaded = true;
     }
-    clearScreen();
 }
 
 //****************************************************************
