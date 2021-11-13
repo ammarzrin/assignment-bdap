@@ -18,10 +18,10 @@ using namespace std;
 //****************************************************************
 // renameFile
 //
-// Task         :
+// Task         : Allow user to rename files that they have inputted.
 //
-// Data in      :
-// Data returned:
+// Data in      : old filename and new file name
+// Data returned: renamed file
 //
 //****************************************************************
 void renameFile(string &file)
@@ -57,10 +57,10 @@ void renameFile(string &file)
 //****************************************************************
 // saveReportTxt
 //
-// Task         :
+// Task         : Save log transaction reports as txt file
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: report generated is saved as txt file
 //
 //****************************************************************
 void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
@@ -85,10 +85,10 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
 //****************************************************************
 // saveReportHTML
 //
-// Task         :
+// Task         : Save log transaction reports as HTML file
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: report generated is saved as HTML file
 //
 //****************************************************************
 void saveReportHTML(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
