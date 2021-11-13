@@ -53,3 +53,49 @@ buyer proceeded to the Main Menu.
 buyer exited the program.
 admin proceeded to the Main Menu.
 admin exited the program.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Correlation Between 2 Columns.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Correlation Between 2 Columns.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Correlation Between 2 Columns.
+admin has selected to Find Correlation Between 2 Columns.
+admin has selected to Find Correlation Between 2 Columns.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Correlation Between 2 Columns.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.
+admin proceeded to the Statistical Analysis menu.
+admin has selected to Find Correlation Between 2 Columns.
+admin has selected to Find Correlation Between 2 Columns.
+admin has selected to Find Correlation Between 2 Columns.
+admin has successfully logged in.
+admin proceeded to the Main Menu.
+admin proceeded to the Main Menu.
+admin proceeded to File Input menu.
+admin proceeded to the Main Menu.

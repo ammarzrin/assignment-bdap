@@ -1,3 +1,12 @@
+//***************************************************************
+// This header file contans all the functions created by:      //
+//                                                             //
+// Name          : Muhammad Lutfi bin Mohd Izzat               //
+// Student ID    : 1201100521                                  //
+// Phone Number  : +60 17-260-9255                             //
+// Main Module   : F3 Statistical Analysis                     //
+//                                                             //
+//***************************************************************
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -22,6 +31,10 @@ void LoadDataFile(string &file, vector<vector<int>> &Table, int &Row, int &Col, 
     dataError = true;
     string column;
     string row;
+
+    Table.clear();
+    columnTitles.clear();
+    canCompute.clear();
 
     DataFile.open(file, ios::in);
 
@@ -116,6 +129,7 @@ void LoadDataFile(string &file, vector<vector<int>> &Table, int &Row, int &Col, 
         columnTitles.clear();
         canCompute.clear();
     }
+    DataFile.close();
 }
 
 void CheckColumnSize(fstream &file, bool &dataError, string &col)
