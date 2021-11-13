@@ -88,7 +88,8 @@ void NumChoice(vector<vector<int>> Table, string tableChoice, int size, int &Cho
     }
 
     Choice = input - 1;
-    cout << "You have selected " << tableChoice << " " << input << "." << endl
+    cout << endl
+         << "You have selected " << tableChoice << " " << input << "." << endl
          << endl;
 }
 
