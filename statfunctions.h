@@ -87,7 +87,7 @@ void NumChoice(vector<vector<int>> Table, string tableChoice, int size, int &Cho
         cin >> input;
     }
 
-    Choice = input;
+    Choice = input-1;
     cout << "You have selected " << tableChoice << " " << input << "." << endl
          << endl;
 }
@@ -148,6 +148,7 @@ void MakeArray(vector<vector<int>> Table, string Choice, int numChoice, int Row,
     else if (Choice == "row")
     {
         arraySize = Col;
+        cout<<arraySize<<endl;
         valArray = new int[arraySize];
         MakeRowArray(Table, numChoice, arraySize, valArray);
     }
@@ -157,7 +158,7 @@ void MakeColArray(vector<vector<int>> Table, int numChoice, int size, int *&ColA
 {
     for (int i = 0; i < size; i++)
     {
-        *(ColArray + i) = Table[i + 1][numChoice];
+        *(ColArray + i) = Table[i][numChoice];
     }
 }
 
@@ -166,6 +167,7 @@ void MakeRowArray(vector<vector<int>> Table, int numChoice, int size, int *&RowA
     for (int i = 0; i < size; i++)
     {
         *(RowArray + i) = Table[numChoice][i + 1];
+        cout << *(RowArray + i) <<endl;
     }
 }
 
@@ -179,7 +181,7 @@ void MakeAllArray(vector<vector<int>> Table, int *&valArray, int row, int col, i
     {
         for (int count = 0; count < col; count++)
         {
-            *(valArray + j) = Table[i + 1][count + 1];
+            *(valArray + j) = Table[i][count + 1];
             j++;
         }
     }
