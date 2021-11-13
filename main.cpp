@@ -21,11 +21,11 @@ Group 2, TT1V
 #include <cstdlib>
 #include <fstream>
 #include <vector>
-#include "userauth.h"	   // Header file containing functions related to User database (F1 User Registration & Authentication) - Sukanya
-#include "filereader.h"	   // Header file containing functions relating data files and the program (F2 File Reader) - Kheryl Amalia
-#include "statfunctions.h" // Header file containing functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
-#include "menusystem.h"	   // Header file containing functions related to the Menu System (F4 Menu System) - Ammar Azrin
-#include "validation.h"	   // Header file containing functions related specifically for loading the data file into the program. :)
+#include "userauth.h"	   // Functions related to User database (F1 User Registration & Authentication) - Sukanya
+#include "filereader.h"	   // Functions relating data files and the program (F2 File Reader) - Kheryl Amalia
+#include "statfunctions.h" // Functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
+#include "menusystem.h"	   // Functions related to the Menu System (F4 Menu System) - Ammar Azrin
+#include "validation.h"	   // Functions related specifically for loading the data file into the program - Lutfi Izzat
 using namespace std;
 
 // Functions to clear and pause the screen. Must be checked for OS compatibility.
@@ -41,7 +41,7 @@ void pauseScreen()
 
 int main()
 {
-	// Logging every user transaction from the moment user logged in to logging out/exiting the program.
+	// fstream declaration for logging user transactions
 	ifstream infile;
 	ofstream outfile;
 
@@ -53,7 +53,7 @@ int main()
 			  ACC_SETTINGS = 5,
 			  EXIT_PROGRAM = 6;
 
-	// Declaration of Variables relating to the User
+	// Declaration of User Authentication Variables
 	string currentFile = "none";
 	bool fileLoaded = false;
 	string username;
@@ -65,20 +65,20 @@ int main()
 	User currentUser;
 	int userSize;
 	int currentUserIndex;
-	bool isLoggedIn = false;
 	vector<User> usernames;
 	string newPassword;
 	string newpassword;
 	string newusername;
 	string newusertype;
+	bool isLoggedIn = false;
 
 	// Report Generation
-	vector<string> calcType;
-	vector<string> rowColSelection;
-	vector<float> value;
-	string colchoices;
+	vector<string> calcType;		// Vector array that adds new calculation type done everytime user does a calculation.
+	vector<string> rowColSelection; // Vector array that holds the row/column selection by user for display during report generation.
+	vector<float> value;			// Vector array of calculation values to be generated on table.
+	string colchoices;				// For calculating correlation, requires 2 column titles so this is a string that will contain both selected column titles to be sent to report.
 
-	// Declaration for Statistical Analysis Variables
+	// Declaration of Statistical Analysis Variables
 	vector<vector<int>> Table;
 	vector<bool> canCompute;
 	vector<string> columnTitles;

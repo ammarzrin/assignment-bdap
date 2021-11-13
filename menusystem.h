@@ -24,19 +24,18 @@ void fileRenameMenu(string &, string &);                                        
 void adminAccountSettings(string &);                                                          // Account Settings for Admins.
 void buyerAccountSettings(string &);                                                          // Account Settings for Buyers.
 void titleStatMenu(string &, string &);                                                       // Displays title at all times while performing calculations in Statistical Analysis.
-void generateDataTable();                                                                     // Generates data table for user's view at Stat Analysis Menu.
-void displayStatMenu();                                                                       // Statistical Analysis Menu to be displayed.
 void titleReportMenu(string &, string &);                                                     // Displays title above generated report in Report Generator.
+void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float); // Adds every calculation done into 3 parallel vector arrays that will be used when generating the report.
+void removeFromReport(vector<string> &, vector<string> &, vector<float> &);                   // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
+void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
+void generateDataTable();                                                                     // Generates data table for user's view at Stat Analysis Menu.
+void addDistinctTableToReport();                                                              // Adds the generated Distinct Data values to the report for table generation.
+void addHistogramToReport();                                                                  // Adds the generated Histogram values into an array for graph generation in the generated report?
+void displayStatMenu();                                                                       // Statistical Analysis Menu to be displayed.
 void displayReportMenu();                                                                     // Menu to be displayed after Report Generation.
 void loadFileError();                                                                         // Error message for missing input file in program.
 void emptyReportError();                                                                      // Error message for not doing any calculations yet but trying to generate a report.
 void exitProgram();                                                                           // Clears the screen and displays a goodbye message.
-void addToReport(vector<string> &, vector<string> &, vector<float> &, string, string, float); // Adds every calculation done into 3 parallel vector arrays that will be used when generating the report.
-void addDistinctTableToReport();                                                              // Adds the generated Distinct Data values to the report for table generation.
-void addHistogramToReport();                                                                  // Adds the generated Histogram values into an array for graph generation in the generated report?
-void removeFromReport(vector<string> &, vector<string> &, vector<float> &);                   // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
-void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
-void logTransaction(ofstream &, string &, string);
 
 //****************************************************************
 // displayLoginPage
@@ -145,10 +144,11 @@ void fileInputMenu(string &user, string &file, bool &loaded)
 //****************************************************************
 // fileRenameMenu
 //
-// Task         :
+// Task         : Displays the menu for renaming current file
+//                loaded in the program.
 //
-// Data in      :
-// Data returned:
+// Data in      : currentUser and currentFile
+// Data returned: renames the file based on input
 //
 //****************************************************************
 void fileRenameMenu(string &user, string &file)
@@ -204,11 +204,11 @@ void titleStatMenu(string &user, string &file)
 //****************************************************************
 // displayStatMenu
 //
-// Task         : Displays the available options for Statistical
-//                analysis.
+// Task         : Displays the menu options available for Statistical
+//                Analysis, just cout statements.
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
 void displayStatMenu()
@@ -236,8 +236,8 @@ void displayStatMenu()
 //
 // Task         : Displays the data file on screen to ease user's choice in calculation.
 //
-// Data in      :
-// Data returned:
+// Data in      : Data file's table vector array, columnTitles vector array
+// Data returned: Table of data file's values are generated
 //
 //****************************************************************
 void generateDataTable(vector<vector<int>> table, vector<string> columnTitles)
@@ -269,10 +269,11 @@ void generateDataTable(vector<vector<int>> table, vector<string> columnTitles)
 //****************************************************************
 // displayReportMenu
 //
-// Task         :
+// Task         : Displays the Report menu choices, providing user
+//                options to do with the generated report.
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
 void displayReportMenu()
@@ -293,10 +294,11 @@ void displayReportMenu()
 //****************************************************************
 // adminAccountSettings
 //
-// Task         :
+// Task         : Displays the Account Settings for ADMINS. This includes
+//                extra features for them i.e. Create/Delete a user.
 //
-// Data in      :
-// Data returned:
+// Data in      : currentUser to display username on screen
+// Data returned: none
 //
 //****************************************************************
 void adminAccountSettings(string &user)
@@ -325,10 +327,12 @@ void adminAccountSettings(string &user)
 //****************************************************************
 // buyerAccountSettings
 //
-// Task         :
+// Task         : Displays the Account Settings for BUYERS. They are
+//                limited with  only 3 options i.e. Change password,
+//                log out, and return to main menu.
 //
-// Data in      :
-// Data returned:
+// Data in      : currentUser to display username on screen
+// Data returned: none
 //
 //****************************************************************
 void buyerAccountSettings(string &user)
@@ -355,10 +359,11 @@ void buyerAccountSettings(string &user)
 //****************************************************************
 // exitProgram
 //
-// Task         :
+// Task         : Clears the screen and simple goodbye message is
+//                shown afterwards before program terminates.
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
 void exitProgram()
@@ -370,10 +375,13 @@ void exitProgram()
 //****************************************************************
 // emptyReportError
 //
-// Task         :
+// Task         : Error message for when there are no calculations done
+//                so report has no values to generate in table yet. User
+//                will get this message when trying to access Report
+//                Generation menu without doing calculations beforehand.
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
 void emptyReportError()
@@ -389,10 +397,12 @@ void emptyReportError()
 //****************************************************************
 // loadFileError
 //
-// Task         :
+// Task         : Error message for when user has yet to upload a file
+//                but tries to enter menu options where a file loaded
+//                is needed. (i.e. Rename, Stat Analysis, Report)
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
 void loadFileError()
@@ -408,10 +418,13 @@ void loadFileError()
 //****************************************************************
 // addToReport
 //
-// Task         :
+// Task         : Adds the computed value along with selected column
+//                and type of calculation done into parallel vector
+//                arrays.
 //
-// Data in      :
-// Data returned:
+// Data in      : 3 Vector Arrays of calculation details (type of calculation,
+//                column/row selection, the value)
+// Data returned: none
 //
 //****************************************************************
 void addToReport(vector<string> &calcType, vector<string> &selection, vector<float> &calcValue, string type, string rowcol, float value)
@@ -424,7 +437,8 @@ void addToReport(vector<string> &calcType, vector<string> &selection, vector<flo
 //****************************************************************
 // addDistinctTableToReport
 //
-// Task         :
+// Task         : Adds the distinct data table into the report. Table
+//                is placed below the normal calculations' table.
 //
 // Data in      :
 // Data returned:
@@ -437,7 +451,8 @@ void addDistinctTableToReport()
 //****************************************************************
 // addHistogramToReport
 //
-// Task         :
+// Task         : Adds the created histogram of the data file into
+//                the report.
 //
 // Data in      :
 // Data returned:

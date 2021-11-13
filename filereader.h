@@ -15,6 +15,11 @@
 #include <cstdio>
 using namespace std;
 
+void renameFile(string &);
+void saveReportTxt(ofstream &, string, string, vector<string> &, vector<string> &, vector<float> &);
+void saveReportHTML(ofstream &, string, string, vector<string> &, vector<string> &, vector<float> &);
+void logTransaction(ofstream &, string &, string);
+
 //****************************************************************
 // renameFile
 //
