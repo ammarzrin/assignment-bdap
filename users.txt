@@ -10,4 +10,3 @@ mommy,j0Hnlemmon,1,1
 nope,p0Smalaysia,0,0
 haha,pA5jsj,1,0
 sage,alishA123,0,1
-newuser,Password123,0,0
