@@ -19,7 +19,7 @@ void LoadDataFile(string, vector<vector<int>>&, int&, int&, vector<string>&, boo
 void LoadDataFile(string file, vector<vector<int>>& Table, int& Row, int& Col, vector<string>& columnTitles, bool& dataError, vector<bool>& canCompute)
 {
     fstream DataFile;
-    bool dataError = true;
+    dataError = true;
     string column;
     string row;
 
