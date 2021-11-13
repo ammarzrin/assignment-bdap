@@ -33,7 +33,8 @@ float Variance(int *, int, float);
 void Correlation(int *, int *, int, float &, string &);
 void Distinct(int *&, int *&, int *&, int &);
 void MakeFreqTable(int *&, int *&, int);
-void Histogram(int, int, int *&, int *&, int *&);
+void Histogram(int*&, int, int, vector<vector<int>>&);
+void Interval(int*&, vector<vector<int>>&, int*&);
 
 void PreCalculation(vector<vector<int>> Table, string &tableChoice, int numRow, int numCol, int &numChoice, int *&valArray, int &arraySize)
 {
@@ -337,6 +338,44 @@ void MakeFreqTable(int *&numbers, int *&frequency, int size)
         cout << "|" << setw(27) << numbers[i] << " |" << setw(28) << frequency[i] << " |" << endl;
     }
     cout << "=----------------------------=-----------------------------=" << endl;
+}
+
+void Histogram(int*& valArray, int min, int max, vector<vector<int>>& classInterval)
+{
+    float range = max - min;
+
+    vector<int> row;
+    int classWidth = ceil(range /6.0);
+    cout <<classWidth <<endl;
+    int start = classWidth;
+
+    row.push_back(min);
+    start += min;
+    row.push_back(start);
+    classInterval.push_back(row);
+
+    for (int i = 1; i < 6; i++)
+    {
+        start += 1;
+        vector<int> row;
+        row.push_back(start);
+
+        for (int j = 0; j < 6; j++)
+        {
+            start += classWidth;
+            row.push_back(start);
+        }
+
+        classInterval.push_back(row);
+    }
+}
+
+void Interval(int*& valArray, vector<vector<int>>& classInterval, int*& frequency)
+{
+   for (int i = 0; i < classInterval.size(); i++)
+   {
+       
+   }
 }
 
 /*
