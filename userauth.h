@@ -32,43 +32,44 @@ void clearScreen();
 void pauseScreen();
 
 //function prototypes
-void readusername(vector<User> &, fstream &, int &);
-void changepassword(vector<User> &, ofstream &, int, int &, string &);
-int checkusername(string, vector<User> &, int);
-void deleteaccount(vector<User> &, ofstream &, int, int &);
-bool checkpass(string, vector<User> &, int);
+void readUsername(vector<User> &, fstream &, int &);
+void changePassword(vector<User> &, ofstream &, int, int &, string &);
+int checkUsername(string, vector<User> &, int);
+void deleteAccount(vector<User> &, ofstream &, int, int &);
+bool checkPass(string, vector<User> &, int);
 void checkPassword(vector<User> &, ofstream &, int, int &, string &);
 void checkUser(vector<User> &, ofstream &, int &, string &, string &, string &);
-void checkuserType(vector<User> &, ofstream &, int &, string &, string &, string &);
+void checkUserType(vector<User> &, ofstream &, int &, string &, string &, string &);
 void makeUser(vector<User> &, ofstream &, int &, string &, string &, string &);
 bool checkUserSame(string, vector<User> &, int);
 void checkPass(vector<User> &, ofstream &, int &, string &, string &, string &);
 
-bool checkpass(string password, vector<User> &usernames, int index)
+bool checkPass(string password, vector<User> &usernames, int index)
 {
     return usernames[index].password == password;
 }
 
 //you can use this to check the index on where to change the password
-int checkusername(string username, vector<User> &usernames, int size)
+int checkUsername(string username, vector<User> &usernames, int size)
 {
     for (int i = 0; i < size; i++) // have to change this afterwards
         if (usernames[i].username == username)
         {
             if (usernames[i].status == 0)
             {
-                cout << "\nInactive User\n";
+                // cout << "\nInactive User\n";
                 return -2;
             }
             else
             {
-                cout << "\nActive User\n";
+                // cout << "\nActive User\n";
                 return i;
             }
         }
     return -1;
 }
-void deleteaccount(vector<User> &usernames, ofstream &file, int index, int &size)
+
+void deleteAccount(vector<User> &usernames, ofstream &file, int index, int &size)
 {
     string choice;
     bool accExist = false;
@@ -105,7 +106,7 @@ void deleteaccount(vector<User> &usernames, ofstream &file, int index, int &size
     file.close();
 }
 
-void readusername(vector<User> &usernames, fstream &file, int &size)
+void readUsername(vector<User> &usernames, fstream &file, int &size)
 {
     file.open("users.txt", ios::in);
     if (!file)
@@ -132,7 +133,7 @@ void readusername(vector<User> &usernames, fstream &file, int &size)
     file.close();
 }
 
-void changepassword(vector<User> &usernames, ofstream &newFile, int index, int &size, string &newpassword)
+void changePassword(vector<User> &usernames, ofstream &newFile, int index, int &size, string &newpassword)
 {
     newFile.open("users.txt", ios::out);
     for (int i = 0; i < size; i++)
@@ -179,7 +180,7 @@ void checkPassword(vector<User> &usernames, ofstream &newFile, int index, int &s
     if (firstletter == true && digit == true && capital == true)
     {
         cout << "password accepted" << endl;
-        changepassword(usernames, newFile, index, size, newpassword);
+        changePassword(usernames, newFile, index, size, newpassword);
     }
     else
     {
@@ -230,7 +231,7 @@ void checkPass(vector<User> &usernames, ofstream &newFile, int &size, string &ne
     }
     if (firstletter == true && digit == true && capital == true)
     {
-        checkuserType(usernames, newFile, size, newpassword, newusername, newusertype);
+        checkUserType(usernames, newFile, size, newpassword, newusername, newusertype);
     }
     else
     {
@@ -238,7 +239,7 @@ void checkPass(vector<User> &usernames, ofstream &newFile, int &size, string &ne
     }
 }
 
-void checkuserType(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
+void checkUserType(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
     if (newusertype == "admin" || newusertype == "user")
     {

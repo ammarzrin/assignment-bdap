@@ -25,7 +25,7 @@ Group 2, TT1V
 #include "filereader.h"	   // Header file containing functions relating data files and the program (F2 File Reader) - Kheryl Amalia
 #include "statfunctions.h" // Header file containing functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
 #include "menusystem.h"	   // Header file containing functions related to the Menu System (F4 Menu System) - Ammar Azrin
-#include "validation.h"    // Header file containing functions related specifically for loading the data file into the program. :)
+#include "validation.h"	   // Header file containing functions related specifically for loading the data file into the program. :)
 using namespace std;
 
 // Functions to clear and pause the screen. Must be checked for OS compatibility.
@@ -78,13 +78,14 @@ int main()
 	vector<float> value;
 
 	// Declaration for Statistical Analysis Variables
-	TableType Table = {{5, 6, 3, 6}, // Mock table to test calculations.
-					   {9, 5, 7, 2},
-					   {2, 8, 5, 9},
-					   {8, 3, 6, 4},
-					   {8, 1, 7, 3}};
-	int numCol = Col - 1;
-	int numRow = Row - 1;
+	vector<vector<int>> Table;
+	vector<bool> canCompute;
+	vector<string> columnTitles;
+	bool dataError;
+	int Col;
+	int Row;
+	int numCol;
+	int numRow;
 	int numChoice;
 	int numChoice2;
 	string tableChoice;
@@ -107,39 +108,51 @@ int main()
 
 	while (!isLoggedIn)
 	{
-		cout << "enter username" << endl;
-		cin >> username;
-
-		cout << "enter password" << endl;
-		cin >> password;
-
-		readusername(usernames, usernamefile, userSize);
-		currentUserIndex = checkusername(username, usernames, userSize);
-
+		displayLoginPage(username, password);
+		readUsername(usernames, usernamefile, userSize);
+		currentUserIndex = checkUsername(username, usernames, userSize);
 		if (currentUserIndex == -1)
 		{
-			cout << "there is no username the same as inputted, please type again" << endl;
+			cout << endl
+				 << "Username does not exist, please try again." << endl
+				 << endl;
+			pauseScreen();
+			clearScreen();
 			isLoggedIn = false;
 		}
 		else if (currentUserIndex == -2)
 		{
-			cout << "user is inactive, please input another username" << endl;
+			cout << endl
+				 << "User is deleted and inactive, please contact your" << endl
+				 << "administrator if you think this is a mistake." << endl
+				 << endl;
+			pauseScreen();
+			clearScreen();
 			isLoggedIn = false;
 		}
 		else
 		{
-			if (checkpass(password, usernames, currentUserIndex) == true)
+			if (checkPass(password, usernames, currentUserIndex) == true)
 			{
-				cout << "login successful" << endl;
+				cout << endl
+					 << "Login is successful! Directing you to the main menu..." << endl;
+				pauseScreen();
+				clearScreen();
 				currentUser.username = username;
 				currentUser.password = password;
 				currentUser.userType = usernames[currentUserIndex].userType;
 				currentUser.status = usernames[currentUserIndex].status;
+				logTransaction(outfile, currentUser.username, " has successfully logged in.");
 				isLoggedIn = true;
 			}
 			else
 			{
-				cout << "wrong password, please input username and password again" << endl;
+				cout << endl
+					 << "Incorrect password!" << endl
+					 << "Please enter your username and password again." << endl
+					 << endl;
+				pauseScreen();
+				clearScreen();
 				isLoggedIn = false;
 			}
 		}
@@ -162,6 +175,17 @@ int main()
 				clearScreen();
 				logTransaction(outfile, currentUser.username, " proceeded to File Input menu.");
 				fileInputMenu(currentUser.username, currentFile, fileLoaded);
+				LoadDataFile(currentFile, Table, Row, Col, columnTitles, dataError, canCompute);
+				if (dataError == false)
+					fileLoaded = false;
+				else
+				{
+					fileLoaded = true;
+					numRow = Row;
+					numCol = Col - 1;
+				}
+				pauseScreen();
+				clearScreen();
 				break;
 			case RENAME_FILE:
 				if (!fileLoaded)
@@ -183,14 +207,17 @@ int main()
 					logTransaction(outfile, currentUser.username, " proceeded to the Statistical Analysis menu.");
 					do
 					{
-						displayStatMenu(currentUser.username, currentFile);
+						titleStatMenu(currentUser.username, currentFile);
+						generateDataTable(Table, columnTitles);
+						displayStatMenu();
 						cin >> choice;
 						inputValidation();
 						switch (choice)
 						{
 						case 1: // Find Minimum
 							logTransaction(outfile, currentUser.username, " has selected to Find Minimum Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Minimum have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -203,7 +230,8 @@ int main()
 							break;
 						case 2: // Find Maximum
 							logTransaction(outfile, currentUser.username, " has selected to Find Maximum Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Maximum have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -216,7 +244,8 @@ int main()
 							break;
 						case 3: // Median
 							logTransaction(outfile, currentUser.username, " has selected to Find Median Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Median have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -229,7 +258,8 @@ int main()
 							break;
 						case 4: // Mean
 							logTransaction(outfile, currentUser.username, " has selected to" + currentFile + "Find Mean Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Mean have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -242,7 +272,8 @@ int main()
 							break;
 						case 5: // Variance
 							logTransaction(outfile, currentUser.username, " has selected to Find Variance Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Variance have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -256,7 +287,8 @@ int main()
 							break;
 						case 6: // Standard Deviation
 							logTransaction(outfile, currentUser.username, " has selected to Find the Standard Deviation Value.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Standard Deviation have been selected." << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
@@ -271,7 +303,8 @@ int main()
 							break;
 						case 7: // Correlation Between 2 Columns
 							logTransaction(outfile, currentUser.username, " has selected to Find Correlation Between 2 Columns.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
+							generateDataTable(Table, columnTitles);
 							cout << "Find Correlation Between 2 Columns have been selected." << endl;
 							cout << endl;
 							tableChoice = "column";
@@ -289,7 +322,7 @@ int main()
 							break;
 						case 8: // Distinct Data Members
 							logTransaction(outfile, currentUser.username, " has selected to Find Distinct Data Members.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Find Distinct Data have been selected." << endl;
 							cout << endl;
 							MakeAllArray(Table, valArray, numRow, numCol, arraySize);
@@ -303,7 +336,7 @@ int main()
 							break;
 						case 9: // Plot a Histogram
 							logTransaction(outfile, currentUser.username, " has selected to Create a Histogram chart.");
-							titleStatMenu();
+							titleStatMenu(currentUser.username, currentFile);
 							cout << "Plot a Histogram is under construction...." << endl;
 							cout << endl;
 							pauseScreen();
@@ -390,7 +423,7 @@ int main()
 						switch (choice)
 						{
 						case 1: // Change Password
-							readusername(usernames, usernamefile, userSize);
+							readUsername(usernames, usernamefile, userSize);
 							checkPassword(usernames, newFile, currentUserIndex, userSize, newPassword);
 							pauseScreen();
 							clearScreen();
@@ -424,11 +457,11 @@ int main()
 						switch (choice)
 						{
 						case 1: // Change Password
-							readusername(usernames, usernamefile, userSize);
+							readUsername(usernames, usernamefile, userSize);
 							checkPassword(usernames, newFile, currentUserIndex, userSize, newPassword);
+							logTransaction(outfile, currentUser.username, " successfully changed their password.");
 							pauseScreen();
 							clearScreen();
-							logTransaction(outfile, currentUser.username, " successfully changed their password.");
 							break;
 						case 2: // Log Out
 							cout << "Logging Out from the session..." << endl;
@@ -438,7 +471,7 @@ int main()
 							main();
 							break;
 						case 3: // Create New User
-							readusername(usernames, usernamefile, userSize);
+							readUsername(usernames, usernamefile, userSize);
 							cout << "Function to create a new user has been called" << endl;
 							checkUser(usernames, newFile, userSize, newpassword, newusername, newusertype);
 							pauseScreen();
@@ -446,9 +479,9 @@ int main()
 							logTransaction(outfile, currentUser.username, " has created a new user.");
 							break;
 						case 4: // Delete Existing User (aka Change userStatus to Inactive)
-							readusername(usernames, usernamefile, userSize);
+							readUsername(usernames, usernamefile, userSize);
 							cout << "Function to delete an existing user has been called" << endl;
-							deleteaccount(usernames, newFile, currentUserIndex, userSize);
+							deleteAccount(usernames, newFile, currentUserIndex, userSize);
 							pauseScreen();
 							clearScreen();
 							logTransaction(outfile, currentUser.username, " has deleted an existing user.");

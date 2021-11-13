@@ -14,20 +14,16 @@
 #include <cmath>
 using namespace std;
 
-const int Row = 5;
-const int Col = 4;
-
-typedef float TableType[Row][Col];
-void PreCalculation(TableType, string &, int, int, int &, int *&, int &);
-void TableChoice(TableType, string &);
-void MakeNumChoice(TableType, string, int, int, int &);
-void NumChoice(TableType, string, int, int &);
-void choose2Columns(TableType, int, int &, int &);
+void PreCalculation(vector<vector<int>>, string &, int, int, int &, int *&, int &);
+void TableChoice(vector<vector<int>>, string &);
+void MakeNumChoice(vector<vector<int>>, string, int, int, int &);
+void NumChoice(vector<vector<int>>, string, int, int &);
+void choose2Columns(vector<vector<int>>, int, int &, int &);
 void inputRangeValidation(int, bool, int, int);
-void MakeArray(TableType, string, int, int, int, int *&, int &);
-void MakeColArray(TableType, int, int, int *&);
-void MakeRowArray(TableType, int, int, int *&);
-void MakeAllArray(TableType, int *&, int, int, int &);
+void MakeArray(vector<vector<int>>, string, int, int, int, int *&, int &);
+void MakeColArray(vector<vector<int>>, int, int, int *&);
+void MakeRowArray(vector<vector<int>>, int, int, int *&);
+void MakeAllArray(vector<vector<int>>, int *&, int, int, int &);
 
 float Min(int *, int);
 float Max(int *, int);
@@ -39,7 +35,7 @@ void Distinct(int *&, int *&, int *&, int &);
 void MakeFreqTable(int *&, int *&, int);
 void Histogram(int, int, int *&, int *&, int *&);
 
-void PreCalculation(TableType Table, string &tableChoice, int numRow, int numCol, int &numChoice, int *&valArray, int &arraySize)
+void PreCalculation(vector<vector<int>> Table, string &tableChoice, int numRow, int numCol, int &numChoice, int *&valArray, int &arraySize)
 {
     TableChoice(Table, tableChoice);
     cout << "Select a " << tableChoice << " to compute ---> ";
@@ -47,7 +43,7 @@ void PreCalculation(TableType Table, string &tableChoice, int numRow, int numCol
     MakeArray(Table, tableChoice, numChoice, numRow, numCol, valArray, arraySize);
 }
 
-void TableChoice(TableType Table, string &Choice) //remember to change the heading after this
+void TableChoice(vector<vector<int>> Table, string &Choice) //remember to change the heading after this
 {
     cout << "Do you want to compute a column or a row? (col/row)" << endl;
     cout << "---> ";
@@ -66,7 +62,7 @@ void TableChoice(TableType Table, string &Choice) //remember to change the headi
         Choice = "column";
 }
 
-void MakeNumChoice(TableType Table, string Choice, int Row, int Col, int &numChoice)
+void MakeNumChoice(vector<vector<int>> Table, string Choice, int Row, int Col, int &numChoice)
 {
     if (Choice == "row")
     {
@@ -78,7 +74,7 @@ void MakeNumChoice(TableType Table, string Choice, int Row, int Col, int &numCho
     }
 }
 
-void NumChoice(TableType Table, string tableChoice, int size, int &Choice)
+void NumChoice(vector<vector<int>> Table, string tableChoice, int size, int &Choice)
 {
     int input;
     cin >> input;
@@ -91,12 +87,12 @@ void NumChoice(TableType Table, string tableChoice, int size, int &Choice)
         cin >> input;
     }
 
-    Choice = input;
+    Choice = input - 1;
     cout << "You have selected " << tableChoice << " " << input << "." << endl
          << endl;
 }
 
-void choose2Columns(TableType Table, int size, int &firstChoice, int &secondChoice)
+void choose2Columns(vector<vector<int>> Table, int size, int &firstChoice, int &secondChoice)
 {
     int input;
     bool choice1 = false;
@@ -105,10 +101,10 @@ void choose2Columns(TableType Table, int size, int &firstChoice, int &secondChoi
     cin >> input;
     inputRangeValidation(input, choice1, size, firstChoice);
     firstChoice = input;
+    choice1 = true;
     cout << endl
          << "You have selected column " << input << " as the first column." << endl
          << endl;
-    choice1 = true;
 
     cout << "Please choose the second column for comparison ---> ";
     cin >> input;
@@ -141,7 +137,7 @@ void inputRangeValidation(int input, bool choice1, int size, int first)
     }
 }
 
-void MakeArray(TableType Table, string Choice, int numChoice, int Row, int Col, int *&valArray, int &arraySize)
+void MakeArray(vector<vector<int>> Table, string Choice, int numChoice, int Row, int Col, int *&valArray, int &arraySize)
 {
     if (Choice == "column")
     {
@@ -152,28 +148,30 @@ void MakeArray(TableType Table, string Choice, int numChoice, int Row, int Col, 
     else if (Choice == "row")
     {
         arraySize = Col;
+        cout << arraySize << endl;
         valArray = new int[arraySize];
         MakeRowArray(Table, numChoice, arraySize, valArray);
     }
 }
 
-void MakeColArray(TableType Table, int numChoice, int size, int *&ColArray)
+void MakeColArray(vector<vector<int>> Table, int numChoice, int size, int *&ColArray)
 {
     for (int i = 0; i < size; i++)
     {
-        *(ColArray + i) = Table[i + 1][numChoice];
+        *(ColArray + i) = Table[i][numChoice];
     }
 }
 
-void MakeRowArray(TableType Table, int numChoice, int size, int *&RowArray)
+void MakeRowArray(vector<vector<int>> Table, int numChoice, int size, int *&RowArray)
 {
     for (int i = 0; i < size; i++)
     {
         *(RowArray + i) = Table[numChoice][i + 1];
+        cout << *(RowArray + i) << endl;
     }
 }
 
-void MakeAllArray(TableType Table, int *&valArray, int row, int col, int &size)
+void MakeAllArray(vector<vector<int>> Table, int *&valArray, int row, int col, int &size)
 {
     size = row * col;
     valArray = new int[size];
@@ -183,7 +181,7 @@ void MakeAllArray(TableType Table, int *&valArray, int row, int col, int &size)
     {
         for (int count = 0; count < col; count++)
         {
-            *(valArray + j) = Table[i + 1][count + 1];
+            *(valArray + j) = Table[i][count + 1];
             j++;
         }
     }
@@ -343,7 +341,7 @@ void MakeFreqTable(int *&numbers, int *&frequency, int size)
 /*
 int main()
 {
-    TableType Table = {{5,6,3,6}, {9,5,7,2}, {2,8,5,9}, {8, 3 , 6, 4}, {8,1,7,3}};
+    vector<vector<int>> Table = {{5,6,3,6}, {9,5,7,2}, {2,8,5,9}, {8, 3 , 6, 4}, {8,1,7,3}};
 
     int numCol = Col - 1 ;
     int numRow = Row - 1 ;

@@ -20,13 +20,15 @@ using namespace std;
 
 // Function Prototypes a.k.a. List of functions made for this module.
 
+void displayLoginPage(string &, string &);
 void displayMainMenu(string &, string &);                                                     // The Main Menu to bbe displayed upon logging in.
 void fileInputMenu(string &, string &, bool &);                                               // File Input Menu to be displayed.
 void fileRenameMenu(string &, string &);                                                      // File Rename Menu to be displayed.
 void adminAccountSettings(string &);                                                          // Account Settings for Admins.
 void buyerAccountSettings(string &);                                                          // Account Settings for Buyers.
-void titleStatMenu();                                                                         // Displays title at all times while performing calculations in Statistical Analysis.
-void displayStatMenu(string &, string &);                                                     // Statistical Analysis Menu to be displayed.
+void titleStatMenu(string &, string &);                                                       // Displays title at all times while performing calculations in Statistical Analysis.
+void generateDataTable();                                                                     // Generates data table for user's view at Stat Analysis Menu.
+void displayStatMenu();                                                                       // Statistical Analysis Menu to be displayed.
 void titleReportMenu(string &, string &);                                                     // Displays title above generated report in Report Generator.
 void displayReportMenu();                                                                     // Menu to be displayed after Report Generation.
 void loadFileError();                                                                         // Error message for missing input file in program.
@@ -38,6 +40,34 @@ void addHistogramToReport();                                                    
 void removeFromReport(vector<string> &, vector<string> &, vector<float> &);                   // Clears the 3 parallel vector arrays once the user is done with the file or exit program.
 void generateReport(vector<string> &, vector<string> &, vector<float> &);                     // Generate the report data onto the screen, at the same time data generated here will be used in exporting to file.
 void logTransaction(ofstream &, string &, string);
+
+//****************************************************************
+// displayLoginPage
+//
+// Task         : Displays the main menu options available
+//                for the user.
+//
+// Data in      : currentUser, currentFile ("none" if no file loaded).
+// Data returned: none - displays Main Menu.
+//
+//****************************************************************
+void displayLoginPage(string &username, string &password)
+{
+    cout << "=----------------------------------------------------------=" << endl;
+    cout << "|               Basic Data Analysis Program                |" << endl;
+    cout << "=----------------------------------------------------------=" << endl;
+    cout << "|                    -> Login Page <-                      |" << endl;
+    cout << "=----------------------------------------------------------=" << endl;
+    cout << endl
+         << "                         Welcome.                           " << endl
+         << endl
+         << endl;
+    cout << "Enter Username ---> ";
+    cin >> username;
+    cout << endl
+         << "Enter Password ---> ";
+    cin >> password;
+}
 
 //****************************************************************
 // displayMainMenu
@@ -83,7 +113,7 @@ void displayMainMenu(string &user, string &file)
 // Data in      : currentUser
 // Data returned: none - displays File Input menu.
 //
-//****************************************************************
+//*********************************************************
 void fileInputMenu(string &user, string &file, bool &loaded)
 {
     string input;
@@ -111,10 +141,8 @@ void fileInputMenu(string &user, string &file, bool &loaded)
     // To proceed with operation if (-) is not the input.
     if (input != "-")
     {
-        loaded = true;
-        // logTransaction(outfile, file, " successfully loaded a file.");
+        file = input + ".txt";
     }
-    clearScreen();
 }
 
 //****************************************************************
@@ -153,16 +181,18 @@ void fileRenameMenu(string &user, string &file)
 }
 
 //****************************************************************
-// displayStatMenu
+// titleStatMenu
 //
-// Task         :
+// Task         : Displays the program title on top at all times during
+//                calculations in the Statistical Analysis menu.
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: none
 //
 //****************************************************************
-void displayStatMenu(string &user, string &file)
+void titleStatMenu(string &user, string &file)
 {
+    clearScreen();
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|               Basic Data Analysis Program                |" << endl;
     cout << "=----------------------------------------------------------=" << endl;
@@ -172,6 +202,20 @@ void displayStatMenu(string &user, string &file)
     cout << "Logged in as " << user << "." << endl;
     cout << "Current file: " << file << endl;
     cout << endl;
+}
+
+//****************************************************************
+// displayStatMenu
+//
+// Task         : Displays the available options for Statistical
+//                analysis.
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
+void displayStatMenu()
+{
     cout << "=----------------------------------------------------------=" << endl;
     cout << "|  What would you like to calculate from your file?        |" << endl;
     cout << "|      1. Find Minimum                                     |" << endl;
@@ -188,6 +232,41 @@ void displayStatMenu(string &user, string &file)
     cout << endl;
     cout << "Select an integer from 1 to 10" << endl;
     cout << "---> ";
+}
+
+//****************************************************************
+// generateDataTable
+//
+// Task         : Displays the data file on screen to ease user's choice in calculation.
+//
+// Data in      :
+// Data returned:
+//
+//****************************************************************
+void generateDataTable(vector<vector<int>> table, vector<string> columnTitles)
+{
+    int columns = columnTitles.size(); // Number of columns
+    int rows = table.size();           // Number of rows
+
+    cout << setw(5) << right << "No";
+    for (int i = 0; i < columns; i++)
+    {
+        cout << setw(12) << right << columnTitles[i]; // Shows column titles
+    }
+
+    // cout << endl;
+    cout << endl;
+    for (int row = 0; row < rows; row++)
+    {
+        cout << setw(5) << right << row + 1; // Shows row number
+        for (int col = 0; col < columns; col++)
+        {
+            cout << setw(12) << right << table[row][col];
+        }
+        cout << endl;
+    }
+    cout << endl
+         << endl;
 }
 
 //****************************************************************
@@ -410,27 +489,6 @@ void generateReport(vector<string> &calcType, vector<string> &selection, vector<
         cout << "|                   |                  |                   |" << endl;
         cout << "=-------------------=------------------=-------------------=" << endl;
     }
-}
-
-//****************************************************************
-// titleStatMenu
-//
-// Task         : Displays the program title on top at all times during
-//                calculations in the Statistical Analysis menu.
-//
-// Data in      : none
-// Data returned: none
-//
-//****************************************************************
-void titleStatMenu()
-{
-    clearScreen();
-    cout << "=----------------------------------------------------------=" << endl;
-    cout << "|               Basic Data Analysis Program                |" << endl;
-    cout << "=----------------------------------------------------------=" << endl;
-    cout << "|                -> Statistical Analysis <-                |" << endl;
-    cout << "=----------------------------------------------------------=" << endl;
-    cout << endl;
 }
 
 //****************************************************************

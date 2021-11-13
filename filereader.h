@@ -47,7 +47,8 @@ void renameFile(string &file)
     }
     else
     {
-        cout << "File renamed successfully.";
+        cout << endl
+             << "File renamed successfully." << endl;
         pauseScreen();
         file = newname;
     }
@@ -64,6 +65,7 @@ void renameFile(string &file)
 //****************************************************************
 void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
+    file.erase(file.length() - 4); // erases last 4 characters (i.e. .txt) from currentfilename
     outputFile.open("report-" + file + ".txt", ios::app);
     outputFile << endl
                << "Report generated for " << file << " made by " << user << "." << endl;
@@ -91,8 +93,8 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
 //****************************************************************
 void saveReportHTML(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
 {
+    file.erase(file.length() - 4); // erases last 4 characters (i.e. .txt) from currentfilename
     outputFile.open(("report-" + file + ".html"), ios::app);
-
     outputFile << "<!DOCTYPE html>" << endl
                << "<head>" << endl
                << "<style>" << endl
