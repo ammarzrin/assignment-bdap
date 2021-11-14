@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 admin has successfully logged in.
 admin proceeded to the Main Menu.
 admin proceeded to their Account Settings.
@@ -350,3 +351,5 @@ admin enters the File Input menu.
 admin enters the Main Menu.
 admin enters the Statistical Analysis menu.
 admin has selected to Create a Histogram chart.
+=======
+>>>>>>> e10cc6abb3ee9aba723a37df210930329b3ee1bd

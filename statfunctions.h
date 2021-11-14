@@ -19,7 +19,7 @@ void TableChoice(vector<vector<int>>, string &);
 void MakeNumChoice(vector<vector<int>>, string, int, int, int &);
 void NumChoice(vector<vector<int>>, string, int, int &);
 void choose2Columns(vector<vector<int>>, int, int &, int &);
-void inputRangeValidation(int&, bool, int, int);
+void inputRangeValidation(int &, bool, int, int);
 void MakeArray(vector<vector<int>>, string, int, int, int, int *&, int &);
 void MakeColArray(vector<vector<int>>, int, int, int *&);
 void MakeRowArray(vector<vector<int>>, int, int, int *&);
@@ -117,7 +117,7 @@ void choose2Columns(vector<vector<int>> Table, int size, int &firstChoice, int &
          << endl;
 }
 
-void inputRangeValidation(int& input, bool choice1, int size, int first)
+void inputRangeValidation(int &input, bool choice1, int size, int first)
 {
     if (choice1 = true) // This means first column for comparison has been chosen.
     {
@@ -283,11 +283,11 @@ void Correlation(int *x, int *y, int size, float &correlation, string &message)
 {
     float sumX = 0, sumY = 0, sumXY, sumXsquared = 0, sumYsquared = 0;
     float sizer = size;
-    cout << size <<endl;
+    cout << size << endl;
     stringstream temp;
 
     cout << "=---------------------------------------------=" << endl;
-    temp << "=---------------------------------------------=" <<endl;
+    temp << "=---------------------------------------------=" << endl;
     cout << "|   x   |   y   |   x*y   |   x^2   |   y^2   |" << endl;
     temp << "|   x   |   y   |   x*y   |   x^2   |   y^2   |" << endl;
     temp << "=---------------------------------------------=" << endl;
@@ -295,8 +295,8 @@ void Correlation(int *x, int *y, int size, float &correlation, string &message)
 
     for (int i = 0; i < size; i++)
     {
-        cout <<"|"<< setw(6) << x[i] << " |" << setw(6) << y[i] << " |" << setw(6) << x[i]*y[i] << "  |"<< setw(6) << pow(x[i], 2)  << "  |"<< setw(6) << pow(y[i], 2) << " |"<<endl;
-        temp <<"|"<< setw(6) << x[i] << " |" << setw(6) << y[i] << " |" << setw(6) << x[i]*y[i] << "  |"<< setw(6) << pow(x[i], 2)  << "  |"<< setw(6) << pow(y[i], 2) << " |"<<endl;
+        cout << "|" << setw(6) << x[i] << " |" << setw(6) << y[i] << " |" << setw(6) << x[i] * y[i] << "  |" << setw(6) << pow(x[i], 2) << "  |" << setw(6) << pow(y[i], 2) << " |" << endl;
+        temp << "|" << setw(6) << x[i] << " |" << setw(6) << y[i] << " |" << setw(6) << x[i] * y[i] << "  |" << setw(6) << pow(x[i], 2) << "  |" << setw(6) << pow(y[i], 2) << " |" << endl;
         temp << "=---------------------------------------------=" << endl;
         cout << "=---------------------------------------------=" << endl;
 
@@ -346,12 +346,11 @@ void MakeFreqTable(int *&numbers, int *&frequency, int size)
     stringstream temp;
 
     cout << "=----------------------------=-----------------------------=" << endl;
-    temp << "=----------------------------=-----------------------------=" <<endl;
+    temp << "=----------------------------=-----------------------------=" << endl;
     cout << "|           Data             |          Frequency          |" << endl;
     temp << "|           Data             |          Frequency          |" << endl;
     cout << "=----------------------------=-----------------------------=" << endl;
     temp << "=----------------------------=-----------------------------=" << endl;
-
 
     for (int i = 0; i < size; i++)
     {
@@ -362,7 +361,7 @@ void MakeFreqTable(int *&numbers, int *&frequency, int size)
     string freq(temp.str());
 }
 
-void Histogram(int*& valArray, int min, int max, vector<vector<int>>& classInterval)
+void Histogram(int *&valArray, int min, int max, vector<vector<int>> &classInterval)
 {
     float range = max - min;
 
@@ -421,4 +420,3 @@ void Interval(int*& valArray, vector<vector<int>>& classInterval, int*& frequenc
     //     cout << frequency[i] <<endl;
     // }
 }
-
