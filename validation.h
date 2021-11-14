@@ -260,7 +260,7 @@ void GetTable(fstream &file, bool &dataError, vector<vector<int>> &table)
         if (allDigit == true)
         {
             table.push_back(row);
-            ;
+            
         }
         else
         {

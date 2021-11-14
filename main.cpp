@@ -82,6 +82,7 @@ int main()
 	vector<vector<int>> Table;
 	vector<bool> canCompute;
 	vector<string> columnTitles;
+	vector<vector<int>> classIntervals;
 	bool dataError;
 	int Col;
 	int Row;
@@ -389,7 +390,12 @@ int main()
 						case 9: // Plot a Histogram
 							logTransaction(outfile, currentUser.username, " has selected to Create a Histogram chart.");
 							titleStatMenu(currentUser.username, currentFile);
-							cout << "Plot a Histogram is under construction...." << endl;
+							MakeAllArray(Table,valArray,numRow, numCol, arraySize);
+							minNum = Min(valArray, arraySize);
+							maxNum = Max(valArray, arraySize);
+							Histogram(valArray, minNum, maxNum, classIntervals);
+							frequency = new int[arraySize];
+							Interval(valArray, classIntervals, frequency, arraySize );
 							cout << endl;
 							pauseScreen();
 							clearScreen();

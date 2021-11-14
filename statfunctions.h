@@ -34,7 +34,7 @@ void Correlation(int *, int *, int, float &, string &);
 void Distinct(int *&, int *&, int *&, int &);
 void MakeFreqTable(int *&, int *&, int);
 void Histogram(int*&, int, int, vector<vector<int>>&);
-void Interval(int*&, vector<vector<int>>&, int*&);
+void Interval(int*&, vector<vector<int>>&, int*&, int);
 
 void PreCalculation(vector<vector<int>> Table, string &tableChoice, int numRow, int numCol, int &numChoice, int *&valArray, int &arraySize)
 {
@@ -368,11 +368,10 @@ void Histogram(int*& valArray, int min, int max, vector<vector<int>>& classInter
 
     vector<int> row;
     int classWidth = ceil(range /6.0);
-    cout <<classWidth <<endl;
-    int start = classWidth;
+    int start = min;
 
-    row.push_back(min);
-    start += min;
+    row.push_back(start);
+    start = start + classWidth;
     row.push_back(start);
     classInterval.push_back(row);
 
@@ -381,22 +380,45 @@ void Histogram(int*& valArray, int min, int max, vector<vector<int>>& classInter
         start += 1;
         vector<int> row;
         row.push_back(start);
-
-        for (int j = 0; j < 6; j++)
-        {
-            start += classWidth;
-            row.push_back(start);
-        }
+        start += classWidth;
+        row.push_back(start);
+        
 
         classInterval.push_back(row);
     }
 }
 
-void Interval(int*& valArray, vector<vector<int>>& classInterval, int*& frequency)
+void Interval(int*& valArray, vector<vector<int>>& classInterval, int*& frequency, int size)
 {
-   for (int i = 0; i < classInterval.size(); i++)
-   {
-       
-   }
+    sort(valArray, valArray + size);
+    cout <<size <<endl;
+    int j = 0;
+
+    // for (int i = 0; i <classInterval.size(); i++)
+    // {
+    //     cout << classInterval[i][0] << " " << classInterval[i][1] <<endl;
+    // }
+
+    for (int i = 0; i < classInterval.size(); i++)
+    {    
+        if ( classInterval[i][0] >= valArray[j] && valArray[j] <= classInterval[i][1] && j < size + 1)
+        {
+            cout << valArray[j] <<endl;
+            frequency[i] = 1;
+            j++;
+
+            while( classInterval[i][0] >= valArray[j] && valArray[j] <= classInterval[i][1] && j < size + 1)
+            {
+                cout<<valArray[j]<<endl;
+                frequency[i] += 1;
+                j++;
+            }
+        }
+    }
+
+    // for(int i = 0; i < 9; i++)
+    // {
+    //     cout << frequency[i] <<endl;
+    // }
 }
 
