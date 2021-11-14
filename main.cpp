@@ -21,11 +21,11 @@ Group 2, TT1V
 #include <cstdlib>
 #include <fstream>
 #include <vector>
-#include "userauth.h"	   // Header file containing functions related to User database (F1 User Registration & Authentication) - Sukanya
-#include "filereader.h"	   // Header file containing functions relating data files and the program (F2 File Reader) - Kheryl Amalia
-#include "statfunctions.h" // Header file containing functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
-#include "menusystem.h"	   // Header file containing functions related to the Menu System (F4 Menu System) - Ammar Azrin
-#include "validation.h"	   // Header file containing functions related specifically for loading the data file into the program. :)
+#include "userauth.h"	   // Functions related to User database (F1 User Registration & Authentication) - Sukanya
+#include "filereader.h"	   // Functions relating data files and the program (F2 File Reader) - Kheryl Amalia
+#include "statfunctions.h" // Functions for Statistical Analysis (F3 Statistical Computation) - Lutfi Izzat
+#include "menusystem.h"	   // Functions related to the Menu System (F4 Menu System) - Ammar Azrin
+#include "validation.h"	   // Functions related specifically for loading the data file into the program - Lutfi Izzat
 using namespace std;
 
 // Functions to clear and pause the screen. Must be checked for OS compatibility.
@@ -41,7 +41,7 @@ void pauseScreen()
 
 int main()
 {
-	// Logging every user transaction from the moment user logged in to logging out/exiting the program.
+	// fstream declaration for logging user transactions
 	ifstream infile;
 	ofstream outfile;
 
@@ -53,7 +53,7 @@ int main()
 			  ACC_SETTINGS = 5,
 			  EXIT_PROGRAM = 6;
 
-	// Declaration of Variables relating to the User
+	// Declaration of User Authentication Variables
 	string currentFile = "none";
 	bool fileLoaded = false;
 	string username;
@@ -65,19 +65,20 @@ int main()
 	User currentUser;
 	int userSize;
 	int currentUserIndex;
-	bool isLoggedIn = false;
 	vector<User> usernames;
 	string newPassword;
 	string newpassword;
 	string newusername;
 	string newusertype;
+	bool isLoggedIn = false;
 
 	// Report Generation
-	vector<string> calcType;
-	vector<string> rowColSelection;
-	vector<float> value;
+	vector<string> calcType;		// Vector array that adds new calculation type done everytime user does a calculation.
+	vector<string> rowColSelection; // Vector array that holds the row/column selection by user for display during report generation.
+	vector<float> value;			// Vector array of calculation values to be generated on table.
+	string colchoices;				// For calculating correlation, requires 2 column titles so this is a string that will contain both selected column titles to be sent to report.
 
-	// Declaration for Statistical Analysis Variables
+	// Declaration of Statistical Analysis Variables
 	vector<vector<int>> Table;
 	vector<bool> canCompute;
 	vector<string> columnTitles;
@@ -135,7 +136,7 @@ int main()
 			if (checkPass(password, usernames, currentUserIndex) == true)
 			{
 				cout << endl
-					 << "Login is successful! Directing you to the main menu..." << endl;
+					 << "Login is successful! Directing you to the Main Menu..." << endl;
 				pauseScreen();
 				clearScreen();
 				currentUser.username = username;
@@ -163,7 +164,7 @@ int main()
 		do
 		{
 			// The main menu is displayed to the user.
-			logTransaction(outfile, currentUser.username, " proceeded to the Main Menu.");
+			logTransaction(outfile, currentUser.username, " enters the Main Menu.");
 			displayMainMenu(currentUser.username, currentFile);
 			// User inputs choice.
 			cin >> choice;
@@ -173,7 +174,7 @@ int main()
 			{
 			case INPUT_FILE:
 				clearScreen();
-				logTransaction(outfile, currentUser.username, " proceeded to File Input menu.");
+				logTransaction(outfile, currentUser.username, " enters the File Input menu.");
 				fileInputMenu(currentUser.username, currentFile, fileLoaded);
 				LoadDataFile(currentFile, Table, Row, Col, columnTitles, dataError, canCompute);
 				if (dataError == false)
@@ -193,9 +194,9 @@ int main()
 				else
 				{
 					clearScreen();
-					logTransaction(outfile, currentUser.username, " proceeded to the File Rename menu.");
+					logTransaction(outfile, currentUser.username, " enters the File Rename menu.");
 					fileRenameMenu(currentUser.username, currentFile);
-					logTransaction(outfile, currentUser.username, " successfully renamed the file.");
+					logTransaction(outfile, currentUser.username, " has successfully renamed the file.");
 				}
 				break;
 			case CALC_STATS:
@@ -204,7 +205,7 @@ int main()
 				else
 				{
 					clearScreen();
-					logTransaction(outfile, currentUser.username, " proceeded to the Statistical Analysis menu.");
+					logTransaction(outfile, currentUser.username, " enters the Statistical Analysis menu.");
 					do
 					{
 						titleStatMenu(currentUser.username, currentFile);
@@ -218,12 +219,20 @@ int main()
 							logTransaction(outfile, currentUser.username, " has selected to Find Minimum Value.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Minimum have been selected." << endl;
+							cout << "Find Minimum" << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 							minNum = Min(valArray, arraySize);
-							cout << "The minimum value of " << tableChoice << " " << numChoice << " is " << minNum << ". " << endl;
-							addToReport(calcType, rowColSelection, value, "Min Val", "selected rowcol", minNum);
+							if (tableChoice == "column")
+							{
+								cout << "The minimum value of " << columnTitles[numChoice] << " is " << minNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Min Val", columnTitles[numChoice], minNum);
+							}
+							else
+							{
+								cout << "The minimum value of ID " << Table[numChoice][0] << " is " << minNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Min Val", to_string(Table[numChoice][0]), minNum);
+							}
 							delete[] valArray;
 							pauseScreen();
 							clearScreen();
@@ -232,12 +241,20 @@ int main()
 							logTransaction(outfile, currentUser.username, " has selected to Find Maximum Value.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Maximum have been selected." << endl;
+							cout << "Find Maximum" << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 							maxNum = Max(valArray, arraySize);
-							cout << "The maximum value of " << tableChoice << " " << numChoice << " is " << maxNum << ". " << endl;
-							addToReport(calcType, rowColSelection, value, "Max Val", "selected rowcol", maxNum);
+							if (tableChoice == "column")
+							{
+								cout << "The maximum value of " << columnTitles[numChoice] << " is " << maxNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Max Val", columnTitles[numChoice], maxNum);
+							}
+							else
+							{
+								cout << "The maximum value of ID " << Table[numChoice][0] << " is " << maxNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Max Val", to_string(Table[numChoice][0]), maxNum);
+							}
 							delete[] valArray;
 							pauseScreen();
 							clearScreen();
@@ -246,26 +263,42 @@ int main()
 							logTransaction(outfile, currentUser.username, " has selected to Find Median Value.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Median have been selected." << endl;
+							cout << "Find Median" << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 							medianNum = Median(valArray, arraySize);
-							cout << "The median value of " << tableChoice << " " << numChoice << " is " << medianNum << ". " << endl;
-							addToReport(calcType, rowColSelection, value, "Median", "selected rowcol", medianNum);
+							if (tableChoice == "column")
+							{
+								cout << "The median value of " << columnTitles[numChoice] << " is " << medianNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Median", columnTitles[numChoice], medianNum);
+							}
+							else
+							{
+								cout << "The median value of ID " << Table[numChoice][0] << " is " << medianNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Median", to_string(Table[numChoice][0]), medianNum);
+							}
 							delete[] valArray;
 							pauseScreen();
 							clearScreen();
 							break;
 						case 4: // Mean
-							logTransaction(outfile, currentUser.username, " has selected to" + currentFile + "Find Mean Value.");
+							logTransaction(outfile, currentUser.username, " has selected to Find Mean Value.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Mean have been selected." << endl;
+							cout << "Find Mean" << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 							meanNum = Mean(valArray, arraySize);
-							cout << "The mean value of " << tableChoice << " " << numChoice << " is " << setprecision(4) << meanNum << ". " << endl;
-							addToReport(calcType, rowColSelection, value, "Mean/Average", "selected rowcol", meanNum);
+							if (tableChoice == "column")
+							{
+								cout << "The mean value of " << columnTitles[numChoice] << " is " << setprecision(4) << meanNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Mean/Average", columnTitles[numChoice], meanNum);
+							}
+							else
+							{
+								cout << "The mean value of ID " << Table[numChoice][0] << " is " << setprecision(4) << meanNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Mean/Average", to_string(Table[numChoice][0]), meanNum);
+							}
 							delete[] valArray;
 							pauseScreen();
 							clearScreen();
@@ -274,13 +307,21 @@ int main()
 							logTransaction(outfile, currentUser.username, " has selected to Find Variance Value.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Variance have been selected." << endl;
+							cout << "Find Variance" << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 							meanNum = Mean(valArray, arraySize);
 							varianceNum = Variance(valArray, arraySize, meanNum);
-							cout << "The variance value of " << tableChoice << " " << numChoice << " is " << setprecision(4) << varianceNum << ". " << endl;
-							addToReport(calcType, rowColSelection, value, "Variance", "selected rowcol", varianceNum);
+							if (tableChoice == "column")
+							{
+								cout << "The variance value of " << columnTitles[numChoice] << " is " << setprecision(4) << varianceNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Variance", columnTitles[numChoice], varianceNum);
+							}
+							else
+							{
+								cout << "The variance value of ID " << Table[numChoice][0] << " is " << setprecision(4) << varianceNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Variance", to_string(Table[numChoice][0]), varianceNum);
+							}
 							delete[] valArray;
 							pauseScreen();
 							clearScreen();
@@ -289,14 +330,22 @@ int main()
 							logTransaction(outfile, currentUser.username, " has selected to Find the Standard Deviation Value.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Standard Deviation have been selected." << endl;
+							cout << "Find Standard Deviation" << endl;
 							cout << endl;
 							PreCalculation(Table, tableChoice, numRow, numCol, numChoice, valArray, arraySize);
 							meanNum = Mean(valArray, arraySize);
 							varianceNum = Variance(valArray, arraySize, meanNum);
 							stdNum = sqrt(varianceNum);
-							cout << "The standard deviation value of " << tableChoice << " " << numChoice << " is " << setprecision(4) << stdNum << ". " << endl;
-							addToReport(calcType, rowColSelection, value, "Std Dev", "selected rowcol", stdNum);
+							if (tableChoice == "column")
+							{
+								cout << "The standard deviation value of " << columnTitles[numChoice] << " is " << setprecision(4) << stdNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Std Dev", columnTitles[numChoice], stdNum);
+							}
+							else
+							{
+								cout << "The standard deviation value of ID " << Table[numChoice][0] << " is " << setprecision(4) << stdNum << ". " << endl;
+								addToReport(calcType, rowColSelection, value, "Std Dev", to_string(Table[numChoice][0]), stdNum);
+							}
 							delete[] valArray;
 							pauseScreen();
 							clearScreen();
@@ -305,17 +354,20 @@ int main()
 							logTransaction(outfile, currentUser.username, " has selected to Find Correlation Between 2 Columns.");
 							titleStatMenu(currentUser.username, currentFile);
 							generateDataTable(Table, columnTitles);
-							cout << "Find Correlation Between 2 Columns have been selected." << endl;
+							cout << "Find Correlation Between 2 Columns" << endl;
 							cout << endl;
 							tableChoice = "column";
 							choose2Columns(Table, numCol, numChoice, numChoice2);
 							MakeArray(Table, tableChoice, numChoice, numRow, numCol, valArray, arraySize);
 							MakeArray(Table, tableChoice, numChoice2, numRow, numCol, valArray2, arraySize);
 							Correlation(valArray, valArray2, arraySize, correlationNum, corMessage);
+							colchoices.append(columnTitles[numChoice]);
+							colchoices.append(" and ");
+							colchoices.append(columnTitles[numChoice2]);
 							cout << endl
-								 << "Correlation between column " << numChoice << " and " << numChoice2 << " is " << endl
+								 << "Correlation between column " << columnTitles[numChoice] << " and " << columnTitles[numChoice2] << " is " << endl
 								 << setprecision(4) << correlationNum << endl;
-							addToReport(calcType, rowColSelection, value, "Correlation", "2 columns selected", correlationNum);
+							addToReport(calcType, rowColSelection, value, "Correlation", colchoices, correlationNum);
 							delete[] valArray, valArray2;
 							pauseScreen();
 							clearScreen();
@@ -323,7 +375,7 @@ int main()
 						case 8: // Distinct Data Members
 							logTransaction(outfile, currentUser.username, " has selected to Find Distinct Data Members.");
 							titleStatMenu(currentUser.username, currentFile);
-							cout << "Find Distinct Data have been selected." << endl;
+							cout << "Distinct Data Table" << endl;
 							cout << endl;
 							MakeAllArray(Table, valArray, numRow, numCol, arraySize);
 							frequency = new int[arraySize];
@@ -362,7 +414,7 @@ int main()
 				else
 				{
 					clearScreen();
-					logTransaction(outfile, currentUser.username, " has selected to Generate the Report.");
+					logTransaction(outfile, currentUser.username, " has generated a Report.");
 					do
 					{
 						titleReportMenu(currentUser.username, currentFile);
@@ -374,13 +426,15 @@ int main()
 						{
 						case 1: // Create report.txt
 							logTransaction(outfile, currentUser.username, " has saved the report as a text file.");
-							cout << "Save Report as (.txt) file has been selected." << endl;
+							cout << endl
+								 << "Save Report as (.txt) file has been selected." << endl;
 							saveReportTxt(outfile, currentUser.username, currentFile, calcType, rowColSelection, value);
 							pauseScreen();
 							break;
 						case 2: // Create report.html
 							logTransaction(outfile, currentUser.username, " has saved the report as a HTML file.");
-							cout << "Save Report as (.html) file has been selected." << endl;
+							cout << endl
+								 << "Save Report as (.html) file has been selected." << endl;
 							saveReportHTML(outfile, currentUser.username, currentFile, calcType, rowColSelection, value);
 							pauseScreen();
 							break;
@@ -394,7 +448,7 @@ int main()
 							{
 								cout << "Clearing all calculations from the report..." << endl;
 								removeFromReport(calcType, rowColSelection, value);
-								logTransaction(outfile, currentUser.username, " cleared all calculations and empty the report.");
+								logTransaction(outfile, currentUser.username, " cleared all calculations and emptied the report.");
 								pauseScreen();
 							}
 							break;
@@ -430,7 +484,8 @@ int main()
 							logTransaction(outfile, currentUser.username, " successfully changed their password.");
 							break;
 						case 2: // Log Out
-							cout << "Logging Out from the session..." << endl;
+							cout << endl
+								 << "Logging out from the session..." << endl;
 							logTransaction(outfile, currentUser.username, " has logged out from the session.");
 							pauseScreen();
 							clearScreen();
@@ -464,7 +519,8 @@ int main()
 							clearScreen();
 							break;
 						case 2: // Log Out
-							cout << "Logging Out from the session..." << endl;
+							cout << endl
+								 << "Logging out from the session...";
 							logTransaction(outfile, currentUser.username, " has logged out from the session.");
 							pauseScreen();
 							clearScreen();
@@ -472,7 +528,8 @@ int main()
 							break;
 						case 3: // Create New User
 							readUsername(usernames, usernamefile, userSize);
-							cout << "Function to create a new user has been called" << endl;
+							cout << endl
+								 << "Create a New User" << endl;
 							checkUser(usernames, newFile, userSize, newpassword, newusername, newusertype);
 							pauseScreen();
 							clearScreen();
@@ -480,7 +537,8 @@ int main()
 							break;
 						case 4: // Delete Existing User (aka Change userStatus to Inactive)
 							readUsername(usernames, usernamefile, userSize);
-							cout << "Function to delete an existing user has been called" << endl;
+							cout << endl
+								 << "Delete an Existing User" << endl;
 							deleteAccount(usernames, newFile, currentUserIndex, userSize);
 							pauseScreen();
 							clearScreen();

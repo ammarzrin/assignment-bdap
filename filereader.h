@@ -15,13 +15,18 @@
 #include <cstdio>
 using namespace std;
 
+void renameFile(string &);
+void saveReportTxt(ofstream &, string, string, vector<string> &, vector<string> &, vector<float> &);
+void saveReportHTML(ofstream &, string, string, vector<string> &, vector<string> &, vector<float> &);
+void logTransaction(ofstream &, string &, string);
+
 //****************************************************************
 // renameFile
 //
-// Task         :
+// Task         : Allow user to rename files that they have inputted.
 //
-// Data in      :
-// Data returned:
+// Data in      : old filename and new file name
+// Data returned: renamed file
 //
 //****************************************************************
 void renameFile(string &file)
@@ -49,18 +54,18 @@ void renameFile(string &file)
     {
         cout << endl
              << "File renamed successfully." << endl;
-        pauseScreen();
         file = newname;
+        pauseScreen();
     }
 }
 
 //****************************************************************
 // saveReportTxt
 //
-// Task         :
+// Task         : Save log transaction reports as txt file
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: report generated is saved as txt file
 //
 //****************************************************************
 void saveReportTxt(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)
@@ -68,7 +73,7 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
     file.erase(file.length() - 4); // erases last 4 characters (i.e. .txt) from currentfilename
     outputFile.open("report-" + file + ".txt", ios::app);
     outputFile << endl
-               << "Report generated for " << file << " made by " << user << "." << endl;
+               << "Report generated for " << file << ".txt made by " << user << "." << endl;
     outputFile << "=-------------------=------------------=-------------------=" << endl;
     outputFile << "|    Calculation    |     Selection    |       Value       |" << endl;
     outputFile << "=-------------------=------------------=-------------------=" << endl;
@@ -85,10 +90,10 @@ void saveReportTxt(ofstream &outputFile, string user, string file, vector<string
 //****************************************************************
 // saveReportHTML
 //
-// Task         :
+// Task         : Save log transaction reports as HTML file
 //
-// Data in      :
-// Data returned:
+// Data in      : none
+// Data returned: report generated is saved as HTML file
 //
 //****************************************************************
 void saveReportHTML(ofstream &outputFile, string user, string file, vector<string> &calcType, vector<string> &selection, vector<float> &calcValue)

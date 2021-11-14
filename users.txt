@@ -1,12 +1,9 @@
 username,password,1,1
-admin,Admin1234,1,1
+admin,Admin123,1,1
 buyer,Buyer1234,0,1
-ammarzrin,pAssw0rd,1,1
+ammarzrin,pAssw0rd,1,0
 johnlennon,fabfour,0,1
 audreyhepburn,cAntik2,1,1
-kurtcobain,dave2grohL,0,1
-lutfi,lutfiIsHandsomeAndBeautiful,1,0
-mommy,j0Hnlemmon,1,1
-nope,p0Smalaysia,0,0
-haha,pA5jsj,1,0
-sage,alishA123,0,1
+kurtcobain,dave2grohL,0,0
+zaynmalik,zAyn1d,0,1
+sha.nyy,Alisha123,1,1
