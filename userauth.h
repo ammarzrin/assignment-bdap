@@ -4,8 +4,7 @@
 // Name          : Sukanya A/P Thinakaran                      //
 // Student ID    : 1201101315                                  //
 // Phone Number  : +60 19-276-5030                             //
-// Main Module   : F1 User Registration & Authentication       //
-//                                                             //
+// Main Module   : F1 User Registration & Authentication       //                                                            //
 //***************************************************************
 #include <iostream>
 #include <iomanip>
@@ -44,10 +43,23 @@ void makeUser(vector<User> &, ofstream &, int &, string &, string &, string &);
 bool checkUserSame(string, vector<User> &, int);
 void checkPass(vector<User> &, ofstream &, int &, string &, string &, string &);
 
+
+
 bool checkPass(string password, vector<User> &usernames, int index)
 {
     return usernames[index].password == password;
 }
+
+
+
+//****************************************************************************
+// checkUsername
+//
+// task:          this function checks the existence of username and returns
+//                the index of its position in array.
+// data in:       current username.
+// data returned: 
+//****************************************************************************
 
 //you can use this to check the index on where to change the password
 int checkUsername(string username, vector<User> &usernames, int size)
@@ -69,6 +81,16 @@ int checkUsername(string username, vector<User> &usernames, int size)
     return -1;
 }
 
+
+//****************************************************************************
+// deleteaccount
+//
+// task:          this function deletes an existing user's account but does 
+//                not delete their profile and logs from system .
+//                
+// data in:       current username.
+// data returned: none
+//****************************************************************************
 void deleteAccount(vector<User> &usernames, ofstream &file, int index, int &size)
 {
     string choice;
@@ -106,6 +128,16 @@ void deleteAccount(vector<User> &usernames, ofstream &file, int index, int &size
     file.close();
 }
 
+
+//****************************************************************************
+// readUsername
+//
+// task:          this function reads all usernames from a file and stores it 
+//                in an array of strings.
+// data in:       usernames
+// data returned: none
+//****************************************************************************
+
 void readUsername(vector<User> &usernames, fstream &file, int &size)
 {
     file.open("users.txt", ios::in);
@@ -133,6 +165,13 @@ void readUsername(vector<User> &usernames, fstream &file, int &size)
     file.close();
 }
 
+//****************************************************************************
+// changePassword
+//
+// task:          this function is used by buyer to change their password.
+// data in:       current username, opens newFile.txt,checks the index.
+// data returned: none
+//****************************************************************************
 void changePassword(vector<User> &usernames, ofstream &newFile, int index, int &size, string &newpassword)
 {
     newFile.open("users.txt", ios::out);
@@ -155,6 +194,16 @@ void changePassword(vector<User> &usernames, ofstream &newFile, int index, int &
     newFile.close();
 }
 
+
+//****************************************************************************
+// checkPassword
+//
+// task:          this function checks if password entered by user fits 
+//                the requirements.
+// data in:       current username, newpassword ,opens newFile.txt,checks the 
+//                index.
+// data returned: none
+//****************************************************************************
 void checkPassword(vector<User> &usernames, ofstream &newFile, int index, int &size, string &newpassword)
 {
     bool firstletter = false;
@@ -188,6 +237,18 @@ void checkPassword(vector<User> &usernames, ofstream &newFile, int index, int &s
     }
 }
 
+
+//****************************************************************************
+// checkUser
+//
+// task:          this function is used by admin when creating an account.
+//                It asks for Username, Password and usertype. If Username 
+//                already exist,the program will ask to try again
+//                    
+// data in:       checks username,password ,usertype from file. 
+// data returned: none
+//****************************************************************************
+
 void checkUser(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
     bool passwordcheck;
@@ -208,6 +269,14 @@ void checkUser(vector<User> &usernames, ofstream &newFile, int &size, string &ne
         cout << "please try again" << endl;
     }
 }
+
+//****************************************************************************
+// checkPass
+//
+// task:          this function matches a username against its password.
+// data in:       current username, new password.
+// data returned: none
+//****************************************************************************
 
 void checkPass(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
@@ -239,6 +308,16 @@ void checkPass(vector<User> &usernames, ofstream &newFile, int &size, string &ne
     }
 }
 
+
+//****************************************************************************
+// checkUserType
+//
+// task:          this function checks if if user is inputing the correct
+//                data type when the porgram asks for usertype.
+//                    
+// data in:       checks username,password ,usertype from file. 
+// data returned: none
+//****************************************************************************
 void checkUserType(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
     if (newusertype == "admin" || newusertype == "user")
@@ -251,6 +330,15 @@ void checkUserType(vector<User> &usernames, ofstream &newFile, int &size, string
     }
 }
 
+
+//****************************************************************************
+// checkUserSame
+//
+// task:          checking if user has same username as name
+//                    
+// data in:       username
+// data returned: 
+//****************************************************************************
 bool checkUserSame(string username, vector<User> &usernames, int size)
 {
     for (int i = 0; i < size; i++)
@@ -261,6 +349,15 @@ bool checkUserSame(string username, vector<User> &usernames, int size)
     return true; //if no
 }
 
+
+//****************************************************************************
+// makeUser
+//
+// task:   open users.txt in append mode. new user will always be active
+//         initially.                    
+// data in:      new username, new pasword, new usertype 
+// data returned: none
+//****************************************************************************
 void makeUser(vector<User> &usernames, ofstream &newFile, int &size, string &newpassword, string &newusername, string &newusertype)
 {
     newFile.open("users.txt", ios::app);
