@@ -206,3 +206,8 @@ admin has saved the report as a HTML file.
 admin proceeded to the Main Menu.
 admin exited the program.
 >>>>>>> 2aff4cd8032dbbcb8b70291ff0addcc7b996801f
+admin has successfully logged in.
+admin enters the Main Menu.
+admin enters the File Input menu.
+admin enters the Main Menu.
+admin exited the program.

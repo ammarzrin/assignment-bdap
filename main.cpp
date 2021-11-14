@@ -414,7 +414,7 @@ int main()
 				else
 				{
 					clearScreen();
-					logTransaction(outfile, currentUser.username, " has generated a Report.");
+					logTransaction(outfile, currentUser.username, " enters the Report Generator.");
 					do
 					{
 						titleReportMenu(currentUser.username, currentFile);
@@ -466,7 +466,7 @@ int main()
 				break;
 			case ACC_SETTINGS:
 				clearScreen();
-				logTransaction(outfile, currentUser.username, " proceeded to their Account Settings.");
+				logTransaction(outfile, currentUser.username, " enters their Account Settings.");
 				if (currentUser.userType == 0) // Buyer account settings
 				{
 					do
