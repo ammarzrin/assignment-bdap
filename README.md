@@ -9,27 +9,25 @@ program. This software would also keep a log file tracking the users’ operatio
 from login until the user exits. The program will also have a database file to store a list of all
 users.
 
+## System Sub-Component Chart
+  <tr>
+    <td><img src="demo/Structured_Chart.png" alt="Tutorial"></td>
+  </tr>
+
 ## User Manual
-- ### Installation:
-  Clone the repository and install Gdevelop. The version of Gdevelop used is This version of GDevelop is: 5.3.187. Then, open the file by selecting the game.json file.
-
-  Or you can play the game from this link :
-
-  [https://gd.games/lutfiizzat/neo-ducksitic](https://gd.games/lutfiizzat/neo-ducksitic) (not recommended, the game stutters and
-  the controls are a tad janky from here.
-
+- ### How To Run:
+  <tr>
+    <td><img src="demo/Instructions.png" alt="Tutorial"></td>
+  </tr>
         
 ## Screenshots
 <table>
   <tr>
-    <td><img src="demo/Start_Screen.png" alt="Start Screen"></td>
-    <td><img src="demo/Game_Screen.png" alt="Tuto Screen"></td>
+    <td><img src="demo/s1.png" alt="Game_Screen1"></td>
+    <td><img src="demo/s2.png" alt="Game Over Screen"></td>
   </tr>
   <tr>
-    <td><img src="demo/Game_Screen2.png" alt="Game_Screen1"></td>
-    <td><img src="demo/Lose_Screen.png" alt="Game Over Screen"></td>
+    <td><img src="demo/s3.png" alt="Game_Screen1"></td>
+    <td><img src="demo/s4.png" alt="Game Over Screen"></td>
   </tr>
-  <tr>
-    <td><img src="demo/Win_Screen.png" alt="High Score"></td>
-  </tr>
-  <tr>
+
